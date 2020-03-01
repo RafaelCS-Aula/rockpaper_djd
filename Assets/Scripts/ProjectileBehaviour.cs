@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RPS_DJDIII.Assets.Scripts;
+using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), 
 typeof(MeshCollider))]
@@ -7,6 +8,8 @@ public class ProjectileBehaviour : MonoBehaviour
 {
 
     [SerializeField] private ProjectileData Projectile;
+
+    public ProjectileTypes MyType {get; private set;}
 
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
@@ -36,6 +39,7 @@ public class ProjectileBehaviour : MonoBehaviour
         meshRenderer.materials[0] = Projectile.MeshMaterial;
         meshCollider.sharedMesh = Projectile.ProjectileMesh;
         meshCollider.isTrigger = true;
+        MyType = Projectile.Type;
 
         if(Projectile.TrailParticles != null)
         {
@@ -43,12 +47,16 @@ public class ProjectileBehaviour : MonoBehaviour
                 = gameObject.AddComponent<ParticleSystem>();
             trailParticles = Projectile.TrailParticles;
 
+            var e = trailParticles.emission;
+            e.enabled = true;
         }
         if(Projectile.DeathParticles != null)
         {
             deathParticles 
                 = gameObject.AddComponent<ParticleSystem>();
            deathParticles = Projectile.DeathParticles;
+           var e = deathParticles.emission;
+           e.enabled = false;
 
         }
         
@@ -60,5 +68,28 @@ public class ProjectileBehaviour : MonoBehaviour
 
     }
 
-    
+    // When encoutnering other triggers; other projectiles
+    private void OnTriggerEnter(Collider other) 
+    {
+        ProjectileBehaviour encountered 
+            = other.GetComponent<ProjectileBehaviour>();
+
+        if(encountered == null)
+            return;
+        
+        if(encountered.MyType == Projectile.LosesToType)
+        {
+            Lose();
+
+        }
+        
+    }
+
+    private void Lose()
+    {
+        deathParticles?.Emit(20);
+        Destroy(this.gameObject);
+
+    }
+
 }
