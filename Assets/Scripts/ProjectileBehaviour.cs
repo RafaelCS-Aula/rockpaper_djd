@@ -2,6 +2,7 @@
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), 
 typeof(MeshCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public class ProjectileBehaviour : MonoBehaviour
 {
 
@@ -10,6 +11,7 @@ public class ProjectileBehaviour : MonoBehaviour
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
     private MeshCollider meshCollider;
+    private Rigidbody rigidbody;
 
     private ParticleSystem trailParticles;
     private ParticleSystem deathParticles;
@@ -20,6 +22,7 @@ public class ProjectileBehaviour : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         meshFilter = GetComponent<MeshFilter>();
         meshCollider = GetComponent<MeshCollider>();
+        rigidbody = GetComponent<Rigidbody>();
 
         if(Projectile == null)
         {
@@ -28,6 +31,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
         }
 
+        // Read data from the projectile scriptable object
         meshFilter.mesh = Projectile.ProjectileMesh;
         meshRenderer.materials[0] = Projectile.MeshMaterial;
         meshCollider.sharedMesh = Projectile.ProjectileMesh;
@@ -49,14 +53,12 @@ public class ProjectileBehaviour : MonoBehaviour
         }
         
 
+        // Make it go move
+        rigidbody.drag = 0.0f;
+        rigidbody.angularDrag = 0.0f;
+        rigidbody.AddForce(Projectile.Velocity * Vector3.forward);
 
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
-        
-
-    }
+    
 }
