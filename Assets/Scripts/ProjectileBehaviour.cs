@@ -11,7 +11,7 @@ public class ProjectileBehaviour : MonoBehaviour
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
     private MeshCollider meshCollider;
-    private Rigidbody rigidbody;
+    private Rigidbody rigidBody;
 
     private ParticleSystem trailParticles;
     private ParticleSystem deathParticles;
@@ -22,7 +22,7 @@ public class ProjectileBehaviour : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         meshFilter = GetComponent<MeshFilter>();
         meshCollider = GetComponent<MeshCollider>();
-        rigidbody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
 
         if(Projectile == null)
         {
@@ -54,9 +54,9 @@ public class ProjectileBehaviour : MonoBehaviour
         
 
         // Make it go move
-        rigidbody.drag = 0.0f;
-        rigidbody.angularDrag = 0.0f;
-        rigidbody.AddForce(Projectile.Velocity * Vector3.forward);
+        rigidBody.drag = 0.0f;
+        rigidBody.angularDrag = 0.0f;
+        rigidBody.AddForce(Projectile.Velocity * Vector3.forward);
 
     }
 
