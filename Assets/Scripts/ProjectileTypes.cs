@@ -9,7 +9,5 @@ namespace RPS_DJDIII.Assets.Scripts
         ROCK = 1,
         PAPER = 2,
         SCISSORS = 4
-
-
     }
 }

@@ -38,7 +38,9 @@ public class ProjectileBehaviour : MonoBehaviour
         meshFilter.mesh = Projectile.ProjectileMesh;
         meshRenderer.materials[0] = Projectile.MeshMaterial;
         meshCollider.sharedMesh = Projectile.ProjectileMesh;
+        meshCollider.convex = true;
         meshCollider.isTrigger = true;
+       
         MyType = Projectile.Type;
 
         if(Projectile.TrailParticles != null)
@@ -59,12 +61,14 @@ public class ProjectileBehaviour : MonoBehaviour
            e.enabled = false;
 
         }
-        
+
 
         // Make it go move
+        rigidBody.isKinematic = true;
         rigidBody.drag = 0.0f;
         rigidBody.angularDrag = 0.0f;
         rigidBody.AddForce(Projectile.Velocity * Vector3.forward);
+        rigidBody.useGravity = false;
 
     }
 
@@ -89,7 +93,6 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         deathParticles?.Emit(20);
         Destroy(this.gameObject);
-
     }
 
 }
