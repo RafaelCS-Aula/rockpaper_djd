@@ -84,7 +84,6 @@ public class ProjectileBehaviour : MonoBehaviour
         if(encountered.MyType == Projectile.LosesToType)
         {
             Lose();
-
         }
         
     }
