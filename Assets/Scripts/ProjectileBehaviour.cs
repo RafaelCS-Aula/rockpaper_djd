@@ -68,7 +68,7 @@ public class ProjectileBehaviour : MonoBehaviour
         rigidBody.useGravity = false;
         rigidBody.drag = 0.0f;
         rigidBody.angularDrag = 0.0f;
-        rigidBody.AddForce(Projectile.Velocity * Vector3.forward);
+        rigidBody.AddForce(Projectile.Velocity * transform.forward);
         rigidBody.useGravity = false;
 
     }
@@ -95,6 +95,27 @@ public class ProjectileBehaviour : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    
+    private void OnDrawGizmos() 
+    {
+        switch(Projectile.Type)
+        {
+            case ProjectileTypes.PAPER:
+                Gizmos.color = Color.green;
+                break;
+            case ProjectileTypes.ROCK:
+                Gizmos.color = Color.red;
+                break;
+            case ProjectileTypes.SCISSORS:
+                Gizmos.color = Color.blue;
+                break;
+            default:
+                 Gizmos.color = Color.white;
+                 break;
+        }
+        Gizmos.DrawRay(transform.position, transform.forward * 10);
+        Gizmos.DrawWireMesh( Projectile.ProjectileMesh, transform.position);
+
+            
+    }
 
 }
