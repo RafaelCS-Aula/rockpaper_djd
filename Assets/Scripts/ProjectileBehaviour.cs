@@ -65,7 +65,6 @@ public class ProjectileBehaviour : MonoBehaviour
 
         // Make it go move
         rigidBody.isKinematic = false;
-        rigidBody.useGravity = false;
         rigidBody.drag = 0.0f;
         rigidBody.angularDrag = 0.0f;
         rigidBody.AddForce(Projectile.Velocity * transform.forward);
