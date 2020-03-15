@@ -45,9 +45,10 @@ public class ProjectileBehaviour : MonoBehaviour
 
         if(Projectile.TrailParticles != null)
         {
+            trailParticles = Projectile.TrailParticles;
             trailParticles 
                 = gameObject.AddComponent<ParticleSystem>();
-            trailParticles = Projectile.TrailParticles;
+            
 
             var e = trailParticles.emission;
             e.enabled = true;

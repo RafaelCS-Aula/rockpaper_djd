@@ -2,7 +2,7 @@
 using RPS_DJDIII.Assets.Scripts;
 
 [CreateAssetMenu(fileName = "Projectile", 
-    menuName = "Projectile/ProjectileData", order = 0)]
+    menuName = "Projectile/Projectile Data", order = 0)]
 public class ProjectileData : ScriptableObject
 {
     [Header("Specs")]
