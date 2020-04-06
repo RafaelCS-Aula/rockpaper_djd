@@ -10,14 +10,14 @@ public class ShooterData : ScriptableObject
 
     [Header("Mana")]
     public bool StartWithScissor = true;
-    public int StartingScissorAmmo;
-    public int MaxScissorAmmo;
+    public int StartingScissorMana;
+    public int MaxScissorMana;
 
     public bool StartWithRock = true;
-    public int StartingRockAmmo;
-    public int MaxRockAmmo;
+    public int StartingRockMana;
+    public int MaxRockMana;
 
     public bool StartWithPaper = true;
-    public int StartingPaperAmmo;
-    public int MaxPaperAmmo;
+    public int StartingPaperMana;
+    public int MaxPaperMana;
 }
