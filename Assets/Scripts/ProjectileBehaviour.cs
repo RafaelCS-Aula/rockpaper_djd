@@ -86,13 +86,28 @@ public class ProjectileBehaviour : MonoBehaviour
         {
             Lose();
         }
+        else if(encountered.MyType == MyType)
+        {
+
+            SpawnSmoke();
+
+        }
         
     }
 
+    // Destroy this projectile, spawning some particles in the process
     private void Lose()
     {
         deathParticles?.Emit(20);
         Destroy(this.gameObject);
+    }
+
+    private void SpawnSmoke()
+    {
+
+        Instantiate(Projectile.SmokeScreenprefab,
+            transform.position, transform.rotation);
+
     }
 
     private void OnDrawGizmos() 
@@ -113,7 +128,7 @@ public class ProjectileBehaviour : MonoBehaviour
                  break;
         }
         Gizmos.DrawRay(transform.position, transform.forward * 10);
-        Gizmos.DrawWireMesh( Projectile.ProjectileMesh, transform.position);
+        Gizmos.DrawWireMesh( Projectile.ProjectileMesh, transform.position, transform.rotation);
 
             
     }

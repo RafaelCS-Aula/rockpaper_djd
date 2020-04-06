@@ -10,6 +10,9 @@ public class ProjectileData : ScriptableObject
     public ProjectileTypes LosesToType;
     public float Velocity; 
 
+    [Header("Smoke Screen")]
+    [Tooltip("When coliding with a projectile of it's own type.")]
+    public GameObject SmokeScreenprefab;
 
     [Header("Rendering")]
     public Mesh ProjectileMesh;
@@ -19,9 +22,5 @@ public class ProjectileData : ScriptableObject
     public ParticleSystem TrailParticles;
     public ParticleSystem BirthPartciles;
     public ParticleSystem DeathParticles;
-
-
-
-    
 
 }

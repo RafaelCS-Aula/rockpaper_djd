@@ -16,8 +16,10 @@ public class SmokeScreenBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*meshFilter = GetComponent<MeshFilter>();
-        meshFilter.mesh =*/
+        meshFilter = GetComponent<MeshFilter>();
+        meshFilter.mesh = smokeScreen.ScreenMesh;
+        meshRenderer.materials[0] = smokeScreen.MeshMaterial;
+        transform.localScale = smokeScreen.CustomMeshScale;
 
         currentLife = 0;
 
@@ -29,5 +31,18 @@ public class SmokeScreenBehaviour : MonoBehaviour
         currentLife += Time.deltaTime;
         if(currentLife > smokeScreen.LifeTime)
             Destroy(this);
+ 
     }
+
+    private void OnDrawGizmos() 
+    {
+        
+        Gizmos.color = Color.gray;
+        Gizmos.DrawMesh( smokeScreen.ScreenMesh, transform.position, 
+        transform.rotation);
+
+            
+    }
+
+
 }
