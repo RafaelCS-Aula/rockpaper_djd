@@ -27,14 +27,14 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     [SerializeField] private int _selectedInventoryIndex = 0;
     private int _oldInventoryIndex = 0;
 
-    [SerializeField] private GameObject selectedProjectile;
-    [SerializeField] private GameObject rockProjectile;
-    [SerializeField] private int currentRockMana;
+    [SerializeField] private GameObject _selectedProjectile;
+    [SerializeField] private GameObject _rockProjectile;
+    [SerializeField] private int _currentRockMana;
 
-    [SerializeField] private GameObject paperProjectile;
-    [SerializeField] private int currentPaperMana;
-    [SerializeField] private GameObject scissorProjectile;
-    [SerializeField] private int currentScissorMana;
+    [SerializeField] private GameObject _paperProjectile;
+    [SerializeField] private int _currentPaperMana;
+    [SerializeField] private GameObject _scissorProjectile;
+    [SerializeField] private int _currentScissorMana;
 
 
     private ProjectileTypes[] _inventory = new ProjectileTypes[3];
@@ -55,19 +55,19 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         if(_dStartR)
         {
             _inventory[0] = ProjectileTypes.ROCK;
-            currentRockMana = _dStartRMana;
+            _currentRockMana = _dStartRMana;
         }
             
         if(_dStartP)
         {
             _inventory[1] = ProjectileTypes.PAPER;
-            currentPaperMana = _dStartPMana;
+            _currentPaperMana = _dStartPMana;
         }
             
         if(_dStartS)
         {
             _inventory[2] = ProjectileTypes.SCISSORS;
-            currentScissorMana = _dStartSMana;
+            _currentScissorMana = _dStartSMana;
         }
             
         
@@ -79,9 +79,9 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     // Update is called once per frame
     void Update()
     {
-        currentRockMana = Mathf.Clamp(currentRockMana, 0, _dMaxRMana);
-        currentPaperMana = Mathf.Clamp(currentPaperMana, 0, _dMaxPMana);
-        currentScissorMana = Mathf.Clamp(currentScissorMana, 0, _dMaxSMana);
+        _currentRockMana = Mathf.Clamp(_currentRockMana, 0, _dMaxRMana);
+        _currentPaperMana = Mathf.Clamp(_currentPaperMana, 0, _dMaxPMana);
+        _currentScissorMana = Mathf.Clamp(_currentScissorMana, 0, _dMaxSMana);
 
         _selectedInventoryIndex = Mathf.Clamp(
             _selectedInventoryIndex, 0, _inventory.Length - 1);
@@ -159,29 +159,29 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         switch(_inventory[_selectedInventoryIndex])
         {
             case(ProjectileTypes.ROCK):
-                selectedProjectile = rockProjectile;
-                if(currentRockMana <= 0) return;
-                else currentRockMana --;
+                _selectedProjectile = _rockProjectile;
+                if(_currentRockMana <= 0) return;
+                else _currentRockMana --;
                 break;
             case(ProjectileTypes.PAPER):
-                selectedProjectile = paperProjectile;
-                if(currentPaperMana <= 0) return;
-                else currentPaperMana --;
+                _selectedProjectile = _paperProjectile;
+                if(_currentPaperMana <= 0) return;
+                else _currentPaperMana --;
                 break;
             case(ProjectileTypes.SCISSORS):
-                selectedProjectile = scissorProjectile;
-                if(currentScissorMana <= 0) return;
-                else currentScissorMana --;
+                _selectedProjectile = _scissorProjectile;
+                if(_currentScissorMana <= 0) return;
+                else _currentScissorMana --;
                 break;
             default:
-                selectedProjectile = null;
+                _selectedProjectile = null;
                 break;
 
         }
 
-        if(selectedProjectile != null)
+        if(_selectedProjectile != null)
             Instantiate(
-                selectedProjectile, transform.position, transform.rotation);
+                _selectedProjectile, transform.position, transform.rotation);
 
     }
 
