@@ -25,7 +25,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     [SerializeField] private int _selectedInventoryIndex = 0;
     private int _oldInventoryIndex = 0;
 
-    [SerializeField] private ProjectileTypes selectedProjectile;
+    [SerializeField] private GameObject selectedProjectile;
     [SerializeField] private GameObject rockProjectile;
     [SerializeField] private int currentRockMana;
 
@@ -35,7 +35,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     [SerializeField] private int currentScissorMana;
 
 
-    private GameObject[] _inventory = new GameObject[3];
+    private ProjectileTypes[] _inventory = new ProjectileTypes[3];
 
     // Start is called before the first frame update
     void Awake()
@@ -51,11 +51,25 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         GetData();
 
         if(_dStartR)
-            _inventory[0] = rockProjectile;
+        {
+            _inventory[0] = ProjectileTypes.ROCK;
+            currentRockMana = _dStartRMana;
+        }
+            
         if(_dStartP)
-            _inventory[1] = paperProjectile;
+        {
+            _inventory[1] = ProjectileTypes.PAPER;
+            currentPaperMana = _dStartPMana;
+        }
+            
         if(_dStartS)
-            _inventory[2] = scissorProjectile;
+        {
+            _inventory[2] = ProjectileTypes.SCISSORS;
+            currentScissorMana = _dStartSMana;
+        }
+            
+        
+
 
         
     }
@@ -66,6 +80,9 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         currentRockMana = Mathf.Clamp(currentRockMana, 0, _dMaxRMana);
         currentPaperMana = Mathf.Clamp(currentPaperMana, 0, _dMaxPMana);
         currentScissorMana = Mathf.Clamp(currentScissorMana, 0, _dMaxSMana);
+
+        _selectedInventoryIndex = Mathf.Clamp(
+            _selectedInventoryIndex, 0, _inventory.Length - 1);
 
 
     }
@@ -137,9 +154,32 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     // needs direction
     public void Shoot()
     {
-        
-       
-        Instantiate(_inventory[_selectedInventoryIndex]);
+        switch(_inventory[_selectedInventoryIndex])
+        {
+            case(ProjectileTypes.ROCK):
+                selectedProjectile = rockProjectile;
+                if(currentRockMana <= 0) return;
+                else currentRockMana --;
+                break;
+            case(ProjectileTypes.PAPER):
+                selectedProjectile = paperProjectile;
+                if(currentPaperMana <= 0) return;
+                else currentPaperMana --;
+                break;
+            case(ProjectileTypes.SCISSORS):
+                selectedProjectile = scissorProjectile;
+                if(currentScissorMana <= 0) return;
+                else currentScissorMana --;
+                break;
+            default:
+                selectedProjectile = null;
+                break;
+
+        }
+
+        if(selectedProjectile != null)
+            Instantiate(
+                selectedProjectile, transform.position, transform.rotation);
 
     }
 
