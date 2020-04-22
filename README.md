@@ -21,3 +21,9 @@ apropriate Scriptable Object to get its correct data.
 `Scriptable Objects/` contains the scriptable objects themselves, created by
 using the right-click menu of the `Assets` window in the editor.
 
+### Naming convention!
+
+All the instance variables in Behaviour classes whose values are obtained
+from Data Scriptable Objects are prefixed with a `d`.
+So for example, the private instance variable that controls the rate of
+fire of a `ShooterBehaviour` is called `_dFireRate`.
