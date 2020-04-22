@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using RPS_DJDIII.Assets.Scripts;
 
 [CreateAssetMenu(fileName = "Projectile", 
     menuName = "Projectile/Projectile Data", order = 0)]
@@ -9,18 +8,17 @@ public class ProjectileData : ScriptableObject
     public ProjectileTypes Type;
     public ProjectileTypes LosesToType;
     public float Velocity; 
-
-    [Header("Smoke Screen")]
-    [Tooltip("When coliding with a projectile of it's own type.")]
-    public GameObject SmokeScreenprefab;
-
-    [Header("Rendering")]
-    public Mesh ProjectileMesh;
-    public Material MeshMaterial;
+    public Vector3 customScale = new Vector3(1,1,1);
 
     [Header("VFX")]
-    public ParticleSystem TrailParticles;
-    public ParticleSystem BirthPartciles;
-    public ParticleSystem DeathParticles;
+    public GameObject TrailParticlesPrefab;
+    public GameObject BirthPartcilesPrefab;
+    public GameObject DeathParticlesPrefab;
+    [Tooltip("When coliding with a projectile of it's own type.")]
+    public GameObject Tieprefab;
+
+    [Header("Testing")]
+    public Mesh testingMesh;
+
 
 }

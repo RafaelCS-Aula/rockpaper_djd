@@ -6,20 +6,14 @@ using UnityEngine;
 public class SmokeScreenBehaviour : MonoBehaviour
 {
 
-    [SerializeField] private SmokeScreenData smokeScreen;
-
-    private MeshFilter meshFilter;
-    private MeshRenderer meshRenderer;
+    [SerializeField] private SmokeScreenData _smokeScreenData;
 
     private float currentLife;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        meshFilter = GetComponent<MeshFilter>();
-        meshFilter.mesh = smokeScreen.ScreenMesh;
-        meshRenderer.materials[0] = smokeScreen.MeshMaterial;
-        transform.localScale = smokeScreen.CustomMeshScale;
+        //transform.localScale = smokeScreen.CustomMeshScale;
 
         currentLife = 0;
 
@@ -29,8 +23,8 @@ public class SmokeScreenBehaviour : MonoBehaviour
     void Update()
     {
         currentLife += Time.deltaTime;
-        if(currentLife > smokeScreen.LifeTime)
-            Destroy(this);
+       /* if(currentLife > smokeScreen.LifeTime)
+            Destroy(this);*/
  
     }
 
@@ -38,8 +32,8 @@ public class SmokeScreenBehaviour : MonoBehaviour
     {
         
         Gizmos.color = Color.gray;
-        Gizmos.DrawMesh( smokeScreen.ScreenMesh, transform.position, 
-        transform.rotation);
+       /* Gizmos.DrawMesh( smokeScreen.ScreenMesh, transform.position, 
+        transform.rotation);*/
 
             
     }

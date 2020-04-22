@@ -7,12 +7,14 @@ using UnityEngine;
 public class SmokeScreenData : ScriptableObject
 {
     //TODO: Fix because cant set default as cube
-    [Header("Gameplay")]
+    [Header("Projectile Settings")]
     public float LifeTime;
+    [Range(0,1)]
+    public float startingOpacity = 0.5f;
+    public Vector3 customScale = new Vector3(1,1,1);
 
-    [Header("Rendering")]
-    [Tooltip("Material fo the smoke screen")]
-    public Material MeshMaterial;
-    public Mesh ScreenMesh;
-    public Vector3 CustomMeshScale = new Vector3(1,1,1);
+    [Header("Variable Opacity Settings")]
+    public bool variableOpacity = false;
+    public AnimationCurve opacityOverLifetime;
+
 }

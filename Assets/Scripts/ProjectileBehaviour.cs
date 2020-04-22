@@ -1,5 +1,4 @@
-﻿using RPS_DJDIII.Assets.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), 
 typeof(MeshCollider))]
@@ -7,27 +6,34 @@ typeof(MeshCollider))]
 public class ProjectileBehaviour : MonoBehaviour
 {
 
-    [SerializeField] private ProjectileData Projectile;
+    [SerializeField] private ProjectileData _projectileData;
+    
+    
+    public ProjectileTypes dMyType {get; private set;}
+    private ProjectileTypes _dLoseToType;
 
-    public ProjectileTypes MyType {get; private set;}
+    [SerializeField] private float _dVelocity;
+    [SerializeField] private Vector3 _dCScale;
+    
+    private GameObject _dBirthParticles;
+    private GameObject _dTrailParticles;
+    private GameObject _dDeathParticles;
+    private GameObject _dTieParticles;
 
-    private MeshFilter meshFilter;
-    private MeshRenderer meshRenderer;
-    private MeshCollider meshCollider;
-    private Rigidbody rigidBody;
 
-    private ParticleSystem trailParticles;
-    private ParticleSystem deathParticles;
+    private Rigidbody _rigidBody;
+    private MeshCollider _collider;
+
 
     // Start is called before the first frame update
     void Awake()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
-        meshFilter = GetComponent<MeshFilter>();
-        meshCollider = GetComponent<MeshCollider>();
-        rigidBody = GetComponent<Rigidbody>();
 
-        if(Projectile == null)
+
+        _rigidBody = GetComponent<Rigidbody>();
+        _collider = GetComponent<MeshCollider>();
+
+        if(_projectileData == null)
         {
             Debug.LogError("Object doesn't have a ProjectileData assigned.");
             throw new UnityException();
@@ -35,41 +41,21 @@ public class ProjectileBehaviour : MonoBehaviour
         }
 
         // Read data from the projectile scriptable object
-        meshFilter.mesh = Projectile.ProjectileMesh;
-        meshRenderer.materials[0] = Projectile.MeshMaterial;
-        meshCollider.sharedMesh = Projectile.ProjectileMesh;
-        meshCollider.convex = true;
-        meshCollider.isTrigger = true;
+        GetData();
+
+        _collider.convex = true;
+        _collider.isTrigger = true;
        
-        MyType = Projectile.Type;
+        dMyType = _projectileData.Type;
+        transform.localScale = _dCScale;
 
-        if(Projectile.TrailParticles != null)
-        {
-            trailParticles = Projectile.TrailParticles;
-            trailParticles 
-                = gameObject.AddComponent<ParticleSystem>();
-            
+        // Make it go move forward
+        _rigidBody.isKinematic = false;
+        _rigidBody.drag = 0.0f;
+        _rigidBody.angularDrag = 0.0f;
+        _rigidBody.useGravity = false;
+        _rigidBody.AddForce(_dVelocity * transform.forward);
 
-            var e = trailParticles.emission;
-            e.enabled = true;
-        }
-        if(Projectile.DeathParticles != null)
-        {
-            deathParticles 
-                = gameObject.AddComponent<ParticleSystem>();
-           deathParticles = Projectile.DeathParticles;
-           var e = deathParticles.emission;
-           e.enabled = false;
-
-        }
-
-
-        // Make it go move
-        rigidBody.isKinematic = false;
-        rigidBody.drag = 0.0f;
-        rigidBody.angularDrag = 0.0f;
-        rigidBody.AddForce(Projectile.Velocity * transform.forward);
-        rigidBody.useGravity = false;
 
     }
 
@@ -82,11 +68,11 @@ public class ProjectileBehaviour : MonoBehaviour
         if(encountered == null)
             return;
         
-        if(encountered.MyType == Projectile.LosesToType)
+        if(encountered.dMyType == _projectileData.LosesToType)
         {
             Lose();
         }
-        else if(encountered.MyType == MyType)
+        else if(encountered.dMyType == dMyType)
         {
 
             SpawnSmoke();
@@ -98,21 +84,37 @@ public class ProjectileBehaviour : MonoBehaviour
     // Destroy this projectile, spawning some particles in the process
     private void Lose()
     {
-        deathParticles?.Emit(20);
+        Instantiate(_dDeathParticles,
+            transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
 
     private void SpawnSmoke()
     {
 
-        Instantiate(Projectile.SmokeScreenprefab,
+        Instantiate(_dTieParticles,
             transform.position, transform.rotation);
 
     }
 
+    private void GetData()
+    {
+        dMyType = _projectileData.Type;
+        _dVelocity = _projectileData.Velocity;
+        _dLoseToType = _projectileData.LosesToType;
+        _dBirthParticles = _projectileData.BirthPartcilesPrefab;
+        _dDeathParticles = _projectileData.DeathParticlesPrefab;
+        _dTieParticles = _projectileData.Tieprefab;
+        _dTrailParticles = _projectileData.TrailParticlesPrefab;
+        _dCScale = _projectileData.customScale;
+
+
+    }
+
+
     private void OnDrawGizmos() 
     {
-        switch(Projectile.Type)
+        switch(dMyType)
         {
             case ProjectileTypes.PAPER:
                 Gizmos.color = Color.green;
@@ -128,7 +130,8 @@ public class ProjectileBehaviour : MonoBehaviour
                  break;
         }
         Gizmos.DrawRay(transform.position, transform.forward * 10);
-        Gizmos.DrawWireMesh( Projectile.ProjectileMesh, transform.position, transform.rotation);
+        Gizmos.DrawWireMesh(_projectileData.testingMesh , 
+            transform.position, transform.rotation);
 
             
     }
