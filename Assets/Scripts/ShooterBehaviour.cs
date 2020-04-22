@@ -5,6 +5,8 @@ using UnityEngine;
 public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
 {
 
+    //TODO: Firerate...
+
     public ShooterData DataHolder {get; set;}
 
     [SerializeField] private float _dFireRate;
