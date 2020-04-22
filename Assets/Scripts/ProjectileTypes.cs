@@ -1,7 +1,5 @@
 using System;
 
-namespace RPS_DJDIII.Assets.Scripts
-{
     [Flags]
     public enum ProjectileTypes
     {
@@ -10,4 +8,3 @@ namespace RPS_DJDIII.Assets.Scripts
         PAPER = 2,
         SCISSORS = 4
     }
-}
