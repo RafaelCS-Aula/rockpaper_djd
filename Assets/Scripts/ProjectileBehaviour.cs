@@ -3,10 +3,11 @@
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), 
 typeof(MeshCollider))]
 [RequireComponent(typeof(Rigidbody))]
-public class ProjectileBehaviour : MonoBehaviour
+public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
 {
 
-    [SerializeField] private ProjectileData _projectileData;
+    
+    public ProjectileData DataHolder {get; set;}
     
     
     public ProjectileTypes dMyType {get; private set;}
@@ -33,7 +34,7 @@ public class ProjectileBehaviour : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody>();
         _collider = GetComponent<MeshCollider>();
 
-        if(_projectileData == null)
+        if(DataHolder == null)
         {
             Debug.LogError("Object doesn't have a ProjectileData assigned.");
             throw new UnityException();
@@ -46,7 +47,7 @@ public class ProjectileBehaviour : MonoBehaviour
         _collider.convex = true;
         _collider.isTrigger = true;
        
-        dMyType = _projectileData.Type;
+        dMyType = DataHolder.Type;
         transform.localScale = _dCScale;
 
         // Make it go move forward
@@ -68,7 +69,7 @@ public class ProjectileBehaviour : MonoBehaviour
         if(encountered == null)
             return;
         
-        if(encountered.dMyType == _projectileData.LosesToType)
+        if(encountered.dMyType == DataHolder.LosesToType)
         {
             Lose();
         }
@@ -97,16 +98,16 @@ public class ProjectileBehaviour : MonoBehaviour
 
     }
 
-    private void GetData()
+    public void GetData()
     {
-        dMyType = _projectileData.Type;
-        _dVelocity = _projectileData.Velocity;
-        _dLoseToType = _projectileData.LosesToType;
-        _dBirthParticles = _projectileData.BirthPartcilesPrefab;
-        _dDeathParticles = _projectileData.DeathParticlesPrefab;
-        _dTieParticles = _projectileData.Tieprefab;
-        _dTrailParticles = _projectileData.TrailParticlesPrefab;
-        _dCScale = _projectileData.customScale;
+        dMyType = DataHolder.Type;
+        _dVelocity = DataHolder.Velocity;
+        _dLoseToType = DataHolder.LosesToType;
+        _dBirthParticles = DataHolder.BirthPartcilesPrefab;
+        _dDeathParticles = DataHolder.DeathParticlesPrefab;
+        _dTieParticles = DataHolder.Tieprefab;
+        _dTrailParticles = DataHolder.TrailParticlesPrefab;
+        _dCScale = DataHolder.customScale;
 
 
     }
@@ -130,7 +131,7 @@ public class ProjectileBehaviour : MonoBehaviour
                  break;
         }
         Gizmos.DrawRay(transform.position, transform.forward * 10);
-        Gizmos.DrawWireMesh(_projectileData.testingMesh , 
+        Gizmos.DrawWireMesh(DataHolder.testingMesh , 
             transform.position, transform.rotation);
 
             
