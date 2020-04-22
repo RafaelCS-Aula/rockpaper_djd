@@ -22,7 +22,8 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     [SerializeField] private int _dMaxSMana;
 
     
-    private GameObject selectedProjectilePrefab;
+    [SerializeField] private int _selectedInventoryIndex = 0;
+    private int _oldInventoryIndex = 0;
 
     [SerializeField] private ProjectileTypes selectedProjectile;
     [SerializeField] private GameObject rockProjectile;
@@ -34,7 +35,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     [SerializeField] private int currentScissorMana;
 
 
-    
+    private GameObject[] _inventory = new GameObject[3];
 
     // Start is called before the first frame update
     void Awake()
@@ -49,6 +50,13 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
 
         GetData();
 
+        if(_dStartR)
+            _inventory[0] = rockProjectile;
+        if(_dStartP)
+            _inventory[1] = paperProjectile;
+        if(_dStartS)
+            _inventory[2] = scissorProjectile;
+
         
     }
 
@@ -62,24 +70,76 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
 
     }
 
-    // needs direction
-    public void Shoot()
+    /// <summary>
+    /// Selects weapon using relative inventory order. Selecting the
+    /// "next" or "previous" weapon in the inventory.
+    /// </summary>
+    /// <param name="indexDelta"> Negative or positive number indicating if the
+    /// selection goes to the next or previous weapon.</param>
+    public void SelectWeapon(int indexDelta)
     {
-        switch(selectedProjectile)
+        indexDelta = Mathf.Clamp(indexDelta, -1,1);
+        int newIndex = _selectedInventoryIndex + indexDelta;
+        if(newIndex >= 0 && newIndex < _inventory.Length)
         {
-            case(ProjectileTypes.ROCK):
-                selectedProjectilePrefab = rockProjectile;
-                break;
-            case(ProjectileTypes.PAPER):
-                selectedProjectilePrefab = paperProjectile;
-                break;
-            case(ProjectileTypes.SCISSORS):
-                selectedProjectilePrefab = scissorProjectile;
-                break;
+            _oldInventoryIndex = _selectedInventoryIndex;
+            _selectedInventoryIndex = newIndex;
+        }
+        // WRAPPING
+        else if(newIndex > _inventory.Length - 1)
+        {
+            _oldInventoryIndex = _selectedInventoryIndex;
+            _selectedInventoryIndex = 0;
+        }
+        else if(newIndex < 0)
+        {
+            _oldInventoryIndex = _selectedInventoryIndex;
+            _selectedInventoryIndex = _inventory.Length - 1;
+
+        }
+
+    }
+
+    /// <summary>
+    /// For selection of weapon trough the numbers on the keyboard
+    /// directly.
+    /// </summary>
+    /// <param name="input"> The number inputed by the user on their KB</param>
+    public void SelectWeapon(uint input)
+    {
+        uint newIndex = input - 1;
+        
+        if(newIndex < _inventory.Length && newIndex != _selectedInventoryIndex)
+        {
+            _oldInventoryIndex = _selectedInventoryIndex;
+            _selectedInventoryIndex = (int)newIndex;
+
+        }
+            
+    }
+
+    /// <summary>
+    /// Makes current weapon the last weapon the agent had selected before the 
+    /// current one.
+    /// </summary>
+    public void SelectLastWeapon()
+    {
+        if(_oldInventoryIndex != _selectedInventoryIndex)
+        {
+            int newIndex = _oldInventoryIndex;
+            _oldInventoryIndex = _selectedInventoryIndex;
+            _selectedInventoryIndex = newIndex;
         }
 
 
-        Instantiate(selectedProjectilePrefab);
+    }
+
+    // needs direction
+    public void Shoot()
+    {
+        
+       
+        Instantiate(_inventory[_selectedInventoryIndex]);
 
     }
 
