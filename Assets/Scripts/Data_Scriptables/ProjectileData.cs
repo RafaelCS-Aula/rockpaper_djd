@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "Projectile", 
-    menuName = "Projectile/Projectile Data", order = 0)]
+    menuName = "Data/Projectile/Projectile Data", order = 0)]
 public class ProjectileData : ScriptableObject
 {
     [Header("Specs")]

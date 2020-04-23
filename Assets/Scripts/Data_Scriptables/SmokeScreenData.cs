@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SmokeScreen", 
-    menuName = "Projectile/Smoke Screen Data", order = 1)]
+    menuName = "Data/Projectile/Smoke Screen Data", order = 1)]
 public class SmokeScreenData : ScriptableObject
 {
     [Header("Projectile Settings")]

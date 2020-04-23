@@ -2,7 +2,7 @@
 
 
 [CreateAssetMenu(fileName = "Shooter", 
-    menuName = "Agent/Shooter Data", order = 0)]
+    menuName = "Data/Arena/Shooter Data", order = 0)]
 public class ShooterData : ScriptableObject
 {
     [Header("Specs")]
