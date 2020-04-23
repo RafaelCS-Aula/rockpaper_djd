@@ -123,4 +123,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb907a3b38daf9d49a642472aa999847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 11400000, guid: df013ea2c745994439b8c21040933d14, type: 2}
+  _dVelocity: 0.04
+  _dCScale: {x: 0, y: 0, z: 0}
