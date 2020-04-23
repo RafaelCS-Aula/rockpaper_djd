@@ -16,4 +16,6 @@ public class SmokeScreenData : ScriptableObject
     public bool variableOpacity = false;
     public AnimationCurve opacityOverLifetime;
 
+    public Mesh testingMesh;
+
 }

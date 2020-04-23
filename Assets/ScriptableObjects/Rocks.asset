@@ -19,5 +19,6 @@ MonoBehaviour:
   TrailParticlesPrefab: {fileID: 0}
   BirthPartcilesPrefab: {fileID: 0}
   DeathParticlesPrefab: {fileID: 0}
-  Tieprefab: {fileID: 0}
+  Tieprefab: {fileID: 5767413259446389931, guid: 5cc94e951d347f44f886225e637105f1,
+    type: 3}
   testingMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}

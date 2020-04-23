@@ -6,7 +6,7 @@ using UnityEngine;
 public class SmokeScreenBehaviour : MonoBehaviour, IDataUser<SmokeScreenData>
 {
 
-    private SmokeScreenData _dataFile;
+    [SerializeField]private SmokeScreenData _dataFile;
     public SmokeScreenData DataHolder
     {
         get => _dataFile; 
@@ -19,6 +19,7 @@ public class SmokeScreenBehaviour : MonoBehaviour, IDataUser<SmokeScreenData>
 
     [SerializeField] private bool _dVarOpacity;
    [SerializeField] private AnimationCurve _dOpacityCurve;
+   private Mesh _dtestMesh;
 
     private Material _myMat;
     private float _currentLife;
@@ -68,6 +69,7 @@ public class SmokeScreenBehaviour : MonoBehaviour, IDataUser<SmokeScreenData>
         _dVarOpacity = DataHolder.variableOpacity;
         _dOpacityCurve = DataHolder.opacityOverLifetime;
         _dStartingOpacity = DataHolder.startingOpacity;
+        _dtestMesh = DataHolder.testingMesh;
 
     }
 
@@ -75,8 +77,8 @@ public class SmokeScreenBehaviour : MonoBehaviour, IDataUser<SmokeScreenData>
     {
         
         Gizmos.color = Color.gray;
-       /* Gizmos.DrawMesh( smokeScreen.ScreenMesh, transform.position, 
-        transform.rotation);*/
+        Gizmos.DrawMesh( _dtestMesh, transform.position, 
+        transform.rotation);
 
             
     }
