@@ -6,8 +6,12 @@ typeof(MeshCollider))]
 public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
 {
 
-    
-    public ProjectileData DataHolder {get; set;}
+    [SerializeField] private ProjectileData _dataFile;
+    public ProjectileData DataHolder 
+    {
+        get => _dataFile; 
+        set => value = _dataFile;
+    }
     
     
     public ProjectileTypes dMyType {get; private set;}
@@ -20,7 +24,7 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
     private GameObject _dTrailParticles;
     private GameObject _dDeathParticles;
     private GameObject _dTieParticles;
-
+    private Mesh _dTestCollisionMesh;
 
     private Rigidbody _rigidBody;
     private MeshCollider _collider;
@@ -50,6 +54,12 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
         dMyType = DataHolder.Type;
         transform.localScale = _dCScale;
 
+        if(_dTestCollisionMesh != null)
+        {
+            _collider.sharedMesh = _dTestCollisionMesh;
+
+        }
+
         // Make it go move forward
         _rigidBody.isKinematic = false;
         _rigidBody.drag = 0.0f;
@@ -69,7 +79,7 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
         if(encountered == null)
             return;
         
-        if(encountered.dMyType == DataHolder.LosesToType)
+        if(encountered.dMyType == _dLoseToType)
         {
             Lose();
         }
@@ -85,17 +95,18 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
     // Destroy this projectile, spawning some particles in the process
     private void Lose()
     {
-        Instantiate(_dDeathParticles,
-            transform.position, transform.rotation);
+        if(_dDeathParticles != null)
+            Instantiate(_dDeathParticles,
+                transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
 
     private void SpawnSmoke()
     {
-
-        Instantiate(_dTieParticles,
-            transform.position, transform.rotation);
-
+        if(_dTieParticles != null)
+            Instantiate(_dTieParticles,
+                transform.position, transform.rotation);
+        Destroy(this.gameObject);
     }
 
     public void GetData()
@@ -108,14 +119,15 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
         _dTieParticles = DataHolder.Tieprefab;
         _dTrailParticles = DataHolder.TrailParticlesPrefab;
         _dCScale = DataHolder.customScale;
+        _dTestCollisionMesh = DataHolder.testingMesh;
 
 
     }
 
 
-    private void OnDrawGizmos() 
+   private void OnDrawGizmos() 
     {
-        switch(dMyType)
+        switch(DataHolder.Type)
         {
             case ProjectileTypes.PAPER:
                 Gizmos.color = Color.green;
