@@ -6,7 +6,12 @@ using UnityEngine;
 public class SmokeScreenBehaviour : MonoBehaviour, IDataUser<SmokeScreenData>
 {
 
-    public SmokeScreenData DataHolder {get; set;}
+    private SmokeScreenData _dataFile;
+    public SmokeScreenData DataHolder
+    {
+        get => _dataFile; 
+        set => value = _dataFile;
+    }
 
     [SerializeField] private float _dLifeTime;
     [SerializeField] private float _dStartingOpacity;

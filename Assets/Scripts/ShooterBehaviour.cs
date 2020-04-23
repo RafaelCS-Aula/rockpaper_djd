@@ -6,8 +6,12 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
 {
 
     //TODO: Firerate...
-
-    public ShooterData DataHolder {get; set;}
+    [SerializeField] private ShooterData _dataFile;
+    public ShooterData DataHolder
+    {
+        get => _dataFile; 
+        set => value = _dataFile;
+    }
 
     [SerializeField] private float _dFireRate;
 
