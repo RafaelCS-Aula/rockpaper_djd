@@ -8,6 +8,9 @@ public class ManaPickupData : ScriptableObject
     public ProjectileTypes manaGiven;
     public int amount;
 
+    public bool isTemporary;
+    public float lifeTime;
+
     [Header("Shooter Relations")]
     [Tooltip("This pickup gives the shooter the weapon of its Mana type")]
     public bool givesWeapon;    
