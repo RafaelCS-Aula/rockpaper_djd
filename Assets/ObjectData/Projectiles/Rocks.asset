@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00833abe0e0fd0348a1b7b518a78e21a, type: 3}
-  m_Name: Paper
+  m_Name: Rocks
   m_EditorClassIdentifier: 
-  Type: 2
-  LosesToType: 4
+  Type: 1
+  LosesToType: 2
   Velocity: 800
-  ProjectileMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
-  MeshMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  TrailParticles: {fileID: 0}
-  BirthPartciles: {fileID: 0}
-  DeathParticles: {fileID: 0}
+  customScale: {x: 1, y: 1, z: 1}
+  TrailParticlesPrefab: {fileID: 0}
+  BirthPartcilesPrefab: {fileID: 0}
+  DeathParticlesPrefab: {fileID: 0}
+  Tieprefab: {fileID: 5767413259446389931, guid: 5cc94e951d347f44f886225e637105f1,
+    type: 3}
+  testingMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}

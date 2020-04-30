@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00833abe0e0fd0348a1b7b518a78e21a, type: 3}
+  m_Name: Paper
+  m_EditorClassIdentifier: 
+  Type: 2
+  LosesToType: 4
+  Velocity: 800
+  customScale: {x: 1, y: 1, z: 1}
+  TrailParticlesPrefab: {fileID: 0}
+  BirthPartcilesPrefab: {fileID: 0}
+  DeathParticlesPrefab: {fileID: 3684884565722824601, guid: 29d7db5dc0b100a4c99087720772e64f,
+    type: 3}
+  Tieprefab: {fileID: 5767413259446389931, guid: 5cc94e951d347f44f886225e637105f1,
+    type: 3}
+  testingMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}

@@ -15,8 +15,10 @@ MonoBehaviour:
   Type: 4
   LosesToType: 1
   Velocity: 500
-  ProjectileMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  MeshMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  TrailParticles: {fileID: 0}
-  BirthPartciles: {fileID: 0}
-  DeathParticles: {fileID: 0}
+  customScale: {x: 1, y: 1, z: 1}
+  TrailParticlesPrefab: {fileID: 0}
+  BirthPartcilesPrefab: {fileID: 0}
+  DeathParticlesPrefab: {fileID: 0}
+  Tieprefab: {fileID: 5767413259446389931, guid: 5cc94e951d347f44f886225e637105f1,
+    type: 3}
+  testingMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
