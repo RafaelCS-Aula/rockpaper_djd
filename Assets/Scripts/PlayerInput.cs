@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInput : CharacterMovement
 {
-    
+
     void Awake()
     {
         Cursor.visible = false;
@@ -17,11 +17,9 @@ public class PlayerInput : CharacterMovement
     void Update()
     {
         UpdateMovementAxis();
-        //UpdateVelocityFactor();
+        UpdateVelocityFactor();
         UpdateJump();
         UpdateRotation();
-
-        print(velocityFactor);
     }
 
     private void UpdateMovementAxis()
@@ -33,12 +31,18 @@ public class PlayerInput : CharacterMovement
 
     private void UpdateVelocityFactor()
     {
-        //if (Input.GetAxis("Strafe") != 0 && Input.GetAxis("Forward") != 0)
-        //    velocityFactor *= MovementSettings.diagonalVelocityFactor;
+        if (Input.GetAxis("Strafe") != 0 && Input.GetAxis("Forward") != 0)
+        {
+            if (!controller.isGrounded)
+                velocityFactor = MovementSettings.diagonalVelocityFactor * MovementSettings.fallingVelocityFactor;
+            else
+                velocityFactor = MovementSettings.diagonalVelocityFactor;
+        }
+        else if (!controller.isGrounded)
+            velocityFactor = MovementSettings.fallingVelocityFactor;
 
+        else velocityFactor = MovementSettings.walkVelocityFactor;
 
-        if (!controller.isGrounded)
-            velocityFactor *= MovementSettings.fallingVelocityFactor;
     }
 
 
