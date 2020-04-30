@@ -67,7 +67,7 @@ public class CharacterMovement : MonoBehaviour
             velocity.y, -MovementSettings.maxFallVelocity, MovementSettings.maxJumpVelocity);
 
         velocity.z = acceleration.z == 0f ? velocity.z = 0f : Mathf.Clamp(
-            velocity.z, -MovementSettings.maxBackwardVelocity * velocityFactor,
+            velocity.z, -MovementSettings.maxForwardVelocity * velocityFactor,
             MovementSettings.maxForwardVelocity * velocityFactor);
     }
 

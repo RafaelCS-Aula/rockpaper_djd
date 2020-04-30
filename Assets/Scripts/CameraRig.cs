@@ -6,8 +6,8 @@ public class CameraRig : MonoBehaviour
     public class CamSettings
     {
         [Header("-Positioning-")]
-        public Vector3 camPositionOffsetLeft;
-        public Vector3 camPositionOffsetRight;
+        public Vector3 camPositionOffsetLeft = new Vector3(-1.0f, -0.3f, -4.0f);
+        public Vector3 camPositionOffsetRight = new Vector3(1.0f, -0.3f, -4.0f);
 
         [Header("-Camera Options-")]
         public Camera UICamera;
@@ -45,13 +45,16 @@ public class CameraRig : MonoBehaviour
     float newX = 0.0f;
     float newY = 0.0f;
 
-    public Transform pivot { get; set; }
+    public Transform Pivot { get; set; }
 
-    // Use this for initialization
+    private void Awake()
+    {
+        Camera.main.fieldOfView = camSettings.fieldOfView;
+    }
+
     void Start()
     {
-        pivot = transform.GetChild(0);
-
+        Pivot = transform.GetChild(0);
         target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -60,7 +63,7 @@ public class CameraRig : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Camera.main || !pivot || !target) return;
+        if (!Camera.main || !Pivot || !target) return;
 
         if (Application.isPlaying)
         {
@@ -74,44 +77,48 @@ public class CameraRig : MonoBehaviour
 
     }
 
+    #region LateUpdateMethods
+
     void LateUpdate()
     {
         FollowTarget();
     }
 
     //Following the target with Time.deltaTime smoothly
-    void FollowTarget()
+    private void FollowTarget()
     {
         transform.position = target.position;
     }
 
+    #endregion
+
     //Rotates the camera with input
-    void RotateCamera()
+    private void RotateCamera()
     {
-        newX += camSettings.mouseXSensitivity * Input.GetAxis("Mouse X");
-        newY += camSettings.mouseYSensitivity * -Input.GetAxis("Mouse Y");
+        newX += camSettings.mouseXSensitivity * Input.GetAxisRaw("Mouse X");
+        newY += camSettings.mouseYSensitivity * -Input.GetAxisRaw("Mouse Y");
 
         Vector3 eulerAngleAxis = new Vector3 { x = newY, y = newX };
 
         newX = Mathf.Repeat(newX, 360);
         newY = Mathf.Clamp(newY, camSettings.minAngle, camSettings.maxAngle);
 
-        pivot.localRotation = Quaternion.Euler(eulerAngleAxis);
+        Pivot.localRotation = Quaternion.Euler(eulerAngleAxis);
     }
 
     //Checks the wall and moves the camera if there's a collision
-    void CheckforWalls()
+    private void CheckforWalls()
     {
-        Vector3 dir = Camera.main.transform.position - pivot.position;
+        Vector3 direction = Camera.main.transform.position - Pivot.position;
 
         float distance = Mathf.Abs(shoulder == Shoulder.Left ?
             camSettings.camPositionOffsetLeft.z :
             camSettings.camPositionOffsetRight.z);
 
-        if (Physics.SphereCast(pivot.position, camSettings.maxCheckDist,
-            dir, out RaycastHit hit, distance, wallLayers))
+        if (Physics.SphereCast(Pivot.position, camSettings.maxCheckDist,
+            direction, out RaycastHit hit, distance, wallLayers))
         {
-            MoveCameraForward(hit, dir);
+            MoveCameraForward(hit, direction);
         }
 
         else
@@ -129,10 +136,10 @@ public class CameraRig : MonoBehaviour
     }
 
     //This moves the camera forward when it hits a wall
-    void MoveCameraForward(RaycastHit hit,
+    private void MoveCameraForward(RaycastHit hit,
         Vector3 direction)
     {
-        Vector3 sphereCastCenter = pivot.position +
+        Vector3 sphereCastCenter = Pivot.position +
             (direction.normalized * hit.distance);
 
         Camera.main.transform.position = sphereCastCenter;
@@ -143,7 +150,7 @@ public class CameraRig : MonoBehaviour
     /// to the new given position
     /// </summary>
     /// <param name="newPosition">Camera's new position</param>
-    void PostionCamera(Vector3 newPosition)
+    private void PostionCamera(Vector3 newPosition)
     {
         //Postions the cameras localPosition to a given location
         Camera.main.transform.localPosition =
@@ -154,7 +161,7 @@ public class CameraRig : MonoBehaviour
     /// <summary>
     /// Hides the mesh targets mesh renderers when too close
     /// </summary>
-    void ToggleMeshVisibility()
+    private void ToggleMeshVisibility()
     {
         // Calculates distance from the camere to the player mesh
         float distance = Vector3.Distance(Camera.main.transform.position, target.position + target.up);
@@ -171,7 +178,7 @@ public class CameraRig : MonoBehaviour
     /// <summary>
     /// Switches the camera's shoulder view
     /// </summary>
-    public void SwitchShoulders()
+    private void SwitchShoulders()
     {
         // Checks the current value of the 'shoulder' variable
         switch (shoulder)
