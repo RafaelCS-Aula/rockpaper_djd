@@ -3,13 +3,12 @@
 public static class CameraSettings
 {
     [Header("-Positioning-")]
-    public static Vector3 camPositionOffsetLeft;
-    public static Vector3 camPositionOffsetRight;
+    public static Vector3 camPositionOffsetLeft = new Vector3(-1.0f, -0.3f, -4.0f);
+    public static Vector3 camPositionOffsetRight = new Vector3(1.0f, -0.3f, -4.0f);
 
     [Header("-Camera Options-")]
-    public static Camera UICamera;
-    public static float mouseXSensitivity = 5.0f;
-    public static float mouseYSensitivity = 5.0f;
+    public static float camXSens = 5.0f;
+    public static float camYSens = 5.0f;
     public static float minAngle = -30.0f;
     public static float maxAngle = 70.0f;
     public static float rotationSpeed = 5.0f;

@@ -2,82 +2,39 @@
 
 public class CameraRig : MonoBehaviour
 {
-    [System.Serializable]
-    public class CamSettings
-    {
-        [Header("-Positioning-")]
-        public Vector3 camPositionOffsetLeft = new Vector3(-1.0f, -0.3f, -4.0f);
-        public Vector3 camPositionOffsetRight = new Vector3(1.0f, -0.3f, -4.0f);
-
-        [Header("-Camera Options-")]
-        public Camera UICamera;
-        public float mouseXSensitivity = 5.0f;
-        public float mouseYSensitivity = 5.0f;
-        public float minAngle = -30.0f;
-        public float maxAngle = 70.0f;
-        public float rotationSpeed = 5.0f;
-        public float maxCheckDist = 0.1f;
-
-        [Header("-Zoom-")]
-        public float fieldOfView = 70.0f;
-
-        [Header("-Visual Options-")]
-        public float hideMeshWhenDistance = 0.5f;
-
-        [Header("-Visual Options-")]
-        public float movementLerpSpeed = 5.0f;
-    }
+    #region Class Setup
 
     [SerializeField]
-    CamSettings camSettings;
-
-
     private Transform target;
 
     public LayerMask wallLayers;
+
+    private Camera cam;
+
 
     public enum Shoulder
     {
         Right, Left
     }
-    public Shoulder shoulder;
+
+    private Shoulder shoulder;
 
     float newX = 0.0f;
     float newY = 0.0f;
 
     public Transform Pivot { get; set; }
 
-    private void Awake()
-    {
-        Camera.main.fieldOfView = camSettings.fieldOfView;
-    }
-
     void Start()
     {
         Pivot = transform.GetChild(0);
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+
+        cam = Pivot.GetComponentInChildren<Camera>();
+        cam.fieldOfView = CameraSettings.fieldOfView;
     }
 
+    #endregion
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!Camera.main || !Pivot || !target) return;
-
-        if (Application.isPlaying)
-        {
-            RotateCamera();
-            CheckforWalls();
-            ToggleMeshVisibility();
-
-            if (Input.GetKeyDown(InputSettings.switchShoulders))
-                SwitchShoulders();
-        }
-
-    }
-
-    #region LateUpdateMethods
+    #region Late Update Methods
 
     void LateUpdate()
     {
@@ -92,30 +49,31 @@ public class CameraRig : MonoBehaviour
 
     #endregion
 
-    //Rotates the camera with input
-    private void RotateCamera()
+    #region Update Methods
+
+    // Update is called once per frame
+    void Update()
     {
-        newX += camSettings.mouseXSensitivity * Input.GetAxisRaw("Mouse X");
-        newY += camSettings.mouseYSensitivity * -Input.GetAxisRaw("Mouse Y");
+        if (!cam || !Pivot || !target) return;
 
-        Vector3 eulerAngleAxis = new Vector3 { x = newY, y = newX };
+        if (Application.isPlaying)
+        {
+            CheckforWalls();
+            ToggleMeshVisibility();
+        }
 
-        newX = Mathf.Repeat(newX, 360);
-        newY = Mathf.Clamp(newY, camSettings.minAngle, camSettings.maxAngle);
-
-        Pivot.localRotation = Quaternion.Euler(eulerAngleAxis);
     }
 
     //Checks the wall and moves the camera if there's a collision
     private void CheckforWalls()
     {
-        Vector3 direction = Camera.main.transform.position - Pivot.position;
+        Vector3 direction = cam.transform.position - Pivot.position;
 
         float distance = Mathf.Abs(shoulder == Shoulder.Left ?
-            camSettings.camPositionOffsetLeft.z :
-            camSettings.camPositionOffsetRight.z);
+            CameraSettings.camPositionOffsetLeft.z :
+            CameraSettings.camPositionOffsetRight.z);
 
-        if (Physics.SphereCast(Pivot.position, camSettings.maxCheckDist,
+        if (Physics.SphereCast(Pivot.position, CameraSettings.maxCheckDist,
             direction, out RaycastHit hit, distance, wallLayers))
         {
             MoveCameraForward(hit, direction);
@@ -126,10 +84,10 @@ public class CameraRig : MonoBehaviour
             switch (shoulder)
             {
                 case Shoulder.Left:
-                    PostionCamera(camSettings.camPositionOffsetLeft);
+                    PostionCamera(CameraSettings.camPositionOffsetLeft);
                     break;
                 case Shoulder.Right:
-                    PostionCamera(camSettings.camPositionOffsetRight);
+                    PostionCamera(CameraSettings.camPositionOffsetRight);
                     break;
             }
         }
@@ -142,7 +100,7 @@ public class CameraRig : MonoBehaviour
         Vector3 sphereCastCenter = Pivot.position +
             (direction.normalized * hit.distance);
 
-        Camera.main.transform.position = sphereCastCenter;
+        cam.transform.position = sphereCastCenter;
     }
 
     /// <summary>
@@ -153,9 +111,9 @@ public class CameraRig : MonoBehaviour
     private void PostionCamera(Vector3 newPosition)
     {
         //Postions the cameras localPosition to a given location
-        Camera.main.transform.localPosition =
-            Vector3.Lerp(Camera.main.transform.localPosition, newPosition,
-            Time.deltaTime * camSettings.movementLerpSpeed);
+        cam.transform.localPosition =
+            Vector3.Lerp(cam.transform.localPosition, newPosition,
+            Time.deltaTime * CameraSettings.movementLerpSpeed);
     }
 
     /// <summary>
@@ -164,21 +122,39 @@ public class CameraRig : MonoBehaviour
     private void ToggleMeshVisibility()
     {
         // Calculates distance from the camere to the player mesh
-        float distance = Vector3.Distance(Camera.main.transform.position, target.position + target.up);
+        float distance = Vector3.Distance(cam.transform.position, target.position + target.up);
 
         // Checks if the distance between the two is less than or equal to the distance allowed
-        if (distance <= camSettings.hideMeshWhenDistance)
+        if (distance <= CameraSettings.hideMeshWhenDistance)
             // Unchecks "Player" layer to the camera's culling mask
-            Camera.main.cullingMask &= ~(1 << LayerMask.NameToLayer("Player"));
+            cam.cullingMask &= ~(1 << LayerMask.NameToLayer("Player"));
 
         // Checks "Player" layer to the camera's culling mask otherwise
-        else Camera.main.cullingMask |= 1 << LayerMask.NameToLayer("Player");
+        else cam.cullingMask |= 1 << LayerMask.NameToLayer("Player");
+    }
+
+    #endregion
+
+    #region Input Methods
+
+    //Rotates the camera with input
+    public void RotateCamera(float camXAxis, float camYAxis)
+    {
+        newX += CameraSettings.camXSens * camXAxis;
+        newY += CameraSettings.camYSens * camYAxis;
+
+        Vector3 eulerAngleAxis = new Vector3 { x = newY, y = newX };
+
+        newX = Mathf.Repeat(newX, 360);
+        newY = Mathf.Clamp(newY, CameraSettings.minAngle, CameraSettings.maxAngle);
+
+        Pivot.localRotation = Quaternion.Euler(eulerAngleAxis);
     }
 
     /// <summary>
     /// Switches the camera's shoulder view
     /// </summary>
-    private void SwitchShoulders()
+    public void SwitchShoulders()
     {
         // Checks the current value of the 'shoulder' variable
         switch (shoulder)
@@ -196,4 +172,7 @@ public class CameraRig : MonoBehaviour
                 break;
         }
     }
+
+    #endregion
 }
+

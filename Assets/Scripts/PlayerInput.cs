@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerInput : CharacterMovement
 {
+    private InputSettings iS;
+
+    [SerializeField] private CameraRig camRig;
+
+    [SerializeField] private bool isController = false;
+
+
 
     void Awake()
     {
@@ -11,6 +18,12 @@ public class PlayerInput : CharacterMovement
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void Start()
+    {
+        iS = new InputSettings();
+
+        if (isController) iS.SwitchInput();
+    }
 
     #region Update Methods
 
@@ -20,18 +33,27 @@ public class PlayerInput : CharacterMovement
         UpdateVelocityFactor();
         UpdateJump();
         UpdateRotation();
+
+        if (Input.GetKeyDown(iS.switchShoulders))
+            camRig.SwitchShoulders();
+
+
+        camRig.RotateCamera(
+            !isController ? Input.GetAxisRaw(iS.hCamAxis) :
+            -Input.GetAxisRaw(iS.hCamAxis),
+            -Input.GetAxisRaw(iS.vCamAxis));
     }
 
     private void UpdateMovementAxis()
     {
-        strafeAxis = Input.GetAxis("Strafe");
+        strafeAxis = Input.GetAxis(iS.hMovAxis);
 
-        forwardAxis = Input.GetAxis("Forward");
+        forwardAxis = Input.GetAxis(iS.vMovAxis);
     }
 
     private void UpdateVelocityFactor()
     {
-        if (Input.GetAxis("Strafe") != 0 && Input.GetAxis("Forward") != 0)
+        if (Input.GetAxis(iS.hMovAxis) != 0 && Input.GetAxis(iS.vMovAxis) != 0)
         {
             if (!controller.isGrounded)
                 velocityFactor = MovementSettings.diagonalVelocityFactor * MovementSettings.fallingVelocityFactor;
@@ -48,12 +70,14 @@ public class PlayerInput : CharacterMovement
 
     private void UpdateJump()
     {
-        if (controller.isGrounded && Input.GetKeyDown(InputSettings.jump)) isJumping = true;
+        if (controller.isGrounded && Input.GetKeyDown(iS.jump)) isJumping = true;
     }
 
     private void UpdateRotation()
     {
-        float rotation = Input.GetAxis("Mouse X") * CameraSettings.mouseXSensitivity;
+        float rotation = isController ?
+            -Input.GetAxisRaw(iS.hCamAxis) * CameraSettings.camXSens :
+            Input.GetAxisRaw(iS.hCamAxis) * CameraSettings.camXSens;
 
         transform.Rotate(0f, rotation, 0f);
     }
@@ -62,16 +86,16 @@ public class PlayerInput : CharacterMovement
 
     private void ToogleCursor()
     {
-        if (Cursor.visible == true)
+        switch (Cursor.visible)
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            case true:
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                break;
+            case false:
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                break;
         }
-        else
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
-
     }
 }
