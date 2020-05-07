@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerInput : CharacterMovement
 {
-    private InputSettings iS;
+    private InputSettings    iS;
+    private ShooterBehaviour sB;
 
     [SerializeField] private CameraRig camRig;
 
@@ -21,6 +20,7 @@ public class PlayerInput : CharacterMovement
     private void Start()
     {
         iS = new InputSettings();
+        sB = GetComponent<ShooterBehaviour>();
 
         if (isController) iS.SwitchInput();
     }
@@ -33,15 +33,16 @@ public class PlayerInput : CharacterMovement
         UpdateVelocityFactor();
         UpdateJump();
         UpdateRotation();
-
-        if (Input.GetKeyDown(iS.switchShoulders))
-            camRig.SwitchShoulders();
+        UpdateShooting();
 
 
         camRig.RotateCamera(
             !isController ? Input.GetAxisRaw(iS.hCamAxis) :
             -Input.GetAxisRaw(iS.hCamAxis),
             -Input.GetAxisRaw(iS.vCamAxis));
+
+        if (Input.GetKeyDown(iS.switchShoulders))
+            camRig.SwitchShoulders();
     }
 
     private void UpdateMovementAxis()
@@ -80,6 +81,15 @@ public class PlayerInput : CharacterMovement
             Input.GetAxisRaw(iS.hCamAxis) * CameraSettings.camXSens;
 
         transform.Rotate(0f, rotation, 0f);
+    }
+
+    private void UpdateShooting()
+    {
+        if (Input.GetKey(iS.shoot))
+        {
+            sB.Shoot();
+            print("Should Shoot");
+        }
     }
 
     #endregion

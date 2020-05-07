@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), 
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer),
 typeof(MeshCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
 {
 
     [SerializeField] private ProjectileData _dataFile;
-    public ProjectileData DataHolder 
+    public ProjectileData DataHolder
     {
-        get => _dataFile; 
+        get => _dataFile;
         set => value = _dataFile;
     }
-    
-    
-    public ProjectileTypes dMyType {get; private set;}
+
+
+    public ProjectileTypes dMyType { get; private set; }
     private ProjectileTypes _dLoseToType;
 
     [SerializeField] private float _dVelocity;
     [SerializeField] private Vector3 _dCScale;
-    
+
     private GameObject _dBirthParticles;
     private GameObject _dTrailParticles;
     private GameObject _dDeathParticles;
@@ -38,7 +38,7 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
         _rigidBody = GetComponent<Rigidbody>();
         _collider = GetComponent<MeshCollider>();
 
-        if(DataHolder == null)
+        if (DataHolder == null)
         {
             Debug.LogError("Object doesn't have a ProjectileData assigned.");
             throw new UnityException();
@@ -50,11 +50,11 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
 
         _collider.convex = true;
         _collider.isTrigger = true;
-       
+
         dMyType = DataHolder.Type;
         transform.localScale = _dCScale;
 
-        if(_dTestCollisionMesh != null)
+        if (_dTestCollisionMesh != null)
         {
             _collider.sharedMesh = _dTestCollisionMesh;
 
@@ -71,31 +71,31 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
     }
 
     // When encoutnering other triggers; other projectiles
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
-        ProjectileBehaviour encountered 
+        ProjectileBehaviour encountered
             = other.GetComponent<ProjectileBehaviour>();
 
-        if(encountered == null)
+        if (encountered == null)
             return;
-        
-        if(encountered.dMyType == _dLoseToType)
+
+        if (encountered.dMyType == _dLoseToType)
         {
             Lose();
         }
-        else if(encountered.dMyType == dMyType)
+        else if (encountered.dMyType == dMyType)
         {
 
             SpawnSmoke();
 
         }
-        
+
     }
 
     // Destroy this projectile, spawning some particles in the process
     private void Lose()
     {
-        if(_dDeathParticles != null)
+        if (_dDeathParticles != null)
             Instantiate(_dDeathParticles,
                 transform.position, transform.rotation);
         Destroy(this.gameObject);
@@ -103,7 +103,7 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
 
     private void SpawnSmoke()
     {
-        if(_dTieParticles != null)
+        if (_dTieParticles != null)
             Instantiate(_dTieParticles,
                 transform.position, transform.rotation);
         Destroy(this.gameObject);
@@ -125,28 +125,30 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
     }
 
 
-   private void OnDrawGizmos() 
+    private void OnDrawGizmos()
     {
-        switch(DataHolder.Type)
+        if (Application.isPlaying)
         {
-            case ProjectileTypes.PAPER:
-                Gizmos.color = Color.green;
-                break;
-            case ProjectileTypes.ROCK:
-                Gizmos.color = Color.red;
-                break;
-            case ProjectileTypes.SCISSORS:
-                Gizmos.color = Color.blue;
-                break;
-            default:
-                 Gizmos.color = Color.white;
-                 break;
-        }
-        Gizmos.DrawRay(transform.position, transform.forward * 10);
-        Gizmos.DrawWireMesh(DataHolder.testingMesh , 
-            transform.position, transform.rotation);
+            switch (DataHolder.Type)
+            {
+                case ProjectileTypes.PAPER:
+                    Gizmos.color = Color.green;
+                    break;
+                case ProjectileTypes.ROCK:
+                    Gizmos.color = Color.red;
+                    break;
+                case ProjectileTypes.SCISSORS:
+                    Gizmos.color = Color.blue;
+                    break;
+                default:
+                    Gizmos.color = Color.white;
+                    break;
+            }
+            Gizmos.DrawRay(transform.position, transform.forward * 10);
+            Gizmos.DrawWireMesh(DataHolder.testingMesh,
+                transform.position, transform.rotation);
 
-            
+        }
     }
 
 }

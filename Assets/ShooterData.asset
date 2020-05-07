@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb09a34744c63546a8d5363bda3863c, type: 3}
+  m_Name: ShooterData
+  m_EditorClassIdentifier: 
+  FireRate: 0.5
+  StartWithScissor: 1
+  StartingScissorMana: 500
+  MaxScissorMana: 500
+  StartWithRock: 1
+  StartingRockMana: 500
+  MaxRockMana: 500
+  StartWithPaper: 1
+  StartingPaperMana: 500
+  MaxPaperMana: 500

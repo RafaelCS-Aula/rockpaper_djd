@@ -14,6 +14,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     }
 
     [SerializeField] private float _dFireRate;
+    [SerializeField] private float _currentFireRate = 0;
 
     [SerializeField] private bool _dStartR;
     [SerializeField] private bool _dStartP;
@@ -83,6 +84,8 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     // Update is called once per frame
     void Update()
     {
+        _currentFireRate += Time.deltaTime;
+
         _currentRockMana = Mathf.Clamp(_currentRockMana, 0, _dMaxRMana);
         _currentPaperMana = Mathf.Clamp(_currentPaperMana, 0, _dMaxPMana);
         _currentScissorMana = Mathf.Clamp(_currentScissorMana, 0, _dMaxSMana);
@@ -160,7 +163,10 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     // needs direction
     public void Shoot()
     {
-        switch(_inventory[_selectedInventoryIndex])
+        if (_currentFireRate <= _dFireRate)
+            return;
+
+        switch (_inventory[_selectedInventoryIndex])
         {
             case(ProjectileTypes.ROCK):
                 _selectedProjectile = _rockProjectile;
@@ -183,9 +189,13 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
 
         }
 
-        if(_selectedProjectile != null)
+        if (_selectedProjectile != null)
+        {
             Instantiate(
                 _selectedProjectile, transform.position, transform.rotation);
+            _currentFireRate = 0;
+
+        }
 
     }
 
