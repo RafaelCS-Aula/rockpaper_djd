@@ -79,16 +79,24 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
         if (encountered == null)
             Destroy(gameObject);
 
-        if (encountered?.dMyType == _dLoseToType)
-        {
-            Lose();
-        }
-        else if (encountered?.dMyType == dMyType)
+        else
         {
 
-            SpawnSmoke();
+            if (encountered.dMyType == _dLoseToType)
+            {
+                Lose();
+            }
+            else if (encountered.dMyType == dMyType)
+            {
+
+                SpawnSmoke();
+
+            }
+
+
 
         }
+        
 
     }
 
