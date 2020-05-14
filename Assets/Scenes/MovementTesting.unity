@@ -1659,6 +1659,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1847880156}
+  - {fileID: 3942476595329507784}
   m_Father: {fileID: 2110264199}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2510,7 +2511,7 @@ Transform:
   m_Children:
   - {fileID: 415136326}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1406128580
 MonoBehaviour:
@@ -3692,7 +3693,7 @@ GameObject:
   - component: {fileID: 1847880156}
   - component: {fileID: 1847880158}
   m_Layer: 0
-  m_Name: MainCamera
+  m_Name: Cam2
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4111,7 +4112,7 @@ Transform:
   m_Children:
   - {fileID: 819420600}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &148161594931889940
 GameObject:
@@ -4124,7 +4125,7 @@ GameObject:
   - component: {fileID: 148161594931889941}
   - component: {fileID: 148161594931889943}
   m_Layer: 0
-  m_Name: MainCamera
+  m_Name: Cam1
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4660,8 +4661,8 @@ RectTransform:
   - {fileID: 1816719663}
   - {fileID: 983751031}
   - {fileID: 3942476596114116655}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 819420600}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
