@@ -192,7 +192,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         if (_selectedProjectile != null)
         {
             Instantiate(
-                _selectedProjectile, transform.position, transform.rotation);
+                _selectedProjectile, transform.position + transform.forward * 2, transform.rotation);
             _currentFireRate = 0;
 
         }

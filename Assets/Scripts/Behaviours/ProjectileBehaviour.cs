@@ -77,13 +77,13 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
             = other.GetComponent<ProjectileBehaviour>();
 
         if (encountered == null)
-            return;
+            Destroy(gameObject);
 
-        if (encountered.dMyType == _dLoseToType)
+        if (encountered?.dMyType == _dLoseToType)
         {
             Lose();
         }
-        else if (encountered.dMyType == dMyType)
+        else if (encountered?.dMyType == dMyType)
         {
 
             SpawnSmoke();
