@@ -33,8 +33,8 @@ public class InputSettings : MonoBehaviour
     {
         if (!isController)
         {
-            hMovAxis = "temp2ndPHorizontal";
-            vMovAxis = "temp2ndPVertical";
+            hMovAxis = "LeftJoystickHorizontal";
+            vMovAxis = "LeftJoystickVertical";
             jump = KeyCode.JoystickButton1;
             dash = KeyCode.JoystickButton6;
 

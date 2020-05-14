@@ -2,6 +2,39 @@
 
 public class CameraRig : MonoBehaviour
 {
+    #region Serializable Classes
+
+    [System.Serializable]
+    public class CameraSettings
+    {
+        [Header("-Positioning-")]
+        public Vector3 camPositionOffsetLeft = new Vector3(-1.0f, -0.3f, -4.0f);
+
+        public Vector3 camPositionOffsetRight = new Vector3(1.0f, -0.3f, -4.0f);
+
+        [Header("-Camera Options-")]
+        public float camXSens = 5.0f;
+        public float camYSens = 5.0f;
+        public float minAngle = -30.0f;
+        public float maxAngle = 70.0f;
+        public float rotationSpeed = 5.0f;
+        public float maxCheckDist = 0.1f;
+
+        [Header("-Zoom-")]
+        public float fieldOfView = 70.0f;
+
+        [Header("-Visual Options-")]
+        public float hideMeshWhenDistance = 0.5f;
+
+        [Header("-Visual Options-")]
+        public float movementLerpSpeed = 5.0f;
+    }
+
+    [SerializeField]
+    public CameraSettings cameraSettings;
+
+    #endregion
+
     #region Class Setup
 
     [SerializeField]
@@ -31,7 +64,7 @@ public class CameraRig : MonoBehaviour
         Pivot = transform.GetChild(0);
 
         cam = Pivot.GetComponentInChildren<Camera>();
-        cam.fieldOfView = CameraSettings.fieldOfView;
+        cam.fieldOfView = cameraSettings.fieldOfView;
     }
 
     #endregion
@@ -72,10 +105,10 @@ public class CameraRig : MonoBehaviour
         Vector3 direction = cam.transform.position - Pivot.position;
 
         float distance = Mathf.Abs(shoulder == Shoulder.Left ?
-            CameraSettings.camPositionOffsetLeft.z :
-            CameraSettings.camPositionOffsetRight.z);
+            cameraSettings.camPositionOffsetLeft.z :
+            cameraSettings.camPositionOffsetRight.z);
 
-        if (Physics.SphereCast(Pivot.position, CameraSettings.maxCheckDist,
+        if (Physics.SphereCast(Pivot.position, cameraSettings.maxCheckDist,
             direction, out RaycastHit hit, distance, wallLayers))
         {
             MoveCameraForward(hit, direction);
@@ -86,10 +119,10 @@ public class CameraRig : MonoBehaviour
             switch (shoulder)
             {
                 case Shoulder.Left:
-                    PostionCamera(CameraSettings.camPositionOffsetLeft);
+                    PostionCamera(cameraSettings.camPositionOffsetLeft);
                     break;
                 case Shoulder.Right:
-                    PostionCamera(CameraSettings.camPositionOffsetRight);
+                    PostionCamera(cameraSettings.camPositionOffsetRight);
                     break;
             }
         }
@@ -115,7 +148,7 @@ public class CameraRig : MonoBehaviour
         //Postions the cameras localPosition to a given location
         cam.transform.localPosition =
             Vector3.Lerp(cam.transform.localPosition, newPosition,
-            Time.deltaTime * CameraSettings.movementLerpSpeed);
+            Time.deltaTime * cameraSettings.movementLerpSpeed);
     }
 
     /// <summary>
@@ -127,7 +160,7 @@ public class CameraRig : MonoBehaviour
         float distance = Vector3.Distance(cam.transform.position, target.position + target.up);
 
         // Checks if the distance between the two is less than or equal to the distance allowed
-        if (distance <= CameraSettings.hideMeshWhenDistance)
+        if (distance <= cameraSettings.hideMeshWhenDistance)
         {
             // Unchecks "Player" layer to the camera's culling mask
             cam.cullingMask &= ~(playerLayer);
@@ -144,13 +177,13 @@ public class CameraRig : MonoBehaviour
     //Rotates the camera with input
     public void RotateCamera(float camXAxis, float camYAxis)
     {
-        newX += CameraSettings.camXSens * camXAxis;
-        newY += CameraSettings.camYSens * camYAxis;
+        newX += cameraSettings.camXSens * camXAxis;
+        newY += cameraSettings.camYSens * camYAxis;
 
         Vector3 eulerAngleAxis = new Vector3 { x = newY, y = newX };
 
         newX = Mathf.Repeat(newX, 360);
-        newY = Mathf.Clamp(newY, CameraSettings.minAngle, CameraSettings.maxAngle);
+        newY = Mathf.Clamp(newY, cameraSettings.minAngle, cameraSettings.maxAngle);
 
         Pivot.localRotation = Quaternion.Euler(eulerAngleAxis);
     }

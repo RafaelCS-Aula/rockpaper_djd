@@ -4092,6 +4092,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd0ee6418c33214393a2823b1c9974a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camSets:
+    camPositionOffsetLeft: {x: -1, y: -0.3, z: -4}
+    camPositionOffsetRight: {x: 1, y: -0.3, z: -4}
+    camXSens: 5
+    camYSens: 5
+    minAngle: -30
+    maxAngle: 70
+    rotationSpeed: 5
+    maxCheckDist: 0.1
+    fieldOfView: 70
+    hideMeshWhenDistance: 0.5
+    movementLerpSpeed: 5
   target: {fileID: 1406128579}
   wallLayers:
     serializedVersion: 2
@@ -4232,6 +4244,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd0ee6418c33214393a2823b1c9974a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camSets:
+    camPositionOffsetLeft: {x: -1, y: -0.3, z: -4}
+    camPositionOffsetRight: {x: 1, y: -0.3, z: -4}
+    camXSens: 5
+    camYSens: 5
+    minAngle: -30
+    maxAngle: 70
+    rotationSpeed: 5
+    maxCheckDist: 0.1
+    fieldOfView: 70
+    hideMeshWhenDistance: 0.5
+    movementLerpSpeed: 5
   target: {fileID: 2245205794893895880}
   wallLayers:
     serializedVersion: 2

@@ -57,14 +57,14 @@ public class PlayerInput : CharacterMovement
         if (Input.GetAxis(iS.hMovAxis) != 0 && Input.GetAxis(iS.vMovAxis) != 0)
         {
             if (!controller.isGrounded)
-                velocityFactor = MovementSettings.diagonalVelocityFactor * MovementSettings.fallingVelocityFactor;
+                velocityFactor = movementSettings.diagonalVelocityFactor * movementSettings.fallingVelocityFactor;
             else
-                velocityFactor = MovementSettings.diagonalVelocityFactor;
+                velocityFactor = movementSettings.diagonalVelocityFactor;
         }
         else if (!controller.isGrounded)
-            velocityFactor = MovementSettings.fallingVelocityFactor;
+            velocityFactor = movementSettings.fallingVelocityFactor;
 
-        else velocityFactor = MovementSettings.walkVelocityFactor;
+        else velocityFactor = movementSettings.walkVelocityFactor;
 
     }
 
@@ -77,8 +77,8 @@ public class PlayerInput : CharacterMovement
     private void UpdateRotation()
     {
         float rotation = isController ?
-            -Input.GetAxisRaw(iS.hCamAxis) * CameraSettings.camXSens :
-            Input.GetAxisRaw(iS.hCamAxis) * CameraSettings.camXSens;
+            -Input.GetAxisRaw(iS.hCamAxis) * camRig.cameraSettings.camXSens :
+            Input.GetAxisRaw(iS.hCamAxis) * camRig.cameraSettings.camXSens;
 
         transform.Rotate(0f, rotation, 0f);
     }
