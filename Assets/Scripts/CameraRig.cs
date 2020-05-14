@@ -9,7 +9,7 @@ public class CameraRig : MonoBehaviour
 
     public LayerMask wallLayers;
 
-    public string playerLayer;
+    public LayerMask playerLayer;
 
     private Camera cam;
 
@@ -128,11 +128,13 @@ public class CameraRig : MonoBehaviour
 
         // Checks if the distance between the two is less than or equal to the distance allowed
         if (distance <= CameraSettings.hideMeshWhenDistance)
+        {
             // Unchecks "Player" layer to the camera's culling mask
-            cam.cullingMask &= ~(1 << LayerMask.NameToLayer(playerLayer));
+            cam.cullingMask &= ~(playerLayer);
+        }
 
         // Checks "Player" layer to the camera's culling mask otherwise
-        else cam.cullingMask |= 1 << LayerMask.NameToLayer(playerLayer);
+        else cam.cullingMask |= playerLayer;
     }
 
     #endregion

@@ -88,7 +88,6 @@ public class PlayerInput : CharacterMovement
         if (Input.GetKey(iS.shoot))
         {
             sB.Shoot();
-            print("Should Shoot");
         }
     }
 
