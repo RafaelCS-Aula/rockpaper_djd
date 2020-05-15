@@ -4,8 +4,8 @@ An arena 3rd-person shooter based on the "rock-paper-scissors" game.
 
 ## Team
 
-* Hugo Feliciano - 2180
-* Pedro Fernandes - 2180
+* Hugo Feliciano - 21805809
+* Pedro Fernandes - 21803791
 * Rafael Castro e Silva - 21903059
    
 ## Project Structure
