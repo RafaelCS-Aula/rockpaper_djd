@@ -132,7 +132,7 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
 
     }
 
-
+    /*
     private void OnDrawGizmos()
     {
         if (Application.isPlaying)
@@ -158,5 +158,5 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
 
         }
     }
-
+    */
 }

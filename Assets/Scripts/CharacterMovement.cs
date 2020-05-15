@@ -5,7 +5,7 @@ public class CharacterMovement : MonoBehaviour
 {
 	#region Serializable Classes
 
-	[System.Serializable]
+	[Serializable]
 	public class MovementSettings
 	{
 		[Header("-Acceleration Options-")]
@@ -29,11 +29,11 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField]
 	public MovementSettings movementSettings;
 
-	#endregion
+    #endregion
 
-	#region Class SetUp	
+    #region Class SetUp	
 
-	public CharacterController controller;
+    public CharacterController controller;
 
 	private Vector3 acceleration;
 	private Vector3 velocity;

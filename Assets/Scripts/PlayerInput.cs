@@ -76,9 +76,8 @@ public class PlayerInput : CharacterMovement
 
     private void UpdateRotation()
     {
-        float rotation = isController ?
-            -Input.GetAxisRaw(iS.hCamAxis) * camRig.cameraSettings.camXSens :
-            Input.GetAxisRaw(iS.hCamAxis) * camRig.cameraSettings.camXSens;
+        float rotation = (isController ? -Input.GetAxisRaw(iS.hCamAxis) :
+            Input.GetAxisRaw(iS.hCamAxis)) * camRig.cameraSettings.camXSens;
 
         transform.Rotate(0f, rotation, 0f);
     }

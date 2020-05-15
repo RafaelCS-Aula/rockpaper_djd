@@ -1,16 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class CameraRig : MonoBehaviour
 {
     #region Serializable Classes
 
-    [System.Serializable]
+    [Serializable]
     public class CameraSettings
     {
         [Header("-Positioning-")]
-        public Vector3 camPositionOffsetLeft = new Vector3(-1.0f, -0.3f, -4.0f);
-
-        public Vector3 camPositionOffsetRight = new Vector3(1.0f, -0.3f, -4.0f);
+        public Vector3 cameraOffset = new Vector3(1.0f, -0.3f, -4.0f);
 
         [Header("-Camera Options-")]
         public float camXSens = 5.0f;
@@ -24,7 +23,7 @@ public class CameraRig : MonoBehaviour
         public float fieldOfView = 70.0f;
 
         [Header("-Visual Options-")]
-        public float hideMeshWhenDistance = 0.5f;
+        public float hideMeshWhenDistance = .5f;
 
         [Header("-Visual Options-")]
         public float movementLerpSpeed = 5.0f;
@@ -41,18 +40,10 @@ public class CameraRig : MonoBehaviour
     private Transform target;
 
     public LayerMask wallLayers;
-
     public LayerMask playerLayer;
 
     private Camera cam;
-
-
-    public enum Shoulder
-    {
-        Right, Left
-    }
-
-    private Shoulder shoulder;
+    private Vector3 currentOffset;
 
     float newX = 0.0f;
     float newY = 0.0f;
@@ -65,6 +56,8 @@ public class CameraRig : MonoBehaviour
 
         cam = Pivot.GetComponentInChildren<Camera>();
         cam.fieldOfView = cameraSettings.fieldOfView;
+
+        currentOffset = cameraSettings.cameraOffset;
     }
 
     #endregion
@@ -95,6 +88,7 @@ public class CameraRig : MonoBehaviour
         {
             CheckforWalls();
             ToggleMeshVisibility();
+            CheckPlayerinFrontofCamera();
         }
 
     }
@@ -104,9 +98,7 @@ public class CameraRig : MonoBehaviour
     {
         Vector3 direction = cam.transform.position - Pivot.position;
 
-        float distance = Mathf.Abs(shoulder == Shoulder.Left ?
-            cameraSettings.camPositionOffsetLeft.z :
-            cameraSettings.camPositionOffsetRight.z);
+        float distance = Mathf.Abs(currentOffset.z);
 
         if (Physics.SphereCast(Pivot.position, cameraSettings.maxCheckDist,
             direction, out RaycastHit hit, distance, wallLayers))
@@ -114,18 +106,7 @@ public class CameraRig : MonoBehaviour
             MoveCameraForward(hit, direction);
         }
 
-        else
-        {
-            switch (shoulder)
-            {
-                case Shoulder.Left:
-                    PostionCamera(cameraSettings.camPositionOffsetLeft);
-                    break;
-                case Shoulder.Right:
-                    PostionCamera(cameraSettings.camPositionOffsetRight);
-                    break;
-            }
-        }
+        else PositionCamera(currentOffset);
     }
 
     //This moves the camera forward when it hits a wall
@@ -143,7 +124,7 @@ public class CameraRig : MonoBehaviour
     /// to the new given position
     /// </summary>
     /// <param name="newPosition">Camera's new position</param>
-    private void PostionCamera(Vector3 newPosition)
+    private void PositionCamera(Vector3 newPosition)
     {
         //Postions the cameras localPosition to a given location
         cam.transform.localPosition =
@@ -157,7 +138,7 @@ public class CameraRig : MonoBehaviour
     private void ToggleMeshVisibility()
     {
         // Calculates distance from the camere to the player mesh
-        float distance = Vector3.Distance(cam.transform.position, target.position + target.up);
+        float distance = Vector3.Distance(cam.transform.position, target.position + target.up * 2);
 
         // Checks if the distance between the two is less than or equal to the distance allowed
         if (distance <= cameraSettings.hideMeshWhenDistance)
@@ -177,12 +158,13 @@ public class CameraRig : MonoBehaviour
     //Rotates the camera with input
     public void RotateCamera(float camXAxis, float camYAxis)
     {
-        newX += cameraSettings.camXSens * camXAxis;
+
+        //newX += cameraSettings.camXSens * camXAxis;
         newY += cameraSettings.camYSens * camYAxis;
 
-        Vector3 eulerAngleAxis = new Vector3 { x = newY, y = newX };
+        Vector3 eulerAngleAxis = new Vector3 { x = newY, y = 0 };
 
-        newX = Mathf.Repeat(newX, 360);
+        //newX = Mathf.Repeat(newX, 360);
         newY = Mathf.Clamp(newY, cameraSettings.minAngle, cameraSettings.maxAngle);
 
         Pivot.localRotation = Quaternion.Euler(eulerAngleAxis);
@@ -193,21 +175,21 @@ public class CameraRig : MonoBehaviour
     /// </summary>
     public void SwitchShoulders()
     {
-        // Checks the current value of the 'shoulder' variable
-        switch (shoulder)
-        {
-            // In case that the current value is 'Shoulder.Left'
-            case Shoulder.Left:
-                // Sets the 'shoulder' value to 'Shoulder.Right'
-                shoulder = Shoulder.Right;
-                break;
+        currentOffset.x *= -1;
+    }
 
-            // In case that the current value is 'Shoulder.Right'
-            case Shoulder.Right:
-                // Sets the 'shoulder' value to 'Shoulder.Left'
-                shoulder = Shoulder.Left;
-                break;
+
+    private void CheckPlayerinFrontofCamera()
+    {
+        //Debug.DrawRay(cam.transform.position, cam.transform.forward * 100.0f, Color.yellow);
+
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward,
+            1000, playerLayer))
+        {
+            cam.cullingMask &= ~(playerLayer);
         }
+
+        else cam.cullingMask |= playerLayer;
     }
 
     #endregion
