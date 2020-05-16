@@ -183,10 +183,10 @@ public class CameraRig : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward,
             1000, playerLayer))
         {
-            cam.cullingMask &= ~(playerLayer.value);
+            cam.cullingMask &= ~(playerLayer);
         }
 
-        else cam.cullingMask |= playerLayer.value;
+        else cam.cullingMask |= playerLayer;
     }
 
     #endregion
