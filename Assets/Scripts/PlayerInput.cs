@@ -2,7 +2,7 @@
 
 public class PlayerInput : CharacterMovement
 {
-    private InputSettings    iS;
+    private InputSettings iS;
     private ShooterBehaviour sB;
 
     [SerializeField] private CameraRig camRig;
@@ -19,10 +19,10 @@ public class PlayerInput : CharacterMovement
 
     private void Start()
     {
-        iS = new InputSettings();
+        iS = gameObject.AddComponent<InputSettings>();
         sB = GetComponent<ShooterBehaviour>();
 
-        if (isController) iS.SwitchInput();
+        if (isController) iS.SwitchToController();
     }
 
     #region Update Methods
@@ -33,17 +33,13 @@ public class PlayerInput : CharacterMovement
         UpdateVelocityFactor();
         UpdateJump();
         UpdateRotation();
-        UpdateShooting();
+        UpdateWeapon();
+        UpdateCamera();
 
 
-        camRig.RotateCamera(
-            !isController ? Input.GetAxisRaw(iS.hCamAxis) :
-            -Input.GetAxisRaw(iS.hCamAxis),
-            -Input.GetAxisRaw(iS.vCamAxis));
-
-        if (Input.GetKeyDown(iS.switchShoulders))
-            camRig.SwitchShoulders();
     }
+
+    #region Movement Updates
 
     private void UpdateMovementAxis()
     {
@@ -51,7 +47,6 @@ public class PlayerInput : CharacterMovement
 
         forwardAxis = Input.GetAxis(iS.vMovAxis);
     }
-
     private void UpdateVelocityFactor()
     {
         if (Input.GetAxis(iS.hMovAxis) != 0 && Input.GetAxis(iS.vMovAxis) != 0)
@@ -67,13 +62,10 @@ public class PlayerInput : CharacterMovement
         else velocityFactor = movementSettings.walkVelocityFactor;
 
     }
-
-
     private void UpdateJump()
     {
         if (controller.isGrounded && Input.GetKeyDown(iS.jump)) isJumping = true;
     }
-
     private void UpdateRotation()
     {
         float rotation = (isController ? -Input.GetAxisRaw(iS.hCamAxis) :
@@ -82,11 +74,32 @@ public class PlayerInput : CharacterMovement
         transform.Rotate(0f, rotation, 0f);
     }
 
-    private void UpdateShooting()
+    #endregion
+
+    private void UpdateCamera()
+    {
+        camRig.RotateCamera(-Input.GetAxisRaw(iS.vCamAxis));
+
+        if (Input.GetKeyDown(iS.switchShoulders))
+            camRig.SwitchShoulders();
+    }
+
+    private void UpdateWeapon()
     {
         if (Input.GetKey(iS.shoot))
         {
             sB.Shoot();
+        }
+
+        if (!isController)
+        {
+            if (Input.GetAxis(iS.typeScrollAxis) > 0f) sB.SelectWeapon(-1);
+            else if (Input.GetAxis(iS.typeScrollAxis) < 0f) sB.SelectWeapon(1);
+        }
+        else
+        {
+            if (Input.GetKeyDown(iS.previousType)) sB.SelectWeapon(-1);
+            if (Input.GetKeyDown(iS.nextType)) sB.SelectWeapon(1);
         }
     }
 

@@ -45,7 +45,6 @@ public class CameraRig : MonoBehaviour
     private Camera cam;
     private Vector3 currentOffset;
 
-    float newX = 0.0f;
     float newY = 0.0f;
 
     public Transform Pivot { get; set; }
@@ -156,15 +155,13 @@ public class CameraRig : MonoBehaviour
     #region Input Methods
 
     //Rotates the camera with input
-    public void RotateCamera(float camXAxis, float camYAxis)
+    public void RotateCamera(float camYAxis)
     {
 
-        //newX += cameraSettings.camXSens * camXAxis;
         newY += cameraSettings.camYSens * camYAxis;
 
         Vector3 eulerAngleAxis = new Vector3 { x = newY, y = 0 };
 
-        //newX = Mathf.Repeat(newX, 360);
         newY = Mathf.Clamp(newY, cameraSettings.minAngle, cameraSettings.maxAngle);
 
         Pivot.localRotation = Quaternion.Euler(eulerAngleAxis);
@@ -186,10 +183,10 @@ public class CameraRig : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward,
             1000, playerLayer))
         {
-            cam.cullingMask &= ~(playerLayer);
+            cam.cullingMask &= ~(playerLayer.value);
         }
 
-        else cam.cullingMask |= playerLayer;
+        else cam.cullingMask |= playerLayer.value;
     }
 
     #endregion
