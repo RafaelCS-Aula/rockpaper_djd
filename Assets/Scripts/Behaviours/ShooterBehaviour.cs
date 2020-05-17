@@ -91,7 +91,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     // Update is called once per frame
     void Update()
     {
-        shootingTarget = cameraRig.GetCenterTarget();
+        
         _currentFireRate += Time.deltaTime;
 
         _currentRockMana = Mathf.Clamp(_currentRockMana, 0, _dMaxRMana);
@@ -200,7 +200,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         if (_selectedProjectile != null)
         {
 
-            
+            shootingTarget = cameraRig.GetCenterTarget();
             Debug.Log(shootingTarget);
 
             Quaternion t = Quaternion.LookRotation(shootingTarget - transform.position, transform.up);
