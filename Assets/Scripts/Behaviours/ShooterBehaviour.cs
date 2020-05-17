@@ -12,6 +12,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         set => value = _dataFile;
     }
 
+    [Header("Data from Data Holder")]
     [SerializeField] private float _dFireRate;
     [SerializeField] private float _currentFireRate = 0;
 
@@ -27,7 +28,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     [SerializeField] private int _dMaxPMana;
     [SerializeField] private int _dMaxSMana;
 
-    
+    [Header("Behaviour fields")]
     [SerializeField] private int _selectedInventoryIndex = 0;
     private int _oldInventoryIndex = 0;
 
