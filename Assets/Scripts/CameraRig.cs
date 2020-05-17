@@ -57,6 +57,7 @@ public class CameraRig : MonoBehaviour
         cam.fieldOfView = cameraSettings.fieldOfView;
 
         currentOffset = cameraSettings.cameraOffset;
+        
     }
 
     #endregion
@@ -89,6 +90,8 @@ public class CameraRig : MonoBehaviour
             ToggleMeshVisibility();
             CheckPlayerinFrontofCamera();
         }
+        Ray r = new Ray(cam.transform.position, cam.transform.forward);
+        Debug.DrawRay(r.origin, r.direction * 1000, Color.yellow);
 
     }
 
@@ -190,5 +193,37 @@ public class CameraRig : MonoBehaviour
     }
 
     #endregion
+
+    #region coordinate method
+
+    public Vector3 GetCenterTarget()
+    {
+        
+        float range = 1000;
+        Ray r = new Ray(cam.transform.position, cam.transform.forward);
+        Debug.DrawRay(r.origin, r.direction * range, Color.yellow);
+
+       /*bool r = Physics.Raycast(
+        cam.transform.position, cam.transform.forward, out RaycastHit hit); */
+        //RaycastHit hit = Physics.Raycast(r, 10000.0f, layerMask: target.gameObject.layer);
+    
+        bool hitTarget = Physics.Raycast(r, out RaycastHit hitInf, range);
+        if(hitTarget)
+        {
+            Debug.Log("gottem");
+            return hitInf.point;
+        }
+        else return cam.transform.forward * range;
+    }
+
+    #endregion
+
+    /*private void OnDrawGizmos() {
+        Gizmos.color = Color.yellow;
+        Gizmos
+    }*/
+
+
+
 }
 

@@ -5,7 +5,6 @@ using UnityEngine;
 public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
 {
 
-    //TODO: Firerate...
     [SerializeField] private ShooterData _dataFile;
     public ShooterData DataHolder
     {
@@ -44,6 +43,11 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
 
     private ProjectileTypes[] _inventory = new ProjectileTypes[3];
 
+    private CameraRig cameraRig;
+
+    [HideInInspector]
+    public Vector3 shootingTarget;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -55,6 +59,9 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
 
         }
 
+
+        cameraRig = GetComponentInChildren<CameraRig>();
+        //shootingTarget = transform.forward;
         GetData();
 
         if(_dStartR)
@@ -84,6 +91,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     // Update is called once per frame
     void Update()
     {
+        shootingTarget = cameraRig.GetCenterTarget();
         _currentFireRate += Time.deltaTime;
 
         _currentRockMana = Mathf.Clamp(_currentRockMana, 0, _dMaxRMana);
@@ -191,12 +199,27 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
 
         if (_selectedProjectile != null)
         {
+
+            
+            Debug.Log(shootingTarget);
+
+            Quaternion t = Quaternion.LookRotation(shootingTarget - transform.position, transform.up);
+
             Instantiate(
-                _selectedProjectile, transform.position + transform.forward * 2, transform.rotation);
+                _selectedProjectile, transform.position + transform.forward * 2, t);
             _currentFireRate = 0;
 
         }
 
+    }
+
+    public void OnDrawGizmos() 
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(shootingTarget, 0.5f);
+        Gizmos.DrawRay(transform.position,shootingTarget - transform.position);
+
+                
     }
 
 
