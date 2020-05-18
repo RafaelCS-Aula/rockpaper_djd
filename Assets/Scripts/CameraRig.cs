@@ -57,7 +57,7 @@ public class CameraRig : MonoBehaviour
         cam.fieldOfView = cameraSettings.fieldOfView;
 
         currentOffset = cameraSettings.cameraOffset;
-        
+
     }
 
     #endregion
@@ -88,7 +88,6 @@ public class CameraRig : MonoBehaviour
         {
             CheckforWalls();
             ToggleMeshVisibility();
-            CheckPlayerinFrontofCamera();
         }
         Ray r = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(r.origin, r.direction * 1000, Color.yellow);
@@ -135,15 +134,16 @@ public class CameraRig : MonoBehaviour
     }
 
     /// <summary>
-    /// Hides the mesh targets mesh renderers when too close
+    /// Hides the target's mesh renderers when the mesh
+    /// covers the center of the camera
     /// </summary>
     private void ToggleMeshVisibility()
     {
-        // Calculates distance from the camere to the player mesh
         float distance = Vector3.Distance(cam.transform.position, target.position + target.up * 2);
 
-        // Checks if the distance between the two is less than or equal to the distance allowed
-        if (distance <= cameraSettings.hideMeshWhenDistance)
+
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward,
+        1000, playerLayer) || distance <= cameraSettings.hideMeshWhenDistance)
         {
             // Unchecks "Player" layer to the camera's culling mask
             cam.cullingMask &= ~(playerLayer);
@@ -178,41 +178,25 @@ public class CameraRig : MonoBehaviour
         currentOffset.x *= -1;
     }
 
-
-    private void CheckPlayerinFrontofCamera()
-    {
-        //Debug.DrawRay(cam.transform.position, cam.transform.forward * 100.0f, Color.yellow);
-
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward,
-            1000, playerLayer))
-        {
-            cam.cullingMask &= ~(playerLayer);
-        }
-
-        else cam.cullingMask |= playerLayer;
-    }
-
     #endregion
 
     #region coordinate method
 
     public Vector3 GetCenterTarget()
     {
-        
+
         float range = 1000;
         Ray r = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(r.origin, r.direction * range, Color.yellow);
 
-       /*bool r = Physics.Raycast(
-        cam.transform.position, cam.transform.forward, out RaycastHit hit); */
+        /*bool r = Physics.Raycast(
+         cam.transform.position, cam.transform.forward, out RaycastHit hit); */
         //RaycastHit hit = Physics.Raycast(r, 10000.0f, layerMask: target.gameObject.layer);
-    
+
         bool hitTarget = Physics.Raycast(r, out RaycastHit hitInf, range);
-        if(hitTarget)
-        {
-            Debug.Log("gottem");
-            return hitInf.point;
-        }
+        
+        if (hitTarget) return hitInf.point;
+
         else return cam.transform.forward * range;
     }
 

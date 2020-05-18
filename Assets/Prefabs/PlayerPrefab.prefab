@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 6741678832277943060}
   - component: {fileID: 6741678832277943061}
   m_Layer: 8
-  m_Name: Player1
+  m_Name: PlayerPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -415,7 +415,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.8
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -446,7 +446,6 @@ MonoBehaviour:
     diagonalVelocityFactor: 0.75
     fallingVelocityFactor: 0.7
   controller: {fileID: 6741678832277943045}
-  camRig: {fileID: 4659452944075910156}
   isController: 0
 --- !u!114 &6741678832277943061
 MonoBehaviour:
@@ -472,7 +471,7 @@ MonoBehaviour:
   _dMaxRMana: 0
   _dMaxPMana: 0
   _dMaxSMana: 0
-  _selectedInventoryIndex: 1
+  _selectedInventoryIndex: 0
   _selectedProjectile: {fileID: 0}
   _rockProjectile: {fileID: 4981606751011872845, guid: 8c2701599c79d754794b032f301cc0d5,
     type: 3}
@@ -483,3 +482,4 @@ MonoBehaviour:
   _scissorProjectile: {fileID: 1773237459735443865, guid: 84d499dcc6b120a4a864229d58ae28b4,
     type: 3}
   _currentScissorMana: 0
+  shootingTarget: {x: 0, y: 0, z: 0}

@@ -6,8 +6,6 @@ public class InputSettings : MonoBehaviour
 {
     #region Keyboard and Mouse Input
 
-    public KeyCode switchShoulders = KeyCode.V;
-
     [Header("Combat Controls")]
     public KeyCode shoot = KeyCode.Mouse0;
 
@@ -16,7 +14,7 @@ public class InputSettings : MonoBehaviour
     public KeyCode switchToScissors = KeyCode.Alpha3;
 
     public KeyCode previousType = KeyCode.JoystickButton4;  //For Controller
-    public KeyCode nextType= KeyCode.JoystickButton5;  //For Controller
+    public KeyCode nextType = KeyCode.JoystickButton5;  //For Controller
     public string typeScrollAxis = "Mouse ScrollWheel"; //For Mouse&Keyboard
 
     [Header("Movement Controls")]
@@ -29,6 +27,7 @@ public class InputSettings : MonoBehaviour
     [Header("Camera Controls")]
     public string hCamAxis = "Mouse X";
     public string vCamAxis = "Mouse Y";
+    public KeyCode switchShoulders = KeyCode.V;
 
     #endregion
 

@@ -4,8 +4,7 @@ public class PlayerInput : CharacterMovement
 {
     private InputSettings iS;
     private ShooterBehaviour sB;
-
-    [SerializeField] private CameraRig camRig;
+    private CameraRig camRig;
 
     [SerializeField] private bool isController = false;
 
@@ -20,9 +19,13 @@ public class PlayerInput : CharacterMovement
     private void Start()
     {
         iS = gameObject.AddComponent<InputSettings>();
+
+        camRig = GetComponentInChildren<CameraRig>();
         sB = GetComponent<ShooterBehaviour>();
 
         if (isController) iS.SwitchToController();
+
+
     }
 
     #region Update Methods
@@ -30,13 +33,10 @@ public class PlayerInput : CharacterMovement
     void Update()
     {
         UpdateMovementAxis();
-        UpdateVelocityFactor();
-        UpdateJump();
-        UpdateRotation();
-        UpdateWeapon();
         UpdateCamera();
-
-
+        UpdateRotation();
+        UpdateAMR();
+        UpdateWeapon();
     }
 
     #region Movement Updates
@@ -47,25 +47,15 @@ public class PlayerInput : CharacterMovement
 
         forwardAxis = Input.GetAxis(iS.vMovAxis);
     }
-    private void UpdateVelocityFactor()
-    {
-        if (Input.GetAxis(iS.hMovAxis) != 0 && Input.GetAxis(iS.vMovAxis) != 0)
-        {
-            if (!controller.isGrounded)
-                velocityFactor = movementSettings.diagonalVelocityFactor * movementSettings.fallingVelocityFactor;
-            else
-                velocityFactor = movementSettings.diagonalVelocityFactor;
-        }
-        else if (!controller.isGrounded)
-            velocityFactor = movementSettings.fallingVelocityFactor;
 
-        else velocityFactor = movementSettings.walkVelocityFactor;
-
-    }
-    private void UpdateJump()
+    private void UpdateCamera()
     {
-        if (controller.isGrounded && Input.GetKeyDown(iS.jump)) isJumping = true;
+        camRig.RotateCamera(-Input.GetAxisRaw(iS.vCamAxis));
+
+        if (Input.GetKeyDown(iS.switchShoulders))
+            camRig.SwitchShoulders();
     }
+
     private void UpdateRotation()
     {
         float rotation = (isController ? -Input.GetAxisRaw(iS.hCamAxis) :
@@ -76,12 +66,14 @@ public class PlayerInput : CharacterMovement
 
     #endregion
 
-    private void UpdateCamera()
-    {
-        camRig.RotateCamera(-Input.GetAxisRaw(iS.vCamAxis));
 
-        if (Input.GetKeyDown(iS.switchShoulders))
-            camRig.SwitchShoulders();
+    private void UpdateAMR()
+    {
+        UpdateAMRCharges();
+
+        if (Input.GetKeyDown(iS.jump)) Jump();
+        if (Input.GetKeyDown(iS.dash)) Dash();
+
     }
 
     private void UpdateWeapon()
