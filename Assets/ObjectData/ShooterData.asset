@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FireRate: 0.5
   StartWithScissor: 1
-  StartingScissorMana: 500
-  MaxScissorMana: 500
+  StartingScissorMana: 100
+  MaxScissorMana: 100
   StartWithRock: 1
-  StartingRockMana: 500
-  MaxRockMana: 500
+  StartingRockMana: 100
+  MaxRockMana: 100
   StartWithPaper: 1
-  StartingPaperMana: 500
-  MaxPaperMana: 500
+  StartingPaperMana: 100
+  MaxPaperMana: 100

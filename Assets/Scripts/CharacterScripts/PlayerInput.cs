@@ -1,16 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerInput : CharacterMovement
 {
     [SerializeField] private InputType inputType;
 
+    [HideInInspector] public ShooterBehaviour sB;
+
     private InputSettings iS;
-    private ShooterBehaviour sB;
     private CameraRig camRig;
+
+    [SerializeField] private GameObject rockIndicator;
+    [SerializeField] private GameObject paperIndicator;
+    [SerializeField] private GameObject scissorsIndicator;
+    [SerializeField] private Material indicatorMaterial;
+
 
     void Awake()
     {
-        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -21,6 +28,8 @@ public class PlayerInput : CharacterMovement
 
         camRig = GetComponentInChildren<CameraRig>();
         sB = GetComponent<ShooterBehaviour>();
+
+        indicatorMaterial.color = new Color(0, 244, 0, 0.1f);
     }
 
     #region Update Methods
@@ -73,6 +82,7 @@ public class PlayerInput : CharacterMovement
 
     private void UpdateWeapon()
     {
+        ProjectileTypes oldType = sB.GetSelectedWeapon();
         if (Input.GetKey(iS.shoot))
         {
             sB.Shoot();
@@ -88,22 +98,65 @@ public class PlayerInput : CharacterMovement
             if (Input.GetKeyDown(iS.previousType)) sB.SelectWeapon(-1);
             if (Input.GetKeyDown(iS.nextType)) sB.SelectWeapon(1);
         }
+
+        if (inputType != InputType.PS4Controller)
+        {
+            if (Input.GetKeyDown(iS.switchToRock)) sB.SelectWeapon((uint)1);
+            if (Input.GetKeyDown(iS.switchToPaper)) sB.SelectWeapon((uint)2);
+            if (Input.GetKeyDown(iS.switchToScissors)) sB.SelectWeapon((uint)3);
+        }
+
+        ProjectileTypes newType = sB.GetSelectedWeapon();
+
+        if (oldType != newType) SetTypeIndicator();
     }
 
     #endregion
 
-    private void ToogleCursor()
+    private void ToggleCursor()
     {
-        switch (Cursor.visible)
+        switch (Cursor.lockState)
         {
-            case true:
-                Cursor.visible = false;
+            case CursorLockMode.None:
                 Cursor.lockState = CursorLockMode.Locked;
                 break;
-            case false:
-                Cursor.visible = true;
+            case CursorLockMode.Locked:
                 Cursor.lockState = CursorLockMode.None;
                 break;
         }
     }
+
+    //Remove Method from Class for VerticalSlice
+    private void SetTypeIndicator()
+    {
+        ProjectileTypes pType = sB.GetSelectedWeapon();
+
+        switch (pType)
+        {
+            case ProjectileTypes.ROCK:
+                rockIndicator.SetActive(true);
+                paperIndicator.SetActive(false);
+                scissorsIndicator.SetActive(false);
+                indicatorMaterial.color = new Color(0, 255, 0, 0.1f);
+                break;
+
+            case ProjectileTypes.PAPER:
+                rockIndicator.SetActive(false);
+                paperIndicator.SetActive(true);
+                scissorsIndicator.SetActive(false);
+                indicatorMaterial.color = new Color(0, 0, 255, 0.1f);
+                break;
+
+            case ProjectileTypes.SCISSORS:
+                rockIndicator.SetActive(false);
+                paperIndicator.SetActive(false);
+                scissorsIndicator.SetActive(true);
+                indicatorMaterial.color = new Color(255, 0, 0, 0.1f);
+                break;
+
+            default:
+                break;
+        }
+    }
+
 }

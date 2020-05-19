@@ -15,7 +15,7 @@ MonoBehaviour:
   Type: 1
   LosesToType: 2
   Velocity: 800
-  customScale: {x: 1, y: 1, z: 1}
+  customScale: {x: 1, y: 0.5, z: 1}
   TrailParticlesPrefab: {fileID: 0}
   BirthPartcilesPrefab: {fileID: 0}
   DeathParticlesPrefab: {fileID: 0}

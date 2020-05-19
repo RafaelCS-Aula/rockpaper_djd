@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class GameCanvasManager : MonoBehaviour
@@ -8,6 +10,11 @@ public class GameCanvasManager : MonoBehaviour
 
     [SerializeField] private Image p1Crosshair;
     [SerializeField] private Image p2Crosshair;
+
+    [SerializeField] private TextMeshProUGUI p1AmmoDisplay;
+    [SerializeField] private TextMeshProUGUI p2AmmoDisplay;
+
+    #region Aim Sprites
 
     [SerializeField] private Sprite aim00;
     [SerializeField] private Sprite aim01;
@@ -19,26 +26,43 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] private Sprite aim21;
     [SerializeField] private Sprite aim22;
 
+    #endregion
 
     private void Update()
     {
         UpdateCrosshair(player1, p1Crosshair);
         UpdateCrosshair(player2, p2Crosshair);
+
+        UpdateAmmoDisplay(player1, p1AmmoDisplay);
+        UpdateAmmoDisplay(player2, p2AmmoDisplay);
     }
 
     private void UpdateCrosshair(PlayerInput player, Image crosshair)
     {
-        if (player.doubleJumpCharges == 0 && player.dashCharges == 0) crosshair.overrideSprite = aim00;
-        else if (player.doubleJumpCharges == 0 && player.dashCharges == 1) crosshair.overrideSprite = aim01;
-        else if (player.doubleJumpCharges == 0 && player.dashCharges == 2) crosshair.overrideSprite = aim02;
-        else if (player.doubleJumpCharges == 1 && player.dashCharges == 0) crosshair.overrideSprite = aim10;
-        else if (player.doubleJumpCharges == 1 && player.dashCharges == 1) crosshair.overrideSprite = aim11;
-        else if (player.doubleJumpCharges == 1 && player.dashCharges == 2) crosshair.overrideSprite = aim12;
-        else if (player.doubleJumpCharges == 2 && player.dashCharges == 0) crosshair.overrideSprite = aim20;
-        else if (player.doubleJumpCharges == 2 && player.dashCharges == 1) crosshair.overrideSprite = aim21;
-        else if (player.doubleJumpCharges == 2 && player.dashCharges == 2) crosshair.overrideSprite = aim22;
+        Sprite newSprite = crosshair.sprite;
 
+        if (player.doubleJumpCharges == 0 && player.dashCharges == 0) newSprite = aim00;
+        else if (player.doubleJumpCharges == 0 && player.dashCharges == 1) newSprite = aim01;
+        else if (player.doubleJumpCharges == 0 && player.dashCharges == 2) newSprite = aim02;
+        else if (player.doubleJumpCharges == 1 && player.dashCharges == 0) newSprite = aim10;
+        else if (player.doubleJumpCharges == 1 && player.dashCharges == 1) newSprite = aim11;
+        else if (player.doubleJumpCharges == 1 && player.dashCharges == 2) newSprite = aim12;
+        else if (player.doubleJumpCharges == 2 && player.dashCharges == 0) newSprite = aim20;
+        else if (player.doubleJumpCharges == 2 && player.dashCharges == 1) newSprite = aim21;
+        else if (player.doubleJumpCharges == 2 && player.dashCharges == 2) newSprite = aim22;
+
+
+        crosshair.overrideSprite = newSprite;
     }
 
 
+    public void UpdateAmmoDisplay(PlayerInput player, TextMeshProUGUI ammoDisplay)
+    {
+        (float maxRock, float currentRock ) = player.sB.GetMana(ProjectileTypes.ROCK);
+        (float maxPaper, float currentPaper) = player.sB.GetMana(ProjectileTypes.PAPER);
+        (float maxScissors, float currentScissors) = player.sB.GetMana(ProjectileTypes.SCISSORS);
+        ammoDisplay.text = $"Rock ammo: {currentRock}/{maxRock}\n" +
+            $"Paper ammo: {currentPaper}/{maxPaper}\n" +
+            $"Scissors ammo: {currentScissors}/{maxScissors}\n";
+    }
 }

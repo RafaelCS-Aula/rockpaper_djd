@@ -48,7 +48,7 @@ public class CharacterMovement : MonoBehaviour
 
     #region Class SetUp	
 
-    public CharacterController controller;
+    [HideInInspector] public CharacterController controller;
 
 	private Vector3 acceleration;
 	private Vector3 velocity;
