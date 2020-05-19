@@ -56,8 +56,8 @@ public class SmokeScreenBehaviour : MonoBehaviour, IDataUser<SmokeScreenData>
         }
 
         _currentLife += Time.deltaTime;
-        if(_currentLife > _dLifeTime)
-            Destroy(this);
+        if(_currentLife >= _dLifeTime)
+            Destroy(gameObject);
  
     }
 
