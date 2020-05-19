@@ -18,7 +18,8 @@ MonoBehaviour:
   customScale: {x: 1, y: 0.5, z: 1}
   TrailParticlesPrefab: {fileID: 0}
   BirthPartcilesPrefab: {fileID: 0}
-  DeathParticlesPrefab: {fileID: 0}
+  DeathParticlesPrefab: {fileID: 5952283382282282848, guid: 49cb002c5179cd64a8c01251a254153e,
+    type: 3}
   Tieprefab: {fileID: 5767413259446389931, guid: 5cc94e951d347f44f886225e637105f1,
     type: 3}
   testingMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}

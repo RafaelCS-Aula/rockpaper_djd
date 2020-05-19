@@ -61,8 +61,8 @@ public class GameCanvasManager : MonoBehaviour
         (float maxRock, float currentRock ) = player.sB.GetMana(ProjectileTypes.ROCK);
         (float maxPaper, float currentPaper) = player.sB.GetMana(ProjectileTypes.PAPER);
         (float maxScissors, float currentScissors) = player.sB.GetMana(ProjectileTypes.SCISSORS);
-        ammoDisplay.text = $"Rock ammo: {currentRock}/{maxRock}\n" +
-            $"Paper ammo: {currentPaper}/{maxPaper}\n" +
-            $"Scissors ammo: {currentScissors}/{maxScissors}\n";
+        ammoDisplay.text = $"Cylinder (Rock) ammo: {currentRock}/{maxRock}\n" +
+            $"Sphere (Paper) ammo: {currentPaper}/{maxPaper}\n" +
+            $"Cube (Scissors) ammo: {currentScissors}/{maxScissors}\n";
     }
 }
