@@ -186,7 +186,7 @@ public class CameraRig : MonoBehaviour
     {
 
         float range = 1000;
-        Ray r = new Ray(cam.transform.position, cam.transform.forward);
+        Ray r = new Ray(cam.transform.position + cam.transform.forward * 100, cam.transform.forward);
         Debug.DrawRay(r.origin, r.direction * range, Color.yellow);
 
         /*bool r = Physics.Raycast(
