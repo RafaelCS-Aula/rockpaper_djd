@@ -123,3 +123,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dataHolder: {fileID: 11400000, guid: 3ee3a4fa50e3b5f4cb4a660bd1a653f2, type: 2}
+  pickupRadius: 0.7

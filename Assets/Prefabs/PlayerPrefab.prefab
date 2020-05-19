@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 6741678832277943045}
   - component: {fileID: 6741678832277943060}
   - component: {fileID: 6741678832277943061}
+  - component: {fileID: 4708084666316712592}
   m_Layer: 8
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -445,8 +446,16 @@ MonoBehaviour:
     walkVelocityFactor: 1
     diagonalVelocityFactor: 0.75
     fallingVelocityFactor: 0.7
+    mass: 1
+    damping: 5
+    maxDoubleJumpCharges: 2
+    maxDashCharges: 2
+    doubleJumpCooldown: 5
+    dashCooldown: 5
+    dashForce: 50
+    dashDuration: 0.5
   controller: {fileID: 6741678832277943045}
-  isController: 0
+  inputType: 0
 --- !u!114 &6741678832277943061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,3 +492,16 @@ MonoBehaviour:
     type: 3}
   _currentScissorMana: 0
   shootingTarget: {x: 0, y: 0, z: 0}
+--- !u!65 &4708084666316712592
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6741678832277943067}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.19, y: 2.05, z: 1.29}
+  m_Center: {x: 0, y: 0, z: 0}

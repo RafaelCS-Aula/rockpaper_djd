@@ -202,16 +202,83 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         {
 
             shootingTarget = cameraRig.GetCenterTarget();
-            Debug.Log(shootingTarget);
+            //Debug.Log(shootingTarget);
 
             Quaternion t = Quaternion.LookRotation(shootingTarget - transform.position, transform.up);
 
             Instantiate(
-                _selectedProjectile, transform.position + transform.forward * 2, t);
+                _selectedProjectile, transform.position + transform.forward * 1.5f, t);
             _currentFireRate = 0;
 
         }
 
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="type"></param>
+    /// <returns>Returns true if it used the amount given, false if
+    /// the mana count for the given type was already at max.</returns>
+    public bool AddMana(int amount, ProjectileTypes type)
+    {
+        Debug.Log("adding");
+        switch (type)
+        {
+            case (ProjectileTypes.ROCK):
+                if (_currentRockMana + amount >= _dMaxRMana)
+                {
+                    _currentRockMana = _dMaxRMana;
+                    break;
+                }
+                    
+                if (_currentRockMana == _dMaxRMana)
+                    return false;
+                else
+                    _currentRockMana += amount;
+                break;
+            case (ProjectileTypes.PAPER):
+                if (_currentPaperMana + amount >= _dMaxPMana)
+                {
+                    _currentPaperMana = _dMaxPMana;
+                    break;
+                }
+                    
+                if (_currentPaperMana == _dMaxPMana)
+                    return false;
+                else
+                    _currentPaperMana += amount;
+                break;
+            case (ProjectileTypes.SCISSORS):
+                if (_currentScissorMana + amount >= _dMaxSMana)
+                {
+                    _currentScissorMana = _dMaxSMana;
+                    break;
+                }
+                    
+                if (_currentScissorMana == _dMaxSMana)
+                    return false;
+                else
+                    _currentScissorMana += amount;
+                break;                
+        }
+        return true;
+        
+    }
+
+    public (float max, float current)GetMana(ProjectileTypes type)
+    {
+        switch (type)
+        {
+            case (ProjectileTypes.ROCK):
+                return (_dMaxRMana, _currentRockMana);
+            case (ProjectileTypes.PAPER):
+                return (_dMaxPMana, _currentPaperMana);
+            case (ProjectileTypes.SCISSORS):
+                return (_dMaxSMana, _currentScissorMana);
+        }
+        return (0, 0);
     }
 
     public void OnDrawGizmos() 

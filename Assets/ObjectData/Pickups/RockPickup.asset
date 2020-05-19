@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RockPickup
   m_EditorClassIdentifier: 
   manaGiven: 1
-  amount: 0
+  amount: 5
   isTemporary: 1
   lifeTime: 3
   givesWeapon: 0

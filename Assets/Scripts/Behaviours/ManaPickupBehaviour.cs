@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+
 public class ManaPickupBehaviour : MonoBehaviour, IDataUser<ManaPickupData>
 {
 
@@ -13,6 +14,7 @@ public class ManaPickupBehaviour : MonoBehaviour, IDataUser<ManaPickupData>
         set => value = _dataHolder;
     }
 
+    [Header("---- Data Variables ----")]
     private ProjectileTypes _dManaGiven;
     private int _dAmount;
     private bool _dIsTemporary;
@@ -20,14 +22,21 @@ public class ManaPickupBehaviour : MonoBehaviour, IDataUser<ManaPickupData>
     private bool _dGivesWeapon;
     private bool _dNeedsWeapon;
 
+    [Header("---- Pickup Options ------")]
     private float currentTime;
+    private SphereCollider pickupCollidier;
+    [SerializeField] private float pickupRadius = 0.7f;
+    
 
     // Start is called before the first frame update
     void Awake()
     {
+        pickupCollidier = gameObject.AddComponent<SphereCollider>();
+        pickupCollidier.isTrigger = true;
+        pickupCollidier.radius = pickupRadius;
         GetData();
         Rigidbody rb = GetComponent<Rigidbody>();
-        rb.useGravity = true;   
+        //rb.useGravity = true;   
         currentTime = 0.0f;
     }
 
@@ -37,8 +46,8 @@ public class ManaPickupBehaviour : MonoBehaviour, IDataUser<ManaPickupData>
         if(_dIsTemporary)
         {
             currentTime += Time.deltaTime;
-            if(currentTime <= _dLifetime)
-                Destroy(this);
+            if(currentTime >= _dLifetime)
+                Destroy(gameObject);
         }
     }
 
@@ -52,6 +61,24 @@ public class ManaPickupBehaviour : MonoBehaviour, IDataUser<ManaPickupData>
         _dNeedsWeapon = DataHolder.needsWeapon;
     }
 
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        ShooterBehaviour ammoReceiver = 
+            other.gameObject.GetComponent<ShooterBehaviour>();
+        bool consumed;
+
+        if (ammoReceiver != null)
+        {
+            Debug.Log("collideing");
+            consumed = ammoReceiver.AddMana(_dAmount, _dManaGiven);
+            if (consumed)
+                Destroy(gameObject);
+        }
+            
+    }
+    
     private void OnDrawGizmos() 
     {
         switch(_dataHolder.manaGiven)
@@ -70,7 +97,8 @@ public class ManaPickupBehaviour : MonoBehaviour, IDataUser<ManaPickupData>
                  break;
         }
         //Gizmos.DrawRay(transform.position, transform.forward * 10);
-        Gizmos.DrawSphere(transform.position, 0.4f);
+        //Gizmos.DrawSphere(transform.position, 0.4f);
+        Gizmos.DrawWireSphere(transform.position, pickupRadius);
         
 
     }

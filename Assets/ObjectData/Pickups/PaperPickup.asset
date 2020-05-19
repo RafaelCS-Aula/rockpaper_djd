@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PaperPickup
   m_EditorClassIdentifier: 
   manaGiven: 2
-  amount: 0
+  amount: 5
   isTemporary: 1
   lifeTime: 3
   givesWeapon: 0
