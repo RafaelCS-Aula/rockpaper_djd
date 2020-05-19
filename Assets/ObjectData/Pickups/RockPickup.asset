@@ -15,6 +15,6 @@ MonoBehaviour:
   manaGiven: 1
   amount: 5
   isTemporary: 1
-  lifeTime: 3
+  lifeTime: 10
   givesWeapon: 0
   needsWeapon: 0

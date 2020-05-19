@@ -281,6 +281,9 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         return (0, 0);
     }
 
+    public ProjectileTypes GetSelectedWeapon() => 
+        _inventory[_selectedInventoryIndex];
+
     public void OnDrawGizmos() 
     {
         Gizmos.color = Color.yellow;
