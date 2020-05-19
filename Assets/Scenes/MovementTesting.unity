@@ -5630,6 +5630,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4659452944070655970, guid: e207ca64e20611d4999ccb9ce0bc1a13,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4659452944075910156, guid: e207ca64e20611d4999ccb9ce0bc1a13,
         type: 3}
       propertyPath: playerLayer.m_Bits
@@ -5644,6 +5649,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659452944075910269, guid: e207ca64e20611d4999ccb9ce0bc1a13,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.876
       objectReference: {fileID: 0}
     - target: {fileID: 4659452944100076760, guid: e207ca64e20611d4999ccb9ce0bc1a13,
         type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920424d19e77edf4d9669bcbaf9a53b4, type: 3}
   m_Name: SmokeScreen
   m_EditorClassIdentifier: 
-  LifeTime: 5
+  LifeTime: 8
   startingOpacity: 1
   customScale: {x: 2, y: 2, z: 0.2}
   variableOpacity: 1
