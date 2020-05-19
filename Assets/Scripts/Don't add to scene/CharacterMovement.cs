@@ -217,7 +217,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void Dash()
 	{
-		if (dashCharges > 0)
+		if (dashCharges > 0 && (velocity.x != 0 || velocity.z != 0))
 		{
 			StartCoroutine(DashCoroutine());
 			dashCharges--;

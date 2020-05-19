@@ -2,13 +2,11 @@
 
 public class PlayerInput : CharacterMovement
 {
+    [SerializeField] private InputType inputType;
+
     private InputSettings iS;
     private ShooterBehaviour sB;
     private CameraRig camRig;
-
-    [SerializeField] private bool isController = false;
-
-
 
     void Awake()
     {
@@ -19,13 +17,10 @@ public class PlayerInput : CharacterMovement
     private void Start()
     {
         iS = gameObject.AddComponent<InputSettings>();
+        iS.SetInputType(inputType);
 
         camRig = GetComponentInChildren<CameraRig>();
         sB = GetComponent<ShooterBehaviour>();
-
-        if (isController) iS.SwitchToController();
-
-
     }
 
     #region Update Methods
@@ -58,7 +53,7 @@ public class PlayerInput : CharacterMovement
 
     private void UpdateRotation()
     {
-        float rotation = (isController ? -Input.GetAxisRaw(iS.hCamAxis) :
+        float rotation = (inputType == InputType.PS4Controller ? -Input.GetAxisRaw(iS.hCamAxis) :
             Input.GetAxisRaw(iS.hCamAxis)) * camRig.cameraSettings.camXSens;
 
         transform.Rotate(0f, rotation, 0f);
@@ -83,7 +78,7 @@ public class PlayerInput : CharacterMovement
             sB.Shoot();
         }
 
-        if (!isController)
+        if (inputType == InputType.Keyboard1)
         {
             if (Input.GetAxis(iS.typeScrollAxis) > 0f) sB.SelectWeapon(-1);
             else if (Input.GetAxis(iS.typeScrollAxis) < 0f) sB.SelectWeapon(1);

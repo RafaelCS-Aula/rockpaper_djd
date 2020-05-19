@@ -2014,6 +2014,11 @@ PrefabInstance:
       propertyPath: isController
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6741678832277943060, guid: e207ca64e20611d4999ccb9ce0bc1a13,
+        type: 3}
+      propertyPath: inputType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6741678832277943067, guid: e207ca64e20611d4999ccb9ce0bc1a13,
         type: 3}
       propertyPath: m_Name
@@ -3989,6 +3994,7 @@ GameObject:
   - component: {fileID: 3942476595329507785}
   - component: {fileID: 3942476595329507830}
   - component: {fileID: 3942476595329507831}
+  - component: {fileID: 3942476595329507829}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3996,6 +4002,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3942476595329507829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3942476595329507828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc19a0be38378d4428af630b68f928e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3942476595329507830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4108,6 +4126,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4659452944070655970, guid: e207ca64e20611d4999ccb9ce0bc1a13,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4659452944075910269, guid: e207ca64e20611d4999ccb9ce0bc1a13,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.876
+      objectReference: {fileID: 0}
     - target: {fileID: 6741678832277943044, guid: e207ca64e20611d4999ccb9ce0bc1a13,
         type: 3}
       propertyPath: m_LocalPosition.x
