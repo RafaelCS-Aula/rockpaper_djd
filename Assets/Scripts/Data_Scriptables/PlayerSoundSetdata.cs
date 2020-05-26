@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerSoundSet",
-    menuName = "Data/Audio/Player Sound Set", order = 0)]
+    menuName = "Data/Audio/PlayerSoundSet", order = 0)]
 public class PlayerSoundSetData : ScriptableObject
 {
 

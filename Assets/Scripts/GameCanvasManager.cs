@@ -28,6 +28,12 @@ public class GameCanvasManager : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+
+        Destroy(player2.gameObject.GetComponentInChildren<AudioListener>());
+
+    }
     private void Update()
     {
         UpdateCrosshair(player1, p1Crosshair);

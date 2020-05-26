@@ -36,7 +36,7 @@ public class AmdSoundHandler : MonoBehaviour, ISoundHolder,
         // print("Length: " + (int)_bGSource.clip.length);
         if ((int)_bGSource.time == (int)_bGSource.clip.length)
         {
-            print("ass");
+            //print("ass");
             int rnd = Random.Range(0, _clips.Length - 1);
             _fXSource.pitch = 1 + Random.Range(-0.05f, 0.1f);
             _fXSource.PlayOneShot(_clips[rnd], Random.Range(0.2f, 0.4f));
@@ -45,7 +45,7 @@ public class AmdSoundHandler : MonoBehaviour, ISoundHolder,
         }
         d++;
         print(Mathf.Sin(Time.time));
-        _bGSource.volume += 0.0008f * Mathf.Sin(Time.time);
+        _bGSource.volume += 0.0005f * Mathf.Sin(Time.time);
     }
 
     public AmbientSoundSetData DataHolder
