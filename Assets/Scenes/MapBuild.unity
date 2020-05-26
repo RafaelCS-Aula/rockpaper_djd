@@ -13390,19 +13390,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6741678832277943060, guid: e207ca64e20611d4999ccb9ce0bc1a13,
         type: 3}
-      propertyPath: movementSettings.gravityAcceleration
-      value: 17.5
-      objectReference: {fileID: 0}
+      propertyPath: rockIndicator
+      value: 
+      objectReference: {fileID: 4981606751011872845, guid: 8c2701599c79d754794b032f301cc0d5,
+        type: 3}
     - target: {fileID: 6741678832277943060, guid: e207ca64e20611d4999ccb9ce0bc1a13,
         type: 3}
-      propertyPath: movementSettings.maxForwardVelocity
-      value: 10
-      objectReference: {fileID: 0}
+      propertyPath: paperIndicator
+      value: 
+      objectReference: {fileID: 718458473452287355, guid: a9a49e9908900fa48badaa60c7bada43,
+        type: 3}
     - target: {fileID: 6741678832277943060, guid: e207ca64e20611d4999ccb9ce0bc1a13,
         type: 3}
-      propertyPath: movementSettings.maxStrafeVelocity
-      value: 10
-      objectReference: {fileID: 0}
+      propertyPath: scissorsIndicator
+      value: 
+      objectReference: {fileID: 1773237459735443865, guid: 84d499dcc6b120a4a864229d58ae28b4,
+        type: 3}
     - target: {fileID: 6741678832277943067, guid: e207ca64e20611d4999ccb9ce0bc1a13,
         type: 3}
       propertyPath: m_Name
