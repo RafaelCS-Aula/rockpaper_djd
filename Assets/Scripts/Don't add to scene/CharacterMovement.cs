@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+[RequireComponent(typeof(PlayerSoundHandler))]
+public class CharacterMovement : MonoBehaviour, ISoundPlayer<PlayerSoundHandler>
 {
 	#region Serializable Classes
 
@@ -50,10 +51,14 @@ public class CharacterMovement : MonoBehaviour
 
     [HideInInspector] public CharacterController controller;
 
-	private Vector3 acceleration;
+    // Implement ISOundPlayer
+    [HideInInspector] public PlayerSoundHandler audioHandler { get; set; }
+
+    private Vector3 acceleration;
 	private Vector3 velocity;
 
-	[NonSerialized] public float strafeAxis;
+    
+    [NonSerialized] public float strafeAxis;
 	[NonSerialized] public float forwardAxis;
 
 	[NonSerialized] public float velocityFactor;
@@ -74,6 +79,7 @@ public class CharacterMovement : MonoBehaviour
 	private void Start()
 	{
 		controller = GetComponent<CharacterController>();
+        audioHandler = GetComponent<PlayerSoundHandler>();
 
 		acceleration = Vector3.zero;
 		velocity = Vector3.zero;
@@ -205,12 +211,22 @@ public class CharacterMovement : MonoBehaviour
 	{
 		if (controller.isGrounded) canDoubleJump = true;
 
-		if (controller.isGrounded) jump = true;
+        if (controller.isGrounded)
+        {
+            jump = true;
+
+            // Play Jump Audio
+            audioHandler.PlayAudio(audioHandler.dJump, 3);
+        } 
 
 		else if (canDoubleJump && doubleJumpCharges > 0)
 		{
 			jump = true;
 			canDoubleJump = false;
+
+            // Play double jump sound
+            audioHandler.PlayAudio(audioHandler.dDoubleJump, 3);
+
 			doubleJumpCharges--;
 		}
 	}
@@ -219,6 +235,10 @@ public class CharacterMovement : MonoBehaviour
 	{
 		if (dashCharges > 0 && (velocity.x != 0 || velocity.z != 0))
 		{
+
+            // Play dash audio
+            audioHandler.PlayAudio(audioHandler.dDash, 3);
+
 			StartCoroutine(DashCoroutine());
 			dashCharges--;
 		}

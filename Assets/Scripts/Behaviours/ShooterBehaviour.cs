@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
+[RequireComponent(typeof(PlayerSoundHandler))]
+public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>,
+    ISoundPlayer<PlayerSoundHandler>
 {
 
     [SerializeField] private ShooterData _dataFile;
@@ -11,6 +13,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         get => _dataFile; 
         set => value = _dataFile;
     }
+    public PlayerSoundHandler audioHandler { get ; set ; }
 
     [Header("Data from Data Holder")]
     [SerializeField] private float _dFireRate;
@@ -52,7 +55,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
     // Start is called before the first frame update
     void Awake()
     {
-
+        audioHandler = GetComponent<PlayerSoundHandler>();
         if(DataHolder == null)
         {
             Debug.LogError("Object doesn't have a Data Scriptable Object assigned.");
@@ -169,7 +172,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
 
     }
 
-    // needs direction
+
     public void Shoot()
     {
         if (_currentFireRate <= _dFireRate)
@@ -202,9 +205,11 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>
         {
 
             shootingTarget = cameraRig.GetCenterTarget();
-            //Debug.Log(shootingTarget);
 
             Quaternion t = Quaternion.LookRotation(shootingTarget - transform.position, transform.up);
+
+            // Play shooting sound
+            audioHandler.PlayAudio(audioHandler.dShot, 0.7f);
 
             Instantiate(
                 _selectedProjectile, transform.position + transform.forward * 1.5f, t);

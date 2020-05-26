@@ -19,6 +19,7 @@ public class PlayerInput : CharacterMovement
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        audioHandler = GetComponent<PlayerSoundHandler>();
     }
 
     private void Start()
