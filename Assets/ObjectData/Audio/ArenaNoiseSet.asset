@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a626c6529fa041e479ec93b858377e09, type: 3}
+  m_Name: ArenaNoiseSet
+  m_EditorClassIdentifier: 
+  background: {fileID: 8300000, guid: 51d036fe0c4f9e844b678ba2935d17a7, type: 3}
+  audioLayers:
+  - {fileID: 8300000, guid: 2e2f44f5ee8f79942bec49e06c728bbb, type: 3}
+  - {fileID: 8300000, guid: b83c6e8c0dfdfcf408dd156681a1580f, type: 3}
+  - {fileID: 8300000, guid: 7efe8451100836a4c92fdf5934b413a7, type: 3}
+  - {fileID: 8300000, guid: a097e2eb2ea47f04388d6b256e8f1cfe, type: 3}
+  - {fileID: 8300000, guid: a8821ab240f6eb9469ec50bbd6ae7844, type: 3}
+  - {fileID: 8300000, guid: 161ad5f9f6983a641a77a9b433d4ff4f, type: 3}
+  - {fileID: 8300000, guid: 802ee7d4ef472814fb30ea7cf52b4101, type: 3}
+  - {fileID: 8300000, guid: 6d9ece29faf2bff49a841bc00198e227, type: 3}
+  - {fileID: 8300000, guid: 26b7773f032fe4c4588309b9501cef82, type: 3}
