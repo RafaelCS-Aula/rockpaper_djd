@@ -90,8 +90,8 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>,
 
         }
 
-        if (encountered.GetComponent<IUseTeams>() == null)
-            Destroy(gameObject);
+        
+        Destroy(gameObject);
 
     }
 
@@ -112,7 +112,7 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>,
         Destroy(this.gameObject);
     }
 
-    public void InteractFriendly(IUseTeams other) { }
+    public void InteractFriend(IUseTeams other) { }
     public void InteractEnemy(IUseTeams other)
     {
         

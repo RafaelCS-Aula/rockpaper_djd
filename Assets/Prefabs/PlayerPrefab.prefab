@@ -784,6 +784,8 @@ GameObject:
   - component: {fileID: 4708084666316712592}
   - component: {fileID: 8176576452830005586}
   - component: {fileID: 2604162309743633730}
+  - component: {fileID: 1098061737}
+  - component: {fileID: 1098061738}
   m_Layer: 9
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -857,7 +859,7 @@ MonoBehaviour:
     dashForce: 50
     dashDuration: 0.5
   controller: {fileID: 6741678832277943045}
-  inputType: 1
+  inputType: 0
   sB: {fileID: 0}
   rockIndicator: {fileID: 1004286739}
   paperIndicator: {fileID: 160667312}
@@ -1027,3 +1029,33 @@ MonoBehaviour:
   dHurt: {fileID: 0}
   dDash: {fileID: 0}
   dDie: {fileID: 0}
+--- !u!114 &1098061737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6741678832277943067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab1269e598596eb4d9ddd250d3f1eecf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useSetTeam: 1
+  setTeamID: 1
+--- !u!114 &1098061738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6741678832277943067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c1ce1f52ff5eb4c8f8693d37cd6845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 3
+  _startingHp: 0
+  startWithMaxHp: 1
+  _damagedCooldown: 0

@@ -65,7 +65,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>,
 
         }
 
-        teamID = Random.Range(0, 100);
+        
 
         cameraRig = GetComponentInChildren<CameraRig>();
         //shootingTarget = transform.forward;
