@@ -3,7 +3,8 @@
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer),
 typeof(MeshCollider))]
 [RequireComponent(typeof(Rigidbody))]
-public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
+public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>,
+    IUseTeams
 {
 
     [SerializeField] private ProjectileData _dataFile;
@@ -12,7 +13,7 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
         get => _dataFile;
         set => value = _dataFile;
     }
-
+    public int teamID {get; set;}
 
     public ProjectileTypes dMyType { get; private set; }
     private ProjectileTypes _dLoseToType;
@@ -44,6 +45,8 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
             throw new UnityException();
 
         }
+        
+
 
         // Read data from the projectile scriptable object
         GetData();
@@ -73,30 +76,22 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
     // When encoutnering other triggers; other projectiles
     private void OnTriggerEnter(Collider other)
     {
-        ProjectileBehaviour encountered
-            = other.GetComponent<ProjectileBehaviour>();
+        GameObject encountered = other.gameObject;
 
-        if (encountered == null)
-            Destroy(gameObject);
-
-        else
+        foreach (IUseTeams t in encountered.GetComponents<IUseTeams>())
         {
-
-            if (encountered.dMyType == _dLoseToType)
+            if (t.teamID == this.teamID)
             {
-                Lose();
+                t.InteractFriend(this);
             }
-            else if (encountered.dMyType == dMyType)
-            {
-
-                SpawnSmoke();
-
-            }
-
+            else
+                t.InteractEnemy(this);
 
 
         }
-        
+
+        if (encountered.GetComponent<IUseTeams>() == null)
+            Destroy(gameObject);
 
     }
 
@@ -116,6 +111,24 @@ public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>
                 transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
+
+    public void InteractFriendly(IUseTeams other) { }
+    public void InteractEnemy(IUseTeams other)
+    {
+        
+        if ((other as ProjectileBehaviour).dMyType == _dLoseToType)
+        {
+            Lose();
+        }
+        else if ((other as ProjectileBehaviour).dMyType == dMyType)
+        {
+
+            SpawnSmoke();
+
+        }
+
+    }
+
 
     public void GetData()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerSoundHandler))]
 public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>,
-    ISoundPlayer<PlayerSoundHandler>
+    ISoundPlayer<PlayerSoundHandler>, IUseTeams
 {
 
     [SerializeField] private ShooterData _dataFile;
@@ -13,6 +13,8 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>,
         get => _dataFile; 
         set => value = _dataFile;
     }
+    public int teamID { get; set; }
+
     public PlayerSoundHandler audioHandler { get ; set ; }
 
     [Header("Data from Data Holder")]
@@ -63,6 +65,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>,
 
         }
 
+        teamID = Random.Range(0, 100);
 
         cameraRig = GetComponentInChildren<CameraRig>();
         //shootingTarget = transform.forward;
@@ -206,13 +209,19 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>,
 
             shootingTarget = cameraRig.GetCenterTarget();
 
-            Quaternion t = Quaternion.LookRotation(shootingTarget - transform.position, transform.up);
+            Quaternion t 
+                = Quaternion.LookRotation(
+                    shootingTarget - transform.position, transform.up);
 
             // Play shooting sound
             audioHandler.PlayAudio(audioHandler.dShot, 0.7f);
 
-            Instantiate(
-                _selectedProjectile, transform.position + transform.forward * 1.5f, t);
+            GameObject b = Instantiate(
+                _selectedProjectile, 
+                transform.position + transform.forward * 1.5f, t);
+
+            b.GetComponent<ProjectileBehaviour>().teamID = this.teamID;
+
             _currentFireRate = 0;
 
         }
@@ -319,5 +328,8 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>,
 
 
     }
+
+    public void InteractEnemy(IUseTeams other) { }
+    public void InteractFriend(IUseTeams other) { }
 
 }
