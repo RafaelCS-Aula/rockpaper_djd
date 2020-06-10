@@ -6,14 +6,17 @@ using UnityEngine;
 public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 {
 
-    public List<ConnectorGroup> connectorGroups;
-
-
+    private List<ConnectorGroup> connectorGroups;
+    public int largestGroupCount;
+    public int smallestGroupCount;
+    public bool isFull = false;
 
     public void Setup()
     {
         connectorGroups.Sort();
-
+        largestGroupCount = connectorGroups[0].connectorCount;
+        smallestGroupCount = 
+            connectorGroups[connectorGroups.Count - 1].connectorCount;
     }
 
     public int CompareTo(ArenaPiece other)

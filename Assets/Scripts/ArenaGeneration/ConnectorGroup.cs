@@ -11,6 +11,8 @@ public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
     [SerializeField] Color gizmoColor;
     private Vector3 centreOfMass;
 
+
+
     public bool isUsed = false;
 
     public int connectorCount;
