@@ -12,10 +12,12 @@ public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
     private Vector3 centreOfMass;
 
     public bool isUsed = false;
-   
+
+    public int connectorCount;
+
     private void Awake()
     {
-        GetUnionPoint();
+        //GetUnionPoint();
         /*foreach (Connector c in _connectors)
             c.groupColor = gizmoColor;
           */  
@@ -45,10 +47,11 @@ public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
 
     public int CompareTo(ConnectorGroup other)
     {
+        // I want the large ones at the start of the lists
         if (this._connectors.Count > other._connectors.Count)
-            return 1;
-        else if (this._connectors.Count < other._connectors.Count)
             return -1;
+        else if (this._connectors.Count < other._connectors.Count)
+            return 1;
         else
             return 0;
     }
