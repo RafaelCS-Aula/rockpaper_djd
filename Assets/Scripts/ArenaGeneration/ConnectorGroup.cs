@@ -7,15 +7,14 @@ using UnityEngine;
 public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
 {
 
-    [SerializeField] private List<Connector> _connectors;
-    [SerializeField] Color gizmoColor;
-    private Vector3 centreOfMass;
-
+    //[SerializeField] private List<Connector> _connectors;
+    public ConnectorGroupTypes orientation;
+    public Vector3 heading => orientation == ConnectorGroupTypes.SIDE ?  transform.forward : orientation == ConnectorGroupTypes.TOP ? transform.up : -transform.up;
 
 
     public bool isUsed = false;
 
-    public int connectorCount;
+    public int connectorCount = 0;
 
     private void Awake()
     {
@@ -25,7 +24,7 @@ public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
           */  
     }
 
-    public Vector3 GetUnionPoint()
+    /*public Vector3 GetUnionPoint()
     {
         // Formula for Weighted Average:
         // (Sum(Value * weight)) / Sum(Weights) 
@@ -43,16 +42,16 @@ public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
 
         print(centreOfMass);
         return centreOfMass;
-    }
+    }*/
 
-    public int GetConnectorCount() => _connectors.Count;
+    //public int GetConnectorCount() => _connectors.Count;
 
     public int CompareTo(ConnectorGroup other)
     {
         // I want the large ones at the start of the lists
-        if (this._connectors.Count > other._connectors.Count)
+        if (this.connectorCount > other.connectorCount)
             return -1;
-        else if (this._connectors.Count < other._connectors.Count)
+        else if (this.connectorCount < other.connectorCount)
             return 1;
         else
             return 0;
