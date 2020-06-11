@@ -1,36 +1,47 @@
 ﻿using System;
 using UnityEngine;
 
-public class CameraRig : MonoBehaviour
+public class CameraBehaviour : MonoBehaviour, IDataUser<CameraData>
 {
-    #region Serializable Classes
+    #region Data Handling
 
-    [Serializable]
-    public class CameraSettings
+    [SerializeField] private CameraData _dataFile;
+    public CameraData DataHolder
     {
-        [Header("-Positioning-")]
-        public Vector3 cameraOffset = new Vector3(1.0f, -0.3f, -4.0f);
-
-        [Header("-Camera Options-")]
-        public float camXSens = 5.0f;
-        public float camYSens = 5.0f;
-        public float minAngle = -30.0f;
-        public float maxAngle = 70.0f;
-        public float rotationSpeed = 5.0f;
-        public float maxCheckDist = 0.1f;
-
-        [Header("-Zoom-")]
-        public float fieldOfView = 70.0f;
-
-        [Header("-Visual Options-")]
-        public float hideMeshWhenDistance = .5f;
-
-        [Header("-Visual Options-")]
-        public float movementLerpSpeed = 5.0f;
+        get => _dataFile;
+        set => value = _dataFile;
     }
 
-    [SerializeField]
-    public CameraSettings cameraSettings;
+    private Vector3 cameraOffset;
+
+    public float camXSens;
+    public float camYSens;
+    public float minAngle;
+    public float maxAngle;
+    public float rotationSpeed;
+    public float maxCheckDist;
+
+    public float fieldOfView;
+
+    public float hideMeshWhenDistance;
+    public float movementLerpSpeed;
+
+    public void GetData()
+    {
+        cameraOffset = DataHolder.cameraOffset;
+
+        camXSens = DataHolder.camXSens;
+        camYSens = DataHolder.camYSens;
+        minAngle = DataHolder.minAngle;
+        maxAngle = DataHolder.maxAngle;
+        rotationSpeed = DataHolder.rotationSpeed;
+        maxCheckDist = DataHolder.maxCheckDist;
+
+        fieldOfView = DataHolder.fieldOfView;
+
+        hideMeshWhenDistance = DataHolder.hideMeshWhenDistance;
+        movementLerpSpeed = DataHolder.movementLerpSpeed;
+    }
 
     #endregion
 
@@ -49,14 +60,26 @@ public class CameraRig : MonoBehaviour
 
     public Transform Pivot { get; set; }
 
+
+    void Awake()
+    {
+        if (DataHolder == null)
+        {
+            Debug.LogError("Object doesn't have a Data Scriptable Object assigned.");
+            throw new UnityException();
+        }
+
+        GetData();
+    }
+
     void Start()
     {
         Pivot = transform.GetChild(0);
 
         cam = Pivot.GetComponentInChildren<Camera>();
-        cam.fieldOfView = cameraSettings.fieldOfView;
+        cam.fieldOfView = fieldOfView;
 
-        currentOffset = cameraSettings.cameraOffset;
+        currentOffset = cameraOffset;
 
     }
 
@@ -101,7 +124,7 @@ public class CameraRig : MonoBehaviour
 
         float distance = Mathf.Abs(currentOffset.z);
 
-        if (Physics.SphereCast(Pivot.position, cameraSettings.maxCheckDist,
+        if (Physics.SphereCast(Pivot.position, maxCheckDist,
             direction, out RaycastHit hit, distance, wallLayers))
         {
             MoveCameraForward(hit, direction);
@@ -130,7 +153,7 @@ public class CameraRig : MonoBehaviour
         //Postions the cameras localPosition to a given location
         cam.transform.localPosition =
             Vector3.Lerp(cam.transform.localPosition, newPosition,
-            Time.deltaTime * cameraSettings.movementLerpSpeed);
+            Time.deltaTime * movementLerpSpeed);
     }
 
     /// <summary>
@@ -143,7 +166,7 @@ public class CameraRig : MonoBehaviour
 
 
         if (Physics.Raycast(cam.transform.position, cam.transform.forward,
-        1000, playerLayer) || distance <= cameraSettings.hideMeshWhenDistance)
+        1000, playerLayer) || distance <= hideMeshWhenDistance)
         {
             // Unchecks "Player" layer to the camera's culling mask
             cam.cullingMask &= ~(playerLayer);
@@ -161,11 +184,11 @@ public class CameraRig : MonoBehaviour
     public void RotateCamera(float camYAxis)
     {
 
-        newY += cameraSettings.camYSens * camYAxis;
+        newY += camYSens * camYAxis;
 
         Vector3 eulerAngleAxis = new Vector3 { x = newY, y = 0 };
 
-        newY = Mathf.Clamp(newY, cameraSettings.minAngle, cameraSettings.maxAngle);
+        newY = Mathf.Clamp(newY, minAngle, maxAngle);
 
         Pivot.localRotation = Quaternion.Euler(eulerAngleAxis);
     }
@@ -194,20 +217,12 @@ public class CameraRig : MonoBehaviour
         //RaycastHit hit = Physics.Raycast(r, 10000.0f, layerMask: target.gameObject.layer);
 
         bool hitTarget = Physics.Raycast(r, out RaycastHit hitInf, range);
-        
+
         if (hitTarget) return hitInf.point;
 
         else return cam.transform.forward * range;
     }
 
     #endregion
-
-    /*private void OnDrawGizmos() {
-        Gizmos.color = Color.yellow;
-        Gizmos
-    }*/
-
-
-
 }
 

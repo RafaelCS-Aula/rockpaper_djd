@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f035a9c2c8021464bb63dc60e4947866, type: 3}
+  m_Name: MovementData
+  m_EditorClassIdentifier: 
+  maxAcceleration: 80
+  jumpAcceleration: 400
+  gravityAcceleration: 17.5
+  maxForwardVelocity: 10
+  maxStrafeVelocity: 10
+  maxJumpVelocity: 50
+  maxFallVelocity: 50
+  walkVelocityFactor: 1
+  diagonalVelocityFactor: 0.75
+  fallingVelocityFactor: 0.7
+  mass: 1
+  damping: 5
+  maxDoubleJumpCharges: 2
+  maxDashCharges: 2
+  doubleJumpCooldown: 5
+  dashCooldown: 5
+  dashForce: 50
+  dashDuration: 0.5

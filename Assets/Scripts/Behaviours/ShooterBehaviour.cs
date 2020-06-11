@@ -49,7 +49,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>,
 
     private ProjectileTypes[] _inventory = new ProjectileTypes[3];
 
-    private CameraRig cameraRig;
+    private CameraBehaviour cameraRig;
 
     [HideInInspector]
     public Vector3 shootingTarget;
@@ -67,7 +67,7 @@ public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>,
 
         
 
-        cameraRig = GetComponentInChildren<CameraRig>();
+        cameraRig = GetComponentInChildren<CameraBehaviour>();
         //shootingTarget = transform.forward;
         GetData();
 

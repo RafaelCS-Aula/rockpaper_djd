@@ -44,7 +44,7 @@ public class AmdSoundHandler : MonoBehaviour, ISoundHolder,
 
         }
         d++;
-        print(Mathf.Sin(Time.time));
+        //print(Mathf.Sin(Time.time));
         _bGSource.volume += 0.0005f * Mathf.Sin(Time.time);
     }
 

@@ -38,7 +38,7 @@ public class GameCanvasManager : MonoBehaviour
     {
         UpdateCrosshair(player1, p1Crosshair);
         UpdateCrosshair(player2, p2Crosshair);
-
+        
         UpdateAmmoDisplay(player1, p1AmmoDisplay);
         UpdateAmmoDisplay(player2, p2AmmoDisplay);
     }
@@ -47,15 +47,15 @@ public class GameCanvasManager : MonoBehaviour
     {
         Sprite newSprite = crosshair.sprite;
 
-        if (player.doubleJumpCharges == 0 && player.dashCharges == 0) newSprite = aim00;
-        else if (player.doubleJumpCharges == 0 && player.dashCharges == 1) newSprite = aim01;
-        else if (player.doubleJumpCharges == 0 && player.dashCharges == 2) newSprite = aim02;
-        else if (player.doubleJumpCharges == 1 && player.dashCharges == 0) newSprite = aim10;
-        else if (player.doubleJumpCharges == 1 && player.dashCharges == 1) newSprite = aim11;
-        else if (player.doubleJumpCharges == 1 && player.dashCharges == 2) newSprite = aim12;
-        else if (player.doubleJumpCharges == 2 && player.dashCharges == 0) newSprite = aim20;
-        else if (player.doubleJumpCharges == 2 && player.dashCharges == 1) newSprite = aim21;
-        else if (player.doubleJumpCharges == 2 && player.dashCharges == 2) newSprite = aim22;
+        if (player.mB.doubleJumpCharges == 0 && player.mB.dashCharges == 0) newSprite = aim00;
+        else if (player.mB.doubleJumpCharges == 0 && player.mB.dashCharges == 1) newSprite = aim01;
+        else if (player.mB.doubleJumpCharges == 0 && player.mB.dashCharges == 2) newSprite = aim02;
+        else if (player.mB.doubleJumpCharges == 1 && player.mB.dashCharges == 0) newSprite = aim10;
+        else if (player.mB.doubleJumpCharges == 1 && player.mB.dashCharges == 1) newSprite = aim11;
+        else if (player.mB.doubleJumpCharges == 1 && player.mB.dashCharges == 2) newSprite = aim12;
+        else if (player.mB.doubleJumpCharges == 2 && player.mB.dashCharges == 0) newSprite = aim20;
+        else if (player.mB.doubleJumpCharges == 2 && player.mB.dashCharges == 1) newSprite = aim21;
+        else if (player.mB.doubleJumpCharges == 2 && player.mB.dashCharges == 2) newSprite = aim22;
 
 
         crosshair.overrideSprite = newSprite;
