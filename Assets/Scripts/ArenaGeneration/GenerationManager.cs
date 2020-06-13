@@ -5,18 +5,35 @@ using UnityEngine;
 public class GenerationManager : MonoBehaviour
 {
    
-
+    [Header("----- Content Settings ------")]
     [SerializeField] private bool _setCentralPiece = false;
     [SerializeField] private ArenaPiece _centralPiece;
+        
+    [SerializeField] private List<ArenaPiece> piecesForGeneration;
 
-    [SerializeField] private bool allowDuplicates = false;
-    [SerializeField] private int maxPieces;
+    [Header("------ Generation Settings --------")]
 
+    [SerializeField] private bool useAllPiecesOfList = true;
+    [SerializeField] private bool _allowDuplicates = false;
+    [SerializeField] private int _maxSidePieces;
+    
+    [SerializeField] private float _pieceDistance = 0.0001f;
+
+    [Header("------ Vertical Level Settings --------")]
+    [SerializeField] private int _upperLevels = 0;
+    [SerializeField] private bool _upperIslandGeneration;
+    [SerializeField] private int _upperIslandsMaxPieces = 1;
+
+    [Header("--")]
+    [SerializeField] private int _lowerLevels = 0;
+
+    [SerializeField] private bool _lowerIslandGeneration;
+    [SerializeField] private int _lowerIslandsMaxPieces = 1;
 
 
     private List<ArenaPiece> _placedPieces;
 
-    [SerializeField] private List<ArenaPiece> piecesForGeneration;
+
     private List<List<ArenaPiece>> _sortedPieces;
 
 
@@ -33,6 +50,8 @@ public class GenerationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(_allowDuplicates && useAllPiecesOfList)
+            Debug.LogError("ALLOWING DUPLICATES AND USE ALL PIECES CANNOT BE ON AT THE SAME TIME IT IS AN INFINITE LOOP");
 
         foreach (ArenaPiece a in piecesForGeneration)
             a.Setup();
@@ -50,7 +69,7 @@ public class GenerationManager : MonoBehaviour
         // Place the first piece
         PickFirstPiece();
 
-        MakeArena();
+        MakeBaseArena();
 
 
         /* List<int> i = new List<int>();
@@ -72,7 +91,7 @@ public class GenerationManager : MonoBehaviour
     /// <summary>
     /// Selects the pieces that are evaluated and then spawned
     /// </summary>
-    private void MakeArena()
+    private void MakeBaseArena()
     {
         // Make an array listing all the sizes of the biggest groups in the 
         // sorted pieces groups
@@ -100,10 +119,11 @@ public class GenerationManager : MonoBehaviour
             selectPiece:
 
             int rng = Random.Range(0,_sortedPieces[myPieceList].Count);
+
             _evaluatingPiece = _sortedPieces[myPieceList][rng];
             
             (bool valid, Transform trn) evaluationResult =
-                 _selectedPiece.EvaluatePiece(_evaluatingPiece);
+                 _selectedPiece.EvaluatePiece(_evaluatingPiece, _pieceDistance);
 
             if(evaluationResult.valid)
             {
@@ -111,9 +131,15 @@ public class GenerationManager : MonoBehaviour
                 evaluationResult.trn.position, evaluationResult.trn.rotation);
                 _placedPieces.Add(_evaluatingPiece);
                 
-                if(!allowDuplicates)
+                if(!_allowDuplicates)
                     _sortedPieces[myPieceList].RemoveAt(rng);
+                if(!useAllPiecesOfList && _placedPieces.Count >= _maxSidePieces)
+                    break;
+
             }
+            else
+                myPieceList--;
+
             if(_selectedPiece.isFull())
                 continue;
             else
@@ -141,7 +167,7 @@ public class GenerationManager : MonoBehaviour
 
         }
 
-        if(!allowDuplicates && _setCentralPiece)
+        if(!_allowDuplicates && _setCentralPiece)
             _sortedPieces[0].RemoveAt(0);
 
         _placedPieces.Add(choosen);
