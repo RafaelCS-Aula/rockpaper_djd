@@ -95,6 +95,10 @@ public class MovementBehaviour : MonoBehaviour, IDataUser<MovementData>, ISoundP
     [HideInInspector] public bool isDashCharging;
 
 
+    public LayerMask wallLayers;
+
+
+
     private void Awake()
     {
         if (DataHolder == null)
@@ -130,6 +134,14 @@ public class MovementBehaviour : MonoBehaviour, IDataUser<MovementData>, ISoundP
 
     #region FixedUpdate Methods	
 
+    private void FixedUpdate()
+    {
+        UpdateAcceleration();
+        UpdateVelocityFactor();
+        UpdateVelocity();
+        UpdatePosition();
+    }
+
     public void UpdateAcceleration()
     {
         acceleration.x = strafeAxis * maxAcceleration;
@@ -144,6 +156,8 @@ public class MovementBehaviour : MonoBehaviour, IDataUser<MovementData>, ISoundP
 
         else acceleration.y = (controller.isGrounded) ? 0 :
                 -gravityAcceleration;
+
+        CheckForCeiling();
     }
 
     public void UpdateVelocityFactor()
@@ -166,7 +180,7 @@ public class MovementBehaviour : MonoBehaviour, IDataUser<MovementData>, ISoundP
         velocity += acceleration * Time.fixedDeltaTime;
 
         velocity.x = acceleration.x == 0f ? velocity.x = 0f : Mathf.Clamp(
-            velocity.x, -maxStrafeVelocity  * velocityFactor,
+            velocity.x, -maxStrafeVelocity * velocityFactor,
             maxStrafeVelocity * velocityFactor);
 
         velocity.y = acceleration.y == 0f ? velocity.y = -0.1f : Mathf.Clamp(
@@ -178,6 +192,13 @@ public class MovementBehaviour : MonoBehaviour, IDataUser<MovementData>, ISoundP
             maxForwardVelocity * velocityFactor);
 
         if (currentImpact.magnitude > 0.2f) velocity += currentImpact;
+
+        // Sets Y velocity to zero if the character controller detects
+        // collisions above
+        if ((controller.collisionFlags & CollisionFlags.Above) != 0)
+        {
+            velocity.y = 0;
+        }
     }
 
     public void UpdatePosition()

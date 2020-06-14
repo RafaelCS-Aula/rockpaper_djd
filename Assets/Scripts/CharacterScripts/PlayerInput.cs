@@ -53,9 +53,9 @@ public class PlayerInput : MonoBehaviour
 
     private void UpdateMovementAxis()
     {
-        mB.strafeAxis = Input.GetAxis(iS.hMovAxis);
+        mB.strafeAxis = Input.GetAxisRaw(iS.hMovAxis);
 
-        mB.forwardAxis = Input.GetAxis(iS.vMovAxis);
+        mB.forwardAxis = Input.GetAxisRaw(iS.vMovAxis);
     }
 
     private void UpdateCamera()
@@ -119,15 +119,8 @@ public class PlayerInput : MonoBehaviour
 
     #endregion
 
-    private void FixedUpdate()
-    {
-        mB.UpdateAcceleration();
-        mB.UpdateVelocityFactor();
-        mB.UpdateVelocity();
-        mB.UpdatePosition();
-    }
-
     //Remove Method from Class for VerticalSlice
+
     private void SetTypeIndicator()
     {
         ProjectileTypes pType = sB.GetSelectedWeapon();

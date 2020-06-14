@@ -71,4 +71,6 @@ public class GameCanvasManager : MonoBehaviour
             $"Sphere (Paper) ammo: {currentPaper}/{maxPaper}\n" +
             $"Cube (Scissors) ammo: {currentScissors}/{maxScissors}\n";
     }
+
+
 }
