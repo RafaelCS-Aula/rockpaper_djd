@@ -29,29 +29,27 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     }
 
     public (bool valid, Transform positionRot) EvaluatePiece(
-        ArenaPiece other, float pieceDistance = 0.0f)
+        ArenaPiece other, float pieceDistance = 0.0f, int groupTolerance = 0)
     {
+        Transform testTrn;
         //TODO: Check for intersecting geometry
+        //Spawn the piece and have it tell if the trigger collider reports back
 
         foreach(ConnectorGroup co in other.sideConnectorGroups)
         {
             foreach(ConnectorGroup ct in this.sideConnectorGroups)
             {
                 if(!co.isUsed && !ct.isUsed && 
-                    co.connectorCount == ct.connectorCount)
+                    co.connectorCount >= ct.connectorCount - groupTolerance &&
+                    co.connectorCount <= ct.connectorCount)
                     {
-                        co.isUsed = true;
-                        return (true, TransformPiece(
+                        testTrn = TransformPiece(
                             ct,
                             co, 
                             other, 
-                            pieceDistance)
-                        );
+                            pieceDistance);
+                        //TODO: Check for intersecting geometry
                     }
-                
-
-                else 
-                    return (false, null);
             }
 
         }
@@ -82,13 +80,13 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
         // Have the other connector group look towards my connector group
         connectorPointRotation.SetLookRotation(
-            -myConnectorGroup.transform.forward,
-             otherConnectorGroup.transform.up);
+            -myConnectorGroup.heading,
+             transform.up);
 
         // Apply the rotation acquired above
         newPieceTrn.rotation = connectorPointRotation;
 
-        // move the connectors away from each other based on an offset
+        // move the pieces away from each other based on an offset
         newPieceTrn.position -= newPieceTrn.forward * offset;
 
         // get the parenting back to normal to safeguard future transformations.
