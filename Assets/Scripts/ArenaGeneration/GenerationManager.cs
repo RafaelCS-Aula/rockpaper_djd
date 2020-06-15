@@ -16,6 +16,7 @@ public class GenerationManager : MonoBehaviour
     [SerializeField] private bool useAllPiecesOfList = true;
     [SerializeField] private bool _allowDuplicates = false;
     [SerializeField] private int _maxSidePieces;
+    [SerializeField] private int _groupTolerance = 0;
     
     [SerializeField] private float _pieceDistance = 0.0001f;
 
@@ -48,10 +49,11 @@ public class GenerationManager : MonoBehaviour
     private int smallestLargestGroup;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        
         if(_allowDuplicates && useAllPiecesOfList)
-            Debug.LogError("ALLOWING DUPLICATES AND USE ALL PIECES CANNOT BE ON AT THE SAME TIME IT IS AN INFINITE LOOP");
+            Debug.Log("ALLOWING DUPLICATES AND USE ALL PIECES CANNOT BE ON AT THE SAME TIME IT IS AN INFINITE LOOP");
 
         foreach (ArenaPiece a in piecesForGeneration)
             a.Setup();
@@ -69,8 +71,11 @@ public class GenerationManager : MonoBehaviour
         // Place the first piece
         PickFirstPiece();
 
+        // Make base level of Arena
         MakeBaseArena();
 
+        
+        MakeVerticalArena();
 
         /* List<int> i = new List<int>();
         i.Add(2);
@@ -145,6 +150,11 @@ public class GenerationManager : MonoBehaviour
             else
                 goto selectPiece;
         }
+    }
+
+    private void MakeVerticalArena()
+    {
+
     }
 
     /// <summary>
