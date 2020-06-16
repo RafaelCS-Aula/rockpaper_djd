@@ -53,7 +53,13 @@ public class GenerationManager : MonoBehaviour
     {
         
         if(_allowDuplicates && useAllPiecesOfList)
-            Debug.Log("ALLOWING DUPLICATES AND USE ALL PIECES CANNOT BE ON AT THE SAME TIME IT IS AN INFINITE LOOP");
+        {
+            Debug.LogError(" 'ALLOW DUPLICATES' AND 'USE ALL PIECES' CANNOT BE"
+             +"ON AT THE SAME TIME IT IS AN INFINITE LOOP");
+            Debug.Break();
+
+        }
+
 
         foreach (ArenaPiece a in piecesForGeneration)
             a.Setup();
@@ -74,8 +80,8 @@ public class GenerationManager : MonoBehaviour
         // Make base level of Arena
         MakeBaseArena();
 
-        
-        MakeVerticalArena();
+        if(_upperLevels > 0 || _lowerLevels > 0)
+            MakeVerticalArena();
 
         /* List<int> i = new List<int>();
         i.Add(2);
@@ -106,54 +112,75 @@ public class GenerationManager : MonoBehaviour
         for(int i = 0; i < sizeArray.Length; i++)
             sizeArray[i] = _sortedPieces[i][0].largestGroupCount;
 
-        /////////////////
-         
+         // Check what list of the sorted list the selected belongs to
         int myPieceList = 0;
 
         for (int i = 0; i < _placedPieces.Count; i++)
         {
             _selectedPiece = _placedPieces[i];
             
-            // Check what list of the sorted list the selected belongs to
+            
             for(int x = 0; x < sizeArray.Length; x++)
                 if(_selectedPiece.largestGroupCount == sizeArray[x])
                     myPieceList = sizeArray[x];
 
-            //////////////////
+            // Reset wasAnalyzed in all the pieces that are yet to be evaluated.
+            foreach(ArenaPiece a in _sortedPieces[myPieceList])
+                a.wasAnalysed = false;
 
+            // Pick a piece to evaluate against our selected placed one
             selectPiece:
 
             int rng = Random.Range(0,_sortedPieces[myPieceList].Count);
 
-            _evaluatingPiece = _sortedPieces[myPieceList][rng];
-            
-            (bool valid, Transform trn) evaluationResult =
-                 _selectedPiece.EvaluatePiece(_evaluatingPiece, _pieceDistance);
+            // INFINITE LOOP IF ALL WERE ANALYSED ALREADY
+            if(!_sortedPieces[myPieceList][rng].wasAnalysed)
+                _evaluatingPiece = _sortedPieces[myPieceList][rng];
+            else
+                goto selectPiece;
 
+            // Compare all the connectors on both pieces and get a transform to
+            // where to place the evaluated piece
+            (bool valid, Transform trn) evaluationResult =
+                 _selectedPiece.EvaluatePiece(_evaluatingPiece, 
+                 _pieceDistance, 
+                 _groupTolerance);
+
+            // If things worked out, spawn the piece in the correct position
             if(evaluationResult.valid)
             {
                 Instantiate(_evaluatingPiece,
                 evaluationResult.trn.position, evaluationResult.trn.rotation);
+
                 _placedPieces.Add(_evaluatingPiece);
                 
                 if(!_allowDuplicates)
                     _sortedPieces[myPieceList].RemoveAt(rng);
+
+                // if we're at the piece limit break out of the method
                 if(!useAllPiecesOfList && _placedPieces.Count >= _maxSidePieces)
-                    break;
+                    return;
 
             }
-            else
-                myPieceList--;
+            else // No valid connectors in the given piece
+                _evaluatingPiece.wasAnalysed = true;
 
+            // if this one has no more free connectors, move on to the next 
+            // placed piece
             if(_selectedPiece.isFull())
                 continue;
-            else
+            else // else choose another piece to evaluate for this one
                 goto selectPiece;
         }
     }
 
     private void MakeVerticalArena()
     {
+        // Upper Pieces
+        foreach(ArenaPiece a in _placedPieces)
+            if(a.)
+
+
 
     }
 
