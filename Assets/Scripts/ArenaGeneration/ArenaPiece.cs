@@ -6,7 +6,12 @@ using UnityEngine;
 public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 {
 
-    private List<ConnectorGroup> sideConnectorGroups;
+    [SerializeField] private List<ConnectorGroup> sideConnectorGroups;
+    [SerializeField] private ConnectorGroup _topConnector;
+    [SerializeField] private ConnectorGroup _bottomConnector;
+
+
+    [HideInInspector] public bool wasAnalysed = false;
     public int largestGroupCount;
     public int smallestGroupCount;
 
@@ -28,12 +33,50 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
     }
 
+    public (bool valid, Transform position) EvaluatePieceVertical(
+        ArenaPiece other, bool upper, float pieceDistance = 0.00f,
+         int groupTolerance = 0)
+        {
+            ConnectorGroup myCon = null;
+            ConnectorGroup otherCon = null;
+            if(upper && other._topConnector != null)
+            {
+                myCon = _topConnector;
+                otherCon = other._bottomConnector; 
+
+            }
+            else if(!upper && other._bottomConnector != null)
+            {
+                myCon = _bottomConnector;
+                otherCon = other._topConnector; 
+
+            } 
+
+            if(!otherCon.isUsed && !myCon.isUsed && 
+                otherCon.connectorCount >= myCon.connectorCount-groupTolerance 
+                && otherCon.connectorCount <= myCon.connectorCount)
+                    {
+                        
+                        return (true, TransformPiece(
+                            myCon,
+                            otherCon, 
+                            other, 
+                            pieceDistance));
+                       
+                    }
+            else 
+            return (false, null);
+
+        }
+
+
     public (bool valid, Transform positionRot) EvaluatePiece(
-        ArenaPiece other, float pieceDistance = 0.0f, int groupTolerance = 0)
+        ArenaPiece other, float pieceDistance = 0.00f, int groupTolerance = 0)
     {
-        Transform testTrn;
-        //TODO: Check for intersecting geometry
+        List<Transform> possibleTransforms = new List<Transform>();
+        //Check for intersecting geometry?
         //Spawn the piece and have it tell if the trigger collider reports back
+        // ...but what if the piece is not all in one mesh?
 
         foreach(ConnectorGroup co in other.sideConnectorGroups)
         {
@@ -43,15 +86,24 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
                     co.connectorCount >= ct.connectorCount - groupTolerance &&
                     co.connectorCount <= ct.connectorCount)
                     {
-                        testTrn = TransformPiece(
+                        possibleTransforms.Add(
+                            TransformPiece(
                             ct,
                             co, 
                             other, 
-                            pieceDistance);
-                        //TODO: Check for intersecting geometry
+                            pieceDistance));
+                       
                     }
             }
 
+        }
+
+        if(possibleTransforms.Count > 0)
+        {
+            return (true,
+                possibleTransforms[
+                UnityEngine.Random.Range(0, possibleTransforms.Count - 1)]
+                );
         }
         return (false, null);
     }
