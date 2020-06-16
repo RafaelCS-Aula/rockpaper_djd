@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
 {
-    private ConnectorGroupTypes orientation;
+    [SerializeField] private ConnectorGroupTypes orientation;
     public Vector3 heading => orientation == ConnectorGroupTypes.SIDE ?  transform.forward : orientation == ConnectorGroupTypes.TOP ? transform.up : -transform.up;
 
 
@@ -42,11 +42,11 @@ public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
 
      private void OnDrawGizmos()
      {
-         //TODO: make gizmo have random color
 
-
+        _gizmoColor.a = 1;
+        Gizmos.color = _gizmoColor;
  
-        Gizmos.DrawLine(transform.position, transform.position + heading);
+        Gizmos.DrawLine(transform.position, transform.position + heading * 2);
 
         Vector3 pos;
 
@@ -61,12 +61,15 @@ public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
              //pos.x = transform.position.x + (i * connectorSpacing);
              pos = transform.position + transform.right * i * connectorSpacing;
              //pos.z = transform.position.z * transform.right.z  + (i * connectorSpacing);
-             Gizmos.DrawWireCube(pos , new Vector3(0.5f,
-              0.5f,
-               connectorSpacing) );
-
+             if(orientation == ConnectorGroupTypes.SIDE)
+                Gizmos.DrawWireCube(pos , new Vector3(
+                    connectorSpacing,
+                    connectorSpacing,
+                    connectorSpacing) );
+            else
+                Gizmos.DrawWireSphere(pos, connectorSpacing / 2);
          }
-
+    
 
         
      }
