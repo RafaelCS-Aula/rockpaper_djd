@@ -2,31 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO: this
-public class SpawnerBehaviour : MonoBehaviour, IDataUser<ManaPickupData>
+namespace rockpaper_djd
 {
-    [SerializeField] private ManaPickupData _dataHolder;
-    public ManaPickupData DataHolder
+    // TODO: this
+    public class SpawnerBehaviour : MonoBehaviour, IDataUser<ManaPickupData>
     {
-        get => _dataHolder;
-        set => value = _dataHolder;
-    }
+        [SerializeField] private ManaPickupData _dataHolder;
+        public ManaPickupData DataHolder
+        {
+            get => _dataHolder;
+            set => value = _dataHolder;
+        }
 
-    
-    public void GetData()
-    {
-        
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        public void GetData()
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

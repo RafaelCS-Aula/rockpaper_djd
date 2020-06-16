@@ -1,108 +1,111 @@
 ﻿using System;
 using UnityEngine;
 
-[ExecuteInEditMode]
-public class InputSettings : MonoBehaviour
+namespace rockpaper_djd
 {
-    [Header("Movement Controls")]
-    public string hMovAxis = "KeyboardHorizontal";
-    public string vMovAxis = "KeyboardVertical";
-
-    public KeyCode jump = KeyCode.Space;
-    public KeyCode dash = KeyCode.LeftShift;
-
-
-    [Header("Camera Controls")]
-    public string hCamAxis = "Mouse X";
-    public string vCamAxis = "Mouse Y";
-    public KeyCode switchShoulders = KeyCode.V;
-
-
-    [Header("Combat Controls")]
-    public KeyCode shoot = KeyCode.Mouse0;
-
-    public KeyCode previousType = KeyCode.JoystickButton4;
-    public KeyCode nextType = KeyCode.JoystickButton5;  
-    public string typeScrollAxis = "Mouse ScrollWheel";
-
-    public KeyCode switchToRock = KeyCode.Alpha1;
-    public KeyCode switchToPaper = KeyCode.Alpha2;
-    public KeyCode switchToScissors = KeyCode.Alpha3;
-
-
-    public void SetInputType(InputType inputType)
+    [ExecuteInEditMode]
+    public class InputSettings : MonoBehaviour
     {
-        switch (inputType)
+        [Header("Movement Controls")]
+        public string hMovAxis = "KeyboardHorizontal";
+        public string vMovAxis = "KeyboardVertical";
+
+        public KeyCode jump = KeyCode.Space;
+        public KeyCode dash = KeyCode.LeftShift;
+
+
+        [Header("Camera Controls")]
+        public string hCamAxis = "Mouse X";
+        public string vCamAxis = "Mouse Y";
+        public KeyCode switchShoulders = KeyCode.V;
+
+
+        [Header("Combat Controls")]
+        public KeyCode shoot = KeyCode.Mouse0;
+
+        public KeyCode previousType = KeyCode.JoystickButton4;
+        public KeyCode nextType = KeyCode.JoystickButton5;
+        public string typeScrollAxis = "Mouse ScrollWheel";
+
+        public KeyCode switchToRock = KeyCode.Alpha1;
+        public KeyCode switchToPaper = KeyCode.Alpha2;
+        public KeyCode switchToScissors = KeyCode.Alpha3;
+
+
+        public void SetInputType(InputType inputType)
         {
-            case InputType.Keyboard1:
+            switch (inputType)
+            {
+                case InputType.Keyboard1:
 
-                hMovAxis = "KeyboardHorizontal";
-                vMovAxis = "KeyboardVertical";
+                    hMovAxis = "KeyboardHorizontal";
+                    vMovAxis = "KeyboardVertical";
 
-                jump = KeyCode.Space;
-                dash = KeyCode.LeftShift;
+                    jump = KeyCode.Space;
+                    dash = KeyCode.LeftShift;
 
-                hCamAxis = "Mouse X";
-                vCamAxis = "Mouse Y";
+                    hCamAxis = "Mouse X";
+                    vCamAxis = "Mouse Y";
 
-                switchShoulders = KeyCode.V;
+                    switchShoulders = KeyCode.V;
 
-                shoot = KeyCode.Mouse0;
+                    shoot = KeyCode.Mouse0;
 
-                typeScrollAxis = "Mouse ScrollWheel";
+                    typeScrollAxis = "Mouse ScrollWheel";
 
-                switchToRock = KeyCode.Alpha1;
-                switchToPaper = KeyCode.Alpha2;
-                switchToScissors = KeyCode.Alpha3;
+                    switchToRock = KeyCode.Alpha1;
+                    switchToPaper = KeyCode.Alpha2;
+                    switchToScissors = KeyCode.Alpha3;
 
-                break;
+                    break;
 
-            case InputType.Keyboard2:
+                case InputType.Keyboard2:
 
-                hMovAxis = "KeyboardHorizontal";
-                vMovAxis = "KeyboardVertical";
+                    hMovAxis = "KeyboardHorizontal";
+                    vMovAxis = "KeyboardVertical";
 
-                jump = KeyCode.Space;
-                dash = KeyCode.LeftShift;
+                    jump = KeyCode.Space;
+                    dash = KeyCode.LeftShift;
 
-                hCamAxis = "Mouse X";
-                vCamAxis = "Mouse Y";
+                    hCamAxis = "Mouse X";
+                    vCamAxis = "Mouse Y";
 
-                switchShoulders = KeyCode.V;
+                    switchShoulders = KeyCode.V;
 
-                shoot = KeyCode.Mouse0;
+                    shoot = KeyCode.Mouse0;
 
-                previousType = KeyCode.N;
-                nextType = KeyCode.M;
+                    previousType = KeyCode.N;
+                    nextType = KeyCode.M;
 
-                switchToRock = KeyCode.Alpha4;
-                switchToPaper = KeyCode.Alpha5;
-                switchToScissors = KeyCode.Alpha6;
+                    switchToRock = KeyCode.Alpha4;
+                    switchToPaper = KeyCode.Alpha5;
+                    switchToScissors = KeyCode.Alpha6;
 
-                break;
+                    break;
 
-            case InputType.PS4Controller:
+                case InputType.PS4Controller:
 
-                hMovAxis = "LeftJoystickHorizontal";
-                vMovAxis = "LeftJoystickVertical";
+                    hMovAxis = "LeftJoystickHorizontal";
+                    vMovAxis = "LeftJoystickVertical";
 
-                jump = KeyCode.JoystickButton1;
-                dash = KeyCode.JoystickButton6;
+                    jump = KeyCode.JoystickButton1;
+                    dash = KeyCode.JoystickButton6;
 
-                hCamAxis = "RightJoystickHorizontal";
-                vCamAxis = "RightJoystickVertical";
+                    hCamAxis = "RightJoystickHorizontal";
+                    vCamAxis = "RightJoystickVertical";
 
-                switchShoulders = KeyCode.JoystickButton10;
+                    switchShoulders = KeyCode.JoystickButton10;
 
-                shoot = KeyCode.JoystickButton7;
+                    shoot = KeyCode.JoystickButton7;
 
-                previousType = KeyCode.JoystickButton4;
-                nextType = KeyCode.JoystickButton5;
+                    previousType = KeyCode.JoystickButton4;
+                    nextType = KeyCode.JoystickButton5;
 
-                break;
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
 }

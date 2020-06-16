@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISoundPlayer<T> where T : ISoundHolder
+namespace rockpaper_djd
 {
-    T audioHandler { get; set; }
+    public interface ISoundPlayer<T> where T : ISoundHolder
+    {
+        T audioHandler { get; set; }
 
- 
+
+    }
 }

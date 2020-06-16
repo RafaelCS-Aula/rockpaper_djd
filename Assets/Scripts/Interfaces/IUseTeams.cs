@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IUseTeams
+namespace rockpaper_djd
 {
-    int teamID { get; set; }
+    public interface IUseTeams
+    {
+        int teamID { get; set; }
 
-    void InteractFriend(IUseTeams other);
-    void InteractEnemy(IUseTeams other);
+        void InteractFriend(IUseTeams other);
+        void InteractEnemy(IUseTeams other);
 
 
+    }
 }

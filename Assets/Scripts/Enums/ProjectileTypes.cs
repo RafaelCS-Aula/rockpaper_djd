@@ -1,5 +1,7 @@
 using System;
 
+namespace rockpaper_djd
+{
     [Flags]
     public enum ProjectileTypes
     {
@@ -8,3 +10,4 @@ using System;
         PAPER = 2,
         SCISSORS = 4
     }
+}

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDataUser<T> where T : ScriptableObject
+namespace rockpaper_djd
 {
+    public interface IDataUser<T> where T : ScriptableObject
+    {
 
-    T DataHolder {get; set;}
-    
-    void GetData();
+        T DataHolder { get; set; }
 
+        void GetData();
+
+    }
 }

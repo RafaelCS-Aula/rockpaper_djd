@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAcceleration: 80
   jumpAcceleration: 400
-  gravityAcceleration: 17.5
+  gravityAcceleration: 20
   maxForwardVelocity: 10
   maxStrafeVelocity: 10
   maxJumpVelocity: 50
-  maxFallVelocity: 50
+  maxFallVelocity: 100
   walkVelocityFactor: 1
   diagonalVelocityFactor: 0.75
   fallingVelocityFactor: 0.7

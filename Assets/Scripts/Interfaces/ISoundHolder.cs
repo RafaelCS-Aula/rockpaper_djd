@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public interface ISoundHolder
+namespace rockpaper_djd
 {
+    public interface ISoundHolder
+    {
 
-    void PlayAudio(AudioClip sound, float volume);
+        void PlayAudio(AudioClip sound, float volume);
 
+    }
 }
-

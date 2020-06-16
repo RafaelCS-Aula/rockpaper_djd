@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638993df98b8caf47b30be02edc8e63e, type: 3}
+  m_Name: GM - Duel
+  m_EditorClassIdentifier: 
+  gameModeName: Duel
+  gameModeDescription: "Contestants start on opposite sides of the map, each with
+    a \u201CTrinity Gauntlet\u201D that can cycle through the three projectile types.\n\nThe
+    first player to defeat the other five times, wins the match."
+  timeLimit: 1000
+  scoreLimit: 5
+  pointsPerKill: 1
+  pointsPerScondInZone: 0
+  resetBothPlayers: 0
+  arenaChanges: 1
+  gauntletStartsIncomplete: 0
+  availableAmmoTypes: 010101
+  ammoPickups: 1
+  healthPickups: 1
+  respawnImmunity: 1
+  AMR: 1
+  smokeScreen: 1

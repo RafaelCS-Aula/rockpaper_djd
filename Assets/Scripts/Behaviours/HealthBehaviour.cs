@@ -2,56 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthBehaviour : MonoBehaviour, IUseTeams
+namespace rockpaper_djd
 {
-
-    [SerializeField] private int _maxHp;
-    private int _currentHp;
-    [SerializeField] private int _startingHp;
-    [SerializeField] private bool startWithMaxHp = true;
-
-    [SerializeField] private float _damagedCooldown;
-    private float _currentCooldown;
-
-    public int teamID { get; set; }
-
-    // Start is called before the first frame update
-    void Awake()
+    public class HealthBehaviour : MonoBehaviour, IUseTeams
     {
-        if (startWithMaxHp)
-            _startingHp = _maxHp;
 
-        _currentHp = _startingHp;
+        [SerializeField] private int _maxHp;
+        private int _currentHp;
+        [SerializeField] private int _startingHp;
+        [SerializeField] private bool startWithMaxHp = true;
 
-        _currentCooldown = _damagedCooldown;
-    }
+        [SerializeField] private float _damagedCooldown;
+        private float _currentCooldown;
 
-    void Update()
-    {
-        _currentCooldown += Time.deltaTime;
+        public int teamID { get; set; }
 
-        if (_currentHp <= 0)
-            Die();
-
-        _currentHp = Mathf.Clamp(_currentHp, 0, _maxHp);
-    }
-
-    public void InteractFriend(IUseTeams other) { }
-    public void InteractEnemy(IUseTeams other) 
-    {
-        if (_currentCooldown >= _damagedCooldown)
+        // Start is called before the first frame update
+        void Awake()
         {
-            _currentHp--;
-            _currentCooldown = 0;
+            if (startWithMaxHp)
+                _startingHp = _maxHp;
+
+            _currentHp = _startingHp;
+
+            _currentCooldown = _damagedCooldown;
         }
-            
 
-        
+        void Update()
+        {
+            _currentCooldown += Time.deltaTime;
+
+            if (_currentHp <= 0)
+                Die();
+
+            _currentHp = Mathf.Clamp(_currentHp, 0, _maxHp);
+        }
+
+        public void InteractFriend(IUseTeams other) { }
+        public void InteractEnemy(IUseTeams other)
+        {
+            if (_currentCooldown >= _damagedCooldown)
+            {
+                _currentHp--;
+                _currentCooldown = 0;
+            }
+
+
+
+        }
+
+        void Die()
+        {
+            Destroy(gameObject);
+        }
+
     }
-
-    void Die()
-    {
-        Destroy(gameObject);
-    }
-
 }

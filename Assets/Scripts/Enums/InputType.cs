@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum InputType
+namespace rockpaper_djd
 {
-    Keyboard1,
-    Keyboard2,
-    PS4Controller
+    public enum InputType
+    {
+        Keyboard1,
+        Keyboard2,
+        PS4Controller
+    }
 }

@@ -446,14 +446,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dataFile: {fileID: 11400000, guid: fb2a9b48c55e49f4280fd1f9ecc73fe9, type: 2}
   camXSens: 0
-  camYSens: 0
-  minAngle: 0
-  maxAngle: 0
-  rotationSpeed: 0
-  maxCheckDist: 0
-  fieldOfView: 0
-  hideMeshWhenDistance: 0
-  movementLerpSpeed: 0
   target: {fileID: 8242576867740898668}
   wallLayers:
     serializedVersion: 2
@@ -861,24 +853,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dataFile: {fileID: 11400000, guid: 48b17cf615cfe0a4c87cd0da5513b78e, type: 2}
-  maxAcceleration: 0
-  jumpAcceleration: 0
-  gravityAcceleration: 0
-  maxForwardVelocity: 0
-  maxStrafeVelocity: 0
-  maxJumpVelocity: 0
-  maxFallVelocity: 0
-  walkVelocityFactor: 0
-  diagonalVelocityFactor: 0
-  fallingVelocityFactor: 0
-  mass: 0
-  damping: 0
-  maxDoubleJumpCharges: 0
-  maxDashCharges: 0
-  doubleJumpCooldown: 0
-  dashCooldown: 0
-  dashForce: 0
-  dashDuration: 0
   controller: {fileID: 0}
   strafeAxis: 0
   forwardAxis: 0
@@ -892,6 +866,9 @@ MonoBehaviour:
   dashTimer: 0
   isDoubleJumpCharging: 0
   isDashCharging: 0
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &8242576867740898685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1069,7 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useSetTeam: 1
-  setTeamID: 1
+  setTeamID: 2
 --- !u!114 &3453349216809464258
 MonoBehaviour:
   m_ObjectHideFlags: 0
