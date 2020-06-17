@@ -770,7 +770,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8242576867740898668}
   - component: {fileID: 8242576867740898669}
-  - component: {fileID: 8242576867740898684}
+  - component: {fileID: 7881810944088563343}
   - component: {fileID: 8242576867740898672}
   - component: {fileID: 8242576867740898685}
   - component: {fileID: 7978892960248581368}
@@ -821,7 +821,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8242576867740898684
+--- !u!114 &7881810944088563343
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -830,16 +830,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 8242576867740898675}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8fa00e0712466f44bb80f611183a492, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fddcaa4a9f2dfc4a9378865768ccd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputType: 2
+  _dataFile: {fileID: 11400000, guid: b30eef0bacd285441a876d287b2e9d69, type: 2}
+  inputName: 
+  hMovAxis: 
+  vMovAxis: 
+  jump: 0
+  dash: 0
+  hCamAxis: 
+  vCamAxis: 
+  switchShoulders: 0
+  shoot: 0
+  previousType: 0
+  nextType: 0
+  typeScrollAxis: 
+  switchToRock: 0
+  switchToPaper: 0
+  switchToScissors: 0
   mB: {fileID: 0}
   sB: {fileID: 0}
-  rockIndicator: {fileID: 3453349215376381307}
-  paperIndicator: {fileID: 3453349215607828696}
-  scissorsIndicator: {fileID: 3453349215819874749}
-  indicatorMaterial: {fileID: 2100000, guid: 4592b41915c993d439463a496c137e7b, type: 2}
+  oldType: 0
+  newType: 0
 --- !u!114 &8242576867740898672
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -271,14 +271,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dataFile: {fileID: 11400000, guid: fb2a9b48c55e49f4280fd1f9ecc73fe9, type: 2}
   camXSens: 0
-  camYSens: 0
-  minAngle: 0
-  maxAngle: 0
-  rotationSpeed: 0
-  maxCheckDist: 0
-  fieldOfView: 0
-  hideMeshWhenDistance: 0
-  movementLerpSpeed: 0
   target: {fileID: 1703425512795093882}
   wallLayers:
     serializedVersion: 2
@@ -374,7 +366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1703425512795093882}
   - component: {fileID: 1703425512795093883}
-  - component: {fileID: 1703425512795093866}
+  - component: {fileID: 4757920641136643944}
   - component: {fileID: 1703425512795093864}
   - component: {fileID: 1703425512795093867}
   - component: {fileID: 827241042478244590}
@@ -425,7 +417,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1703425512795093866
+--- !u!114 &4757920641136643944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -434,16 +426,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1703425512795093861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8fa00e0712466f44bb80f611183a492, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fddcaa4a9f2dfc4a9378865768ccd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputType: 0
+  _dataFile: {fileID: 11400000, guid: 57b5cd3ed6284e54fa046217c280b4bc, type: 2}
+  inputName: 
+  hMovAxis: 
+  vMovAxis: 
+  jump: 0
+  dash: 0
+  hCamAxis: 
+  vCamAxis: 
+  switchShoulders: 0
+  shoot: 0
+  previousType: 0
+  nextType: 0
+  typeScrollAxis: 
+  switchToRock: 0
+  switchToPaper: 0
+  switchToScissors: 0
   mB: {fileID: 0}
   sB: {fileID: 0}
-  rockIndicator: {fileID: 5344797866266426221}
-  paperIndicator: {fileID: 5344797865969245902}
-  scissorsIndicator: {fileID: 5344797866057543595}
-  indicatorMaterial: {fileID: 2100000, guid: b3cf8438ffc965c4e88d6547d937c13a, type: 2}
+  oldType: 0
+  newType: 0
 --- !u!114 &1703425512795093864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,24 +462,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dataFile: {fileID: 11400000, guid: 48b17cf615cfe0a4c87cd0da5513b78e, type: 2}
-  maxAcceleration: 0
-  jumpAcceleration: 0
-  gravityAcceleration: 0
-  maxForwardVelocity: 0
-  maxStrafeVelocity: 0
-  maxJumpVelocity: 0
-  maxFallVelocity: 0
-  walkVelocityFactor: 0
-  diagonalVelocityFactor: 0
-  fallingVelocityFactor: 0
-  mass: 0
-  damping: 0
-  maxDoubleJumpCharges: 0
-  maxDashCharges: 0
-  doubleJumpCooldown: 0
-  dashCooldown: 0
-  dashForce: 0
-  dashDuration: 0
   controller: {fileID: 0}
   strafeAxis: 0
   forwardAxis: 0

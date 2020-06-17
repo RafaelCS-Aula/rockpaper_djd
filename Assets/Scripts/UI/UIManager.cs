@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 namespace rockpaper_djd
 {
-    public class GameCanvasManager : MonoBehaviour
+    public class UIManager : MonoBehaviour
     {
         #region Player Vars
 
-        [SerializeField] private PlayerInput player1;
-        [SerializeField] private PlayerInput player2;
+        [SerializeField] private InputBehaviour player1;
+        [SerializeField] private InputBehaviour player2;
 
         [SerializeField] private Image p1Crosshair;
         [SerializeField] private Image p2Crosshair;
@@ -65,7 +65,7 @@ namespace rockpaper_djd
 
         }
 
-        private void UpdateCrosshair(PlayerInput player, Image crosshair)
+        private void UpdateCrosshair(InputBehaviour player, Image crosshair)
         {
             Sprite newSprite = crosshair.sprite;
 
@@ -83,7 +83,7 @@ namespace rockpaper_djd
             crosshair.overrideSprite = newSprite;
         }
 
-        private void UpdateAmmoDisplay(PlayerInput player, TextMeshProUGUI ammoDisplay)
+        private void UpdateAmmoDisplay(InputBehaviour player, TextMeshProUGUI ammoDisplay)
         {
             (float maxRock, float currentRock) = player.sB.GetMana(ProjectileTypes.ROCK);
             (float maxPaper, float currentPaper) = player.sB.GetMana(ProjectileTypes.PAPER);
@@ -93,7 +93,7 @@ namespace rockpaper_djd
                 $"Cube (Scissors) ammo: {currentScissors}/{maxScissors}\n";
         }
 
-        private void UpdateIndicator(PlayerInput player, GameObject rockInd,
+        private void UpdateIndicator(InputBehaviour player, GameObject rockInd,
             GameObject paperInd, GameObject scissorsInd)
         {
             ProjectileTypes pType = player.sB.GetSelectedWeapon();

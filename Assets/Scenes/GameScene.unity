@@ -2885,11 +2885,9 @@ MonoBehaviour:
   rockIndP1: {fileID: 1055471882}
   paperIndP1: {fileID: 1456072006}
   scissorsIndP1: {fileID: 1025733355}
-  indMatP1: {fileID: 0}
   rockIndP2: {fileID: 375382058}
   paperIndP2: {fileID: 199019069}
   scissorsIndP2: {fileID: 561443268}
-  indMatP2: {fileID: 0}
 --- !u!43 &1266954759
 Mesh:
   m_ObjectHideFlags: 0
@@ -4156,6 +4154,82 @@ MonoBehaviour:
   gmName: {fileID: 22343152}
   gmDescription: {fileID: 15975516}
   info: {fileID: 704576221}
+--- !u!1 &1681713980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8242576867740898675, guid: ad26a9c05fa6ba440a7567643517227c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3453349216800842314}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1681713981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681713980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fddcaa4a9f2dfc4a9378865768ccd08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dataFile: {fileID: 0}
+  inputName: 
+  hMovAxis: 
+  vMovAxis: 
+  jump: 0
+  dash: 0
+  hCamAxis: 
+  vCamAxis: 
+  switchShoulders: 0
+  shoot: 0
+  previousType: 0
+  nextType: 0
+  typeScrollAxis: 
+  switchToRock: 0
+  switchToPaper: 0
+  switchToScissors: 0
+  mB: {fileID: 0}
+  sB: {fileID: 0}
+  oldType: 0
+  newType: 0
+--- !u!1 &1691923319 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1703425512795093861, guid: 8011b2c5b53bd54448b9350b870be4c7,
+    type: 3}
+  m_PrefabInstance: {fileID: 615685541109801906}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1691923320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691923319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fddcaa4a9f2dfc4a9378865768ccd08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dataFile: {fileID: 0}
+  inputName: 
+  hMovAxis: 
+  vMovAxis: 
+  jump: 0
+  dash: 0
+  hCamAxis: 
+  vCamAxis: 
+  switchShoulders: 0
+  shoot: 0
+  previousType: 0
+  nextType: 0
+  typeScrollAxis: 
+  switchToRock: 0
+  switchToPaper: 0
+  switchToScissors: 0
+  mB: {fileID: 0}
+  sB: {fileID: 0}
+  oldType: 0
+  newType: 0
 --- !u!1 &1751813272
 GameObject:
   m_ObjectHideFlags: 0
@@ -5359,7 +5433,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 615685541109801906}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1691923319}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8fa00e0712466f44bb80f611183a492, type: 3}
@@ -17302,7 +17376,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3453349216800842314}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1681713980}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8fa00e0712466f44bb80f611183a492, type: 3}
