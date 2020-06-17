@@ -33,11 +33,21 @@ namespace rockpaper_djd
 
         #endregion
 
+        #region Indicator Vars
+
+        [SerializeField] private GameObject rockIndP1;
+        [SerializeField] private GameObject paperIndP1;
+        [SerializeField] private GameObject scissorsIndP1;
+
+        [SerializeField] private GameObject rockIndP2;
+        [SerializeField] private GameObject paperIndP2;
+        [SerializeField] private GameObject scissorsIndP2;
+
+        #endregion
+
         private void Awake()
         {
-
             Destroy(player2.gameObject.GetComponentInChildren<AudioListener>());
-
         }
         private void Update()
         {
@@ -46,6 +56,13 @@ namespace rockpaper_djd
 
             UpdateAmmoDisplay(player1, p1AmmoDisplay);
             UpdateAmmoDisplay(player2, p2AmmoDisplay);
+
+            if (player1.oldType != player1.newType) UpdateIndicator(player1,
+                rockIndP1, paperIndP1, scissorsIndP1);
+
+            if (player2.oldType != player2.newType) UpdateIndicator(player2,
+                rockIndP2, paperIndP2, scissorsIndP2);
+
         }
 
         private void UpdateCrosshair(PlayerInput player, Image crosshair)
@@ -74,6 +91,36 @@ namespace rockpaper_djd
             ammoDisplay.text = $"Cylinder (Rock) ammo: {currentRock}/{maxRock}\n" +
                 $"Sphere (Paper) ammo: {currentPaper}/{maxPaper}\n" +
                 $"Cube (Scissors) ammo: {currentScissors}/{maxScissors}\n";
+        }
+
+        private void UpdateIndicator(PlayerInput player, GameObject rockInd,
+            GameObject paperInd, GameObject scissorsInd)
+        {
+            ProjectileTypes pType = player.sB.GetSelectedWeapon();
+
+            switch (pType)
+            {
+                case ProjectileTypes.ROCK:
+                    rockInd.SetActive(true);
+                    paperInd.SetActive(false);
+                    scissorsInd.SetActive(false);
+                    break;
+
+                case ProjectileTypes.PAPER:
+                    rockInd.SetActive(false);
+                    paperInd.SetActive(true);
+                    scissorsInd.SetActive(false);
+                    break;
+
+                case ProjectileTypes.SCISSORS:
+                    rockInd.SetActive(false);
+                    paperInd.SetActive(false);
+                    scissorsInd.SetActive(true);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }

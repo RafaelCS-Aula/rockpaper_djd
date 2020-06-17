@@ -5,7 +5,6 @@ namespace rockpaper_djd
 {
     public class PlayerInput : MonoBehaviour
     {
-
         [SerializeField] private InputType inputType;
 
         [HideInInspector] public MovementBehaviour mB;
@@ -14,10 +13,13 @@ namespace rockpaper_djd
         private InputSettings iS;
         private CameraBehaviour camB;
 
-        [SerializeField] private GameObject rockIndicator;
-        [SerializeField] private GameObject paperIndicator;
-        [SerializeField] private GameObject scissorsIndicator;
-        [SerializeField] private Material indicatorMaterial;
+        #region Helping Vars for other Classes
+
+        [HideInInspector] public ProjectileTypes oldType;
+        [HideInInspector] public ProjectileTypes newType;
+
+
+        #endregion
 
 
         void Awake()
@@ -34,8 +36,6 @@ namespace rockpaper_djd
             sB = GetComponent<ShooterBehaviour>();
 
             camB = GetComponentInChildren<CameraBehaviour>();
-
-            indicatorMaterial.color = new Color(0, 244, 0, 0.1f);
 
             mB.audioHandler = GetComponent<PlayerSoundHandler>();
         }
@@ -90,7 +90,8 @@ namespace rockpaper_djd
 
         private void UpdateWeapon()
         {
-            ProjectileTypes oldType = sB.GetSelectedWeapon();
+            oldType = sB.GetSelectedWeapon();
+
             if (Input.GetKey(iS.shoot))
             {
                 sB.Shoot();
@@ -114,46 +115,9 @@ namespace rockpaper_djd
                 if (Input.GetKeyDown(iS.switchToScissors)) sB.SelectWeapon((uint)3);
             }
 
-            ProjectileTypes newType = sB.GetSelectedWeapon();
-
-            if (oldType != newType) SetTypeIndicator();
+            newType = sB.GetSelectedWeapon();
         }
 
         #endregion
-
-        //Remove Method from Class for VerticalSlice
-
-        private void SetTypeIndicator()
-        {
-            ProjectileTypes pType = sB.GetSelectedWeapon();
-
-            switch (pType)
-            {
-                case ProjectileTypes.ROCK:
-                    rockIndicator.SetActive(true);
-                    paperIndicator.SetActive(false);
-                    scissorsIndicator.SetActive(false);
-                    indicatorMaterial.color = new Color(0, 255, 0, 0.1f);
-                    break;
-
-                case ProjectileTypes.PAPER:
-                    rockIndicator.SetActive(false);
-                    paperIndicator.SetActive(true);
-                    scissorsIndicator.SetActive(false);
-                    indicatorMaterial.color = new Color(0, 0, 255, 0.1f);
-                    break;
-
-                case ProjectileTypes.SCISSORS:
-                    rockIndicator.SetActive(false);
-                    paperIndicator.SetActive(false);
-                    scissorsIndicator.SetActive(true);
-                    indicatorMaterial.color = new Color(255, 0, 0, 0.1f);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
     }
 }
