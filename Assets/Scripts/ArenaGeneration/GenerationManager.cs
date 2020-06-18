@@ -13,6 +13,7 @@ public class GenerationManager : MonoBehaviour
 
     [Header("------ Generation Settings --------")]
 
+    [SerializeField] private bool _corridorGeneration = false;
     [SerializeField] private bool useAllPiecesOfList = true;
     [SerializeField] private bool _allowDuplicates = false;
     [SerializeField] private int _maxSidePieces;
@@ -78,10 +79,10 @@ public class GenerationManager : MonoBehaviour
         PickFirstPiece();
 
         // Make base level of Arena
-        MakeBaseArena();
+        MakeHorizontalArena(_placedPieces);
 
         if(_upperLevels > 0 || _lowerLevels > 0)
-            MakeVerticalArena();
+            MakeVerticalArena(_placedPieces);
 
         /* List<int> i = new List<int>();
         i.Add(2);
@@ -102,8 +103,10 @@ public class GenerationManager : MonoBehaviour
     /// <summary>
     /// Selects the pieces that are evaluated and then spawned
     /// </summary>
-    private void MakeBaseArena()
+    private void MakeHorizontalArena(ICollection<ArenaPiece> arena)
     {
+        List<ArenaPiece> _arena = arena as List<ArenaPiece>; 
+
         // Make an array listing all the sizes of the biggest groups in the 
         // sorted pieces groups
         int[] sizeArray;
@@ -115,9 +118,9 @@ public class GenerationManager : MonoBehaviour
          // Check what list of the sorted list the selected belongs to
         int myPieceList = 0;
 
-        for (int i = 0; i < _placedPieces.Count; i++)
+        for (int i = 0; i < _arena.Count; i++)
         {
-            _selectedPiece = _placedPieces[i];
+            _selectedPiece = _arena[i];
             
             
             for(int x = 0; x < sizeArray.Length; x++)
@@ -152,13 +155,13 @@ public class GenerationManager : MonoBehaviour
                 Instantiate(_evaluatingPiece,
                 evaluationResult.trn.position, evaluationResult.trn.rotation);
 
-                _placedPieces.Add(_evaluatingPiece);
+                _arena.Add(_evaluatingPiece);
                 
                 if(!_allowDuplicates)
                     _sortedPieces[myPieceList].RemoveAt(rng);
 
                 // if we're at the piece limit break out of the method
-                if(!useAllPiecesOfList && _placedPieces.Count >= _maxSidePieces)
+                if(!useAllPiecesOfList && _arena.Count >= _maxSidePieces)
                     return;
 
             }
@@ -167,18 +170,100 @@ public class GenerationManager : MonoBehaviour
 
             // if this one has no more free connectors, move on to the next 
             // placed piece
-            if(_selectedPiece.isFull())
+            if(_selectedPiece.isFull() || _corridorGeneration)
                 continue;
             else // else choose another piece to evaluate for this one
                 goto selectPiece;
         }
     }
 
-    private void MakeVerticalArena()
+    private void MakeVerticalArena(ICollection<ArenaPiece> arena)
     {
-        // Upper Pieces
-        foreach(ArenaPiece a in _placedPieces)
-            if(a.)
+        
+        List<ArenaPiece> _arena = arena as List<ArenaPiece>; 
+
+        // Placed peices
+        List<ArenaPiece> placedHaveTopConns = new List<ArenaPiece>();
+        List<ArenaPiece> placedHaveBotConns = new List<ArenaPiece>();
+
+
+        (bool t, bool b) verticals;
+        (bool valid, Transform trn) evaluationResult;
+        
+        foreach(ArenaPiece a in _arena)
+        {
+            verticals = a.GetVerticalConnectors();
+            if(verticals.t)
+                placedHaveTopConns.Add(a);
+            if(verticals.b)
+                placedHaveTopConns.Add(a);
+        }
+        
+        // Upper Levels
+        if(_upperIslandGeneration)
+        {
+            int limit = 
+                (_upperIslandsMaxPieces > placedHaveTopConns.Count) ?
+                 _upperIslandsMaxPieces : placedHaveTopConns.Count;
+
+            for(int i = 0; i < limit; i++)
+            {
+                int rng = Random.Range(0,placedHaveTopConns.Count);
+                _selectedPiece = placedHaveTopConns[rng];
+
+                pickEvaluatingPiece:
+
+                int sortRng = Random.Range(0,_sortedPieces.Count);
+                int listRng = Random.Range(0,_sortedPieces[sortRng].Count);
+
+                _evaluatingPiece = _sortedPieces[sortRng][listRng];
+                if(_evaluatingPiece != null)
+                    evaluationResult =_selectedPiece.EvaluatePieceVertical(
+                        _evaluatingPiece, true);
+                else
+                    goto pickEvaluatingPiece;
+
+                if(evaluationResult.valid)
+                    Instantiate(_evaluatingPiece,
+                evaluationResult.trn.position, evaluationResult.trn.rotation);
+
+            }
+
+        }
+
+        // Lower Levels
+        if(_lowerIslandGeneration)
+        {
+            int limit = 
+                (_lowerIslandsMaxPieces > placedHaveBotConns.Count) ?
+                 _lowerIslandsMaxPieces : placedHaveBotConns.Count;
+
+            for(int i = 0; i < limit; i++)
+            {
+                int rng = Random.Range(0,placedHaveBotConns.Count);
+                _selectedPiece = placedHaveBotConns[rng];
+
+                pickEvaluatingPiece:
+
+                int sortRng = Random.Range(0,_sortedPieces.Count);
+                int listRng = Random.Range(0,_sortedPieces[sortRng].Count);
+
+                _evaluatingPiece = _sortedPieces[sortRng][listRng];
+                if(_evaluatingPiece != null)
+                    evaluationResult =_selectedPiece.EvaluatePieceVertical(
+                        _evaluatingPiece, false);
+                else
+                    goto pickEvaluatingPiece;
+
+                if(evaluationResult.valid)
+                    Instantiate(_evaluatingPiece,
+                evaluationResult.trn.position, evaluationResult.trn.rotation);
+
+            }
+
+
+        }
+            
 
 
 
