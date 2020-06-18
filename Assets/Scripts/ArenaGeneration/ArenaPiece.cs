@@ -12,8 +12,11 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
 
     [HideInInspector] public bool wasAnalysed = false;
+    
     public int largestGroupCount;
     public int smallestGroupCount;
+
+
 
 
     public void Setup()
@@ -30,6 +33,22 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
             if(!c.isUsed)
                 return false;
         return true;
+
+    }
+
+    public 
+
+    public (bool hasTop, bool hasBottom) GetVerticalConnectors()
+    {
+        bool t = false;
+        bool b = false;
+
+        if(_topConnector != null && !_topConnector.isUsed)
+            t = true;
+        if(_bottomConnector != null && !_bottomConnector.isUsed)
+            b = true;
+        
+        return (t, b);
 
     }
 
@@ -56,7 +75,8 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
                 otherCon.connectorCount >= myCon.connectorCount-groupTolerance 
                 && otherCon.connectorCount <= myCon.connectorCount)
                     {
-                        
+                        otherCon.isUsed = true;
+                        myCon.isUsed = true;
                         return (true, TransformPiece(
                             myCon,
                             otherCon, 
@@ -65,7 +85,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
                        
                     }
             else 
-            return (false, null);
+                return (false, null);
 
         }
 
@@ -73,6 +93,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     public (bool valid, Transform positionRot) EvaluatePiece(
         ArenaPiece other, float pieceDistance = 0.00f, int groupTolerance = 0)
     {
+        //TODO Fix this so it flags the connectors as used
         List<Transform> possibleTransforms = new List<Transform>();
         //Check for intersecting geometry?
         //Spawn the piece and have it tell if the trigger collider reports back
@@ -85,15 +106,16 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
                 if(!co.isUsed && !ct.isUsed && 
                     co.connectorCount >= ct.connectorCount - groupTolerance &&
                     co.connectorCount <= ct.connectorCount)
-                    {
-                        possibleTransforms.Add(
-                            TransformPiece(
-                            ct,
-                            co, 
-                            other, 
-                            pieceDistance));
+                {
+                
+                    possibleTransforms.Add(
+                        TransformPiece(
+                        ct,
+                        co, 
+                        other, 
+                        pieceDistance));
                        
-                    }
+                }
             }
 
         }
@@ -102,7 +124,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         {
             return (true,
                 possibleTransforms[
-                UnityEngine.Random.Range(0, possibleTransforms.Count - 1)]
+                UnityEngine.Random.Range(0, possibleTransforms.Count)]
                 );
         }
         return (false, null);
