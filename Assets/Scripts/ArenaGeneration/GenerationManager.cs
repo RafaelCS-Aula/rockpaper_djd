@@ -23,12 +23,15 @@ public class GenerationManager : MonoBehaviour
 
     [Header("------ Vertical Level Settings --------")]
     [SerializeField] private int _upperLevels = 0;
+
+    [Tooltip("Choose random pieces and put other pieces above them.")]
     [SerializeField] private bool _upperIslandGeneration;
     [SerializeField] private int _upperIslandsMaxPieces = 1;
 
     [Header("--")]
     [SerializeField] private int _lowerLevels = 0;
 
+    [Tooltip("Choose random pieces and put other pieces under them.")]
     [SerializeField] private bool _lowerIslandGeneration;
     [SerializeField] private int _lowerIslandsMaxPieces = 1;
 
@@ -78,34 +81,28 @@ public class GenerationManager : MonoBehaviour
         // Place the first piece
         PickFirstPiece();
 
-        // Make base level of Arena
-        MakeHorizontalArena(_placedPieces);
+        // Make base level of Arena and add those pieces to the list
+        _placedPieces.AddRange(MakeHorizontalArena(_placedPieces[0]));
 
         if(_upperLevels > 0 || _lowerLevels > 0)
             MakeVerticalArena(_placedPieces);
 
-        /* List<int> i = new List<int>();
-        i.Add(2);
-        i.Add(1);
-        i.Add(9);
-        i.Add(5);
-        i.Add(4);
-
-        i.Sort();
-        for(int e = 0; e < i.Count; e++)
-            print(i[e]);*/
 
 
-
+        //TODO: Serialise the _placedPieces list to Json so it can be
+        // loaded back in again. And we can laod and save premade arenas
 
     }
 
     /// <summary>
-    /// Selects the pieces that are evaluated and then spawned
+    /// Populates a horizontal level of the arena
     /// </summary>
-    private void MakeHorizontalArena(ICollection<ArenaPiece> arena)
+    /// <param name="startingPiece"> The first piece of the arena</param>
+    /// <returns> The pieces placed during this method's process</returns>
+    private List<ArenaPiece> MakeHorizontalArena(ArenaPiece startingPiece)
     {
-        List<ArenaPiece> _arena = arena as List<ArenaPiece>; 
+        // Pieces placed by this method call
+        List<ArenaPiece> arena = new List<ArenaPiece>(); 
 
         // Make an array listing all the sizes of the biggest groups in the 
         // sorted pieces groups
@@ -118,9 +115,12 @@ public class GenerationManager : MonoBehaviour
          // Check what list of the sorted list the selected belongs to
         int myPieceList = 0;
 
-        for (int i = 0; i < _arena.Count; i++)
+        for (int i = -1; i < arena.Count; i++)
         {
-            _selectedPiece = _arena[i];
+            if(arena.Count == -1)
+                _selectedPiece = startingPiece;
+            else
+            _selectedPiece = arena[i];
             
             
             for(int x = 0; x < sizeArray.Length; x++)
@@ -155,14 +155,14 @@ public class GenerationManager : MonoBehaviour
                 Instantiate(_evaluatingPiece,
                 evaluationResult.trn.position, evaluationResult.trn.rotation);
 
-                _arena.Add(_evaluatingPiece);
+                arena.Add(_evaluatingPiece);
                 
                 if(!_allowDuplicates)
                     _sortedPieces[myPieceList].RemoveAt(rng);
 
                 // if we're at the piece limit break out of the method
-                if(!useAllPiecesOfList && _arena.Count >= _maxSidePieces)
-                    return;
+                if(!useAllPiecesOfList && arena.Count >= _maxSidePieces)
+                    return arena;
 
             }
             else // No valid connectors in the given piece
@@ -175,12 +175,13 @@ public class GenerationManager : MonoBehaviour
             else // else choose another piece to evaluate for this one
                 goto selectPiece;
         }
+
+        return arena;
     }
 
     private void MakeVerticalArena(ICollection<ArenaPiece> arena)
     {
         
-        List<ArenaPiece> _arena = arena as List<ArenaPiece>; 
 
         // Placed peices
         List<ArenaPiece> placedHaveTopConns = new List<ArenaPiece>();
@@ -190,7 +191,7 @@ public class GenerationManager : MonoBehaviour
         (bool t, bool b) verticals;
         (bool valid, Transform trn) evaluationResult;
         
-        foreach(ArenaPiece a in _arena)
+        foreach(ArenaPiece a in arena)
         {
             verticals = a.GetVerticalConnectors();
             if(verticals.t)
@@ -224,10 +225,24 @@ public class GenerationManager : MonoBehaviour
                     goto pickEvaluatingPiece;
 
                 if(evaluationResult.valid)
+                {
+                    _placedPieces.Add(_evaluatingPiece);
+
                     Instantiate(_evaluatingPiece,
-                evaluationResult.trn.position, evaluationResult.trn.rotation);
+                    evaluationResult.trn.position,
+                     evaluationResult.trn.rotation);
+
+                }
+                    
 
             }
+
+        }
+        else
+        {
+
+            _placedPieces.AddRange(MakeHorizontalArena
+            (placedHaveTopConns[Random.Range(0, placedHaveTopConns.Count)]));
 
         }
 
@@ -256,17 +271,30 @@ public class GenerationManager : MonoBehaviour
                     goto pickEvaluatingPiece;
 
                 if(evaluationResult.valid)
+                {
+
+                    _placedPieces.Add(_evaluatingPiece);
+
                     Instantiate(_evaluatingPiece,
-                evaluationResult.trn.position, evaluationResult.trn.rotation);
+                    evaluationResult.trn.position,
+                     evaluationResult.trn.rotation);
+
+                    
+                }
+                    
 
             }
 
 
         }
+        else
+        {
+
+            _placedPieces.AddRange(MakeHorizontalArena
+            (placedHaveBotConns[Random.Range(0, placedHaveBotConns.Count)]));
+
+        }
             
-
-
-
     }
 
     /// <summary>
@@ -275,7 +303,7 @@ public class GenerationManager : MonoBehaviour
     private void PickFirstPiece()
     {
         ArenaPiece choosen = null;
-        int choosenIndex = Random.Range(0, _sortedPieces[0].Count - 1);
+        int choosenIndex = Random.Range(0, _sortedPieces[0].Count);
 
         _placedPieces = new List<ArenaPiece>();
         if (_setCentralPiece)
