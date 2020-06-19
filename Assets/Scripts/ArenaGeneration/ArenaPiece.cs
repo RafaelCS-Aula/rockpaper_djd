@@ -35,8 +35,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         return true;
 
     }
-
-    public 
+ 
 
     public (bool hasTop, bool hasBottom) GetVerticalConnectors()
     {
@@ -93,8 +92,10 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     public (bool valid, Transform positionRot) EvaluatePiece(
         ArenaPiece other, float pieceDistance = 0.00f, int groupTolerance = 0)
     {
-        //TODO Fix this so it flags the connectors as used
-        List<Transform> possibleTransforms = new List<Transform>();
+        
+
+        List<(ConnectorGroup mine, ConnectorGroup oth)> possibleCombos =
+        new List<(ConnectorGroup mine, ConnectorGroup oth)>();
         //Check for intersecting geometry?
         //Spawn the piece and have it tell if the trigger collider reports back
         // ...but what if the piece is not all in one mesh?
@@ -107,25 +108,25 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
                     co.connectorCount >= ct.connectorCount - groupTolerance &&
                     co.connectorCount <= ct.connectorCount)
                 {
-                
-                    possibleTransforms.Add(
-                        TransformPiece(
-                        ct,
-                        co, 
-                        other, 
-                        pieceDistance));
-                       
+                    possibleCombos.Add((ct, co));
                 }
             }
 
         }
 
-        if(possibleTransforms.Count > 0)
+        if(possibleCombos.Count > 0)
         {
-            return (true,
-                possibleTransforms[
-                UnityEngine.Random.Range(0, possibleTransforms.Count)]
-                );
+            (ConnectorGroup chosenMine, ConnectorGroup chosenOther)
+             choosenCombo = possibleCombos[
+                 UnityEngine.Random.Range(0, possibleCombos.Count)];
+
+            choosenCombo.chosenOther.isUsed = true;
+            choosenCombo.chosenMine.isUsed = true;
+
+            Transform trn = TransformPiece(choosenCombo.chosenMine,
+            choosenCombo.chosenOther, other, pieceDistance);
+
+            return (true, trn);
         }
         return (false, null);
     }
