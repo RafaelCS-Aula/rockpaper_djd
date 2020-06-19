@@ -63,7 +63,7 @@ public class GenerationManager : MonoBehaviour
             Debug.Break();
 
         }
-
+        _sortedPieces = new List<List<ArenaPiece>>();
 
         foreach (ArenaPiece a in piecesForGeneration)
             a.Setup();
@@ -76,7 +76,7 @@ public class GenerationManager : MonoBehaviour
 
         
         // Seperate pieces into seperate lists based on largest group
-        SplitList();
+        _sortedPieces = SplitList();
 
         // Place the first piece
         PickFirstPiece();
@@ -117,15 +117,24 @@ public class GenerationManager : MonoBehaviour
 
         for (int i = -1; i < arena.Count; i++)
         {
-            if(arena.Count == -1)
+            if(i == -1)
                 _selectedPiece = startingPiece;
             else
-            _selectedPiece = arena[i];
-            
-            
-            for(int x = 0; x < sizeArray.Length; x++)
-                if(_selectedPiece.largestGroupCount == sizeArray[x])
-                    myPieceList = sizeArray[x];
+                _selectedPiece = arena[i];
+
+
+            for (int x = 0; x < sizeArray.Length; x++)
+            {
+                if (_selectedPiece.largestGroupCount == sizeArray[x])
+                {
+                    myPieceList = x;
+                    break;
+
+                }
+
+            }
+
+                    
 
             // Reset wasAnalyzed in all the pieces that are yet to be evaluated.
             foreach(ArenaPiece a in _sortedPieces[myPieceList])
@@ -327,31 +336,35 @@ public class GenerationManager : MonoBehaviour
     /// <summary>
     /// Seperate pieces into seperate lists based on largest group
     /// </summary>
-    private void SplitList()
+    private List<List<ArenaPiece>> SplitList()
     {
-        int lastConsidered = largestGroup;
+        int lastConsidered = largestGroup + 1;
         List<ArenaPiece> considererdList = new List<ArenaPiece>();
         List<List<ArenaPiece>> sortedList = new List<List<ArenaPiece>>();
 
-        _sortedPieces.Add(considererdList);
+        
         for (int i = 0; i < piecesForGeneration.Count; i++)
         {
+            // Piece belongs in a new list made for its size            
             if (piecesForGeneration[i].largestGroupCount < lastConsidered)
             {
                 considererdList = new List<ArenaPiece>();
                 considererdList.Add(piecesForGeneration[i]);
+                lastConsidered = piecesForGeneration[i].largestGroupCount;
                 sortedList.Add(considererdList);
 
             }
+            // piece belongs in the already made list
             else if (piecesForGeneration[i].largestGroupCount == lastConsidered)
             {
 
                 considererdList.Add(piecesForGeneration[i]);
 
             }
+
         }
 
-        _sortedPieces = sortedList;
+        return sortedList;
     }
 
 
