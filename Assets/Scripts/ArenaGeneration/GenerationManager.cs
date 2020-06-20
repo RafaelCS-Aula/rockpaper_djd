@@ -153,16 +153,20 @@ public class GenerationManager : MonoBehaviour
 
             // Compare all the connectors on both pieces and get a transform to
             // where to place the evaluated piece
+
+            GameObject spawnedPiece = Instantiate(_evaluatingPiece).gameObject;
+            ArenaPiece spawnedScript = spawnedPiece.GetComponent<ArenaPiece>();
+
             (bool valid, Transform trn) evaluationResult =
-                 _selectedPiece.EvaluatePiece(_evaluatingPiece, 
+                 _selectedPiece.EvaluatePiece(spawnedScript, 
                  _pieceDistance, 
                  _groupTolerance);
 
             // If things worked out, spawn the piece in the correct position
             if(evaluationResult.valid)
             {
-                Instantiate(_evaluatingPiece,
-                evaluationResult.trn.position, evaluationResult.trn.rotation);
+                /*Instantiate(_evaluatingPiece,
+                evaluationResult.trn.position, evaluationResult.trn.rotation);*/
 
                 arena.Add(_evaluatingPiece);
                 
@@ -174,8 +178,13 @@ public class GenerationManager : MonoBehaviour
                     return arena;
 
             }
-            else // No valid connectors in the given piece
+            else
+            {
+                // No valid connectors in the given piece
+                Destroy(spawnedPiece);
                 _evaluatingPiece.wasAnalysed = true;
+
+            } 
 
             // if this one has no more free connectors, move on to the next 
             // placed piece
@@ -237,9 +246,9 @@ public class GenerationManager : MonoBehaviour
                 {
                     _placedPieces.Add(_evaluatingPiece);
 
-                    Instantiate(_evaluatingPiece,
+                    /*Instantiate(_evaluatingPiece,
                     evaluationResult.trn.position,
-                     evaluationResult.trn.rotation);
+                     evaluationResult.trn.rotation);*/
 
                 }
                     
@@ -284,9 +293,9 @@ public class GenerationManager : MonoBehaviour
 
                     _placedPieces.Add(_evaluatingPiece);
 
-                    Instantiate(_evaluatingPiece,
+                   /* Instantiate(_evaluatingPiece,
                     evaluationResult.trn.position,
-                     evaluationResult.trn.rotation);
+                     evaluationResult.trn.rotation);*/
 
                     
                 }

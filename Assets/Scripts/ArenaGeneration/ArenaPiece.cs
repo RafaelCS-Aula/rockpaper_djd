@@ -25,6 +25,14 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         largestGroupCount = sideConnectorGroups[0].connectorCount;
         smallestGroupCount = 
             sideConnectorGroups[sideConnectorGroups.Count - 1].connectorCount;
+
+        foreach (ConnectorGroup g in sideConnectorGroups)
+        {
+            g.isUsed = false;
+        }
+        
+            
+        
     }
 
     public bool isFull()
@@ -142,16 +150,22 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     private Transform TransformPiece(ConnectorGroup myConnectorGroup, ConnectorGroup otherConnectorGroup, ArenaPiece otherPiece, 
     float offset)
     {
+        
         Transform newPieceTrn = otherConnectorGroup.transform;
         Quaternion connectorPointRotation = new Quaternion();
+
+        // temprarily revert parenting so we can move the connector
+        // group and have the geometry follow.
+
+        otherConnectorGroup.transform.SetParent(null, true);
+        otherPiece.transform.SetParent(otherConnectorGroup.transform, true);
+        print("Parent Switch");
 
         // Put the other piece on my connector
         newPieceTrn.position = myConnectorGroup.transform.position;
 
-        // temprarily revert parenting so we can move the connector
-        // group and have the geometry follow.
-        otherConnectorGroup.transform.SetParent(null, true);
-        otherPiece.transform.SetParent(otherConnectorGroup.transform, true);
+
+
 
         // Have the other connector group look towards my connector group
         connectorPointRotation.SetLookRotation(
@@ -162,11 +176,12 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         newPieceTrn.rotation = connectorPointRotation;
 
         // move the pieces away from each other based on an offset
-        newPieceTrn.position -= newPieceTrn.forward * offset;
+        newPieceTrn.position -= otherConnectorGroup.heading * offset;
 
         // get the parenting back to normal to safeguard future transformations.
-        otherConnectorGroup.transform.SetParent(null, true);
-        otherPiece.transform.SetParent(otherConnectorGroup.transform, true);   	
+        otherPiece.transform.SetParent(null, true);
+        otherConnectorGroup.transform.SetParent(otherPiece.transform, true);
+           	
 
         return newPieceTrn;
         

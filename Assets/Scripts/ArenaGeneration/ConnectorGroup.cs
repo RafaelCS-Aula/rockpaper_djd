@@ -10,7 +10,7 @@ public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
     public Vector3 heading => orientation == ConnectorGroupTypes.SIDE ?  transform.forward : orientation == ConnectorGroupTypes.TOP ? transform.up : -transform.up;
 
 
-    [HideInInspector]public bool isUsed = false;
+    [HideInInspector] public bool isUsed = false;
 
     public int connectorCount = 0;
 
