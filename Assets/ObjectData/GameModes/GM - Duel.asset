@@ -16,7 +16,7 @@ MonoBehaviour:
   gameModeDescription: "Contestants start on opposite sides of the map, each with
     a \u201CTrinity Gauntlet\u201D that can cycle through the three projectile types.\n\nThe
     first player to defeat the other five times, wins the match."
-  timeLimit: 1000
+  timeLimit: 5
   scoreLimit: 5
   pointsPerKill: 1
   pointsPerScondInZone: 0

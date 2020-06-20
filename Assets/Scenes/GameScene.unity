@@ -2675,7 +2675,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 11400000, guid: 61127f0cebd49cd4cb693ae2f365fdd7,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: GameModeDataScriptable, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: rockpaper_djd.GameModeData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2715,6 +2715,17 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1255900915}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1312101610}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -2867,8 +2878,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc19a0be38378d4428af630b68f928e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 2245205794893895896}
-  player2: {fileID: 6741678831197091638}
+  player1: {fileID: 1691923320}
+  player2: {fileID: 1681713981}
   p1Crosshair: {fileID: 3942476594732015530}
   p2Crosshair: {fileID: 2089703259}
   p1AmmoDisplay: {fileID: 136970010}
@@ -3298,7 +3309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1312101611
 Transform:
   m_ObjectHideFlags: 0
@@ -4050,9 +4061,9 @@ MonoBehaviour:
         m_MethodName: LoadGameModeData
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 61127f0cebd49cd4cb693ae2f365fdd7,
+          m_ObjectArgument: {fileID: 11400000, guid: 4671be14e2501804a9b6e8b2737b3f73,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: GameModeDataScriptable, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: rockpaper_djd.GameModeData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4092,6 +4103,17 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1255900915}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1312101610}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -4154,82 +4176,30 @@ MonoBehaviour:
   gmName: {fileID: 22343152}
   gmDescription: {fileID: 15975516}
   info: {fileID: 704576221}
---- !u!1 &1681713980 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8242576867740898675, guid: ad26a9c05fa6ba440a7567643517227c,
+--- !u!114 &1681713981 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7881810944088563343, guid: ad26a9c05fa6ba440a7567643517227c,
     type: 3}
   m_PrefabInstance: {fileID: 3453349216800842314}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1681713981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681713980}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fddcaa4a9f2dfc4a9378865768ccd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dataFile: {fileID: 0}
-  inputName: 
-  hMovAxis: 
-  vMovAxis: 
-  jump: 0
-  dash: 0
-  hCamAxis: 
-  vCamAxis: 
-  switchShoulders: 0
-  shoot: 0
-  previousType: 0
-  nextType: 0
-  typeScrollAxis: 
-  switchToRock: 0
-  switchToPaper: 0
-  switchToScissors: 0
-  mB: {fileID: 0}
-  sB: {fileID: 0}
-  oldType: 0
-  newType: 0
---- !u!1 &1691923319 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1703425512795093861, guid: 8011b2c5b53bd54448b9350b870be4c7,
+--- !u!114 &1691923320 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4757920641136643944, guid: 8011b2c5b53bd54448b9350b870be4c7,
     type: 3}
   m_PrefabInstance: {fileID: 615685541109801906}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1691923320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691923319}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fddcaa4a9f2dfc4a9378865768ccd08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dataFile: {fileID: 0}
-  inputName: 
-  hMovAxis: 
-  vMovAxis: 
-  jump: 0
-  dash: 0
-  hCamAxis: 
-  vCamAxis: 
-  switchShoulders: 0
-  shoot: 0
-  previousType: 0
-  nextType: 0
-  typeScrollAxis: 
-  switchToRock: 0
-  switchToPaper: 0
-  switchToScissors: 0
-  mB: {fileID: 0}
-  sB: {fileID: 0}
-  oldType: 0
-  newType: 0
 --- !u!1 &1751813272
 GameObject:
   m_ObjectHideFlags: 0
@@ -4667,9 +4637,9 @@ MonoBehaviour:
         m_MethodName: LoadGameModeData
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 61127f0cebd49cd4cb693ae2f365fdd7,
+          m_ObjectArgument: {fileID: 11400000, guid: fa26961b1cfb2f2488e88058d61d03be,
             type: 2}
-          m_ObjectArgumentAssemblyTypeName: GameModeDataScriptable, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: rockpaper_djd.GameModeData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4709,6 +4679,17 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1255900915}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1312101610}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -5281,6 +5262,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 370794596}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1703425512795093861, guid: 8011b2c5b53bd54448b9350b870be4c7,
         type: 3}
       propertyPath: m_Name
@@ -5427,18 +5412,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0, y: 14.495445, z: 50.92317}
   m_Center: {x: -0.5, y: 12.577312, z: -0.41792488}
---- !u!114 &2245205794893895896 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1703425512795093866, guid: 8011b2c5b53bd54448b9350b870be4c7,
-    type: 3}
-  m_PrefabInstance: {fileID: 615685541109801906}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691923319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8fa00e0712466f44bb80f611183a492, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2295128032861927023
 GameObject:
   m_ObjectHideFlags: 0
@@ -5503,6 +5476,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 370794596}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3453349215376381310, guid: ad26a9c05fa6ba440a7567643517227c,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -17370,18 +17347,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.57245815, y: 1.545766, z: 1}
   m_Center: {x: -0.21377131, y: 0.27288318, z: 0.0000012704983}
---- !u!114 &6741678831197091638 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8242576867740898684, guid: ad26a9c05fa6ba440a7567643517227c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3453349216800842314}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681713980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8fa00e0712466f44bb80f611183a492, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &8834456648581876348
 BoxCollider:
   m_ObjectHideFlags: 0

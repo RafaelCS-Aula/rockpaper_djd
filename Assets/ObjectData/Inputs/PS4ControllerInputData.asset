@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55667f81a77860745a44495465d33d6b, type: 3}
   m_Name: PS4ControllerInputData
   m_EditorClassIdentifier: 
-  inputName: 
-  hMovAxis: 
-  vMovAxis: 
-  jump: 0
-  dash: 0
-  hCamAxis: 
-  vCamAxis: 
-  switchShoulders: 0
-  shoot: 0
-  previousType: 0
-  nextType: 0
+  inputName: PS4Controller
+  hMovAxis: LeftJoystickHorizontal
+  vMovAxis: LeftJoystickVertical
+  jump: 331
+  dash: 336
+  hCamAxis: RightJoystickHorizontal
+  vCamAxis: RightJoystickVertical
+  switchShoulders: 340
+  shoot: 337
+  previousType: 334
+  nextType: 335
   typeScrollAxis: 
   switchToRock: 0
   switchToPaper: 0

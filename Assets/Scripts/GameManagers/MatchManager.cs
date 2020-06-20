@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 namespace rockpaper_djd
@@ -14,7 +13,7 @@ namespace rockpaper_djd
         private int team1Points;
         private int team2Points;
 
-        private float matchClock;
+        [HideInInspector] public float matchTimer;
 
         private void Start()
         {
@@ -22,7 +21,7 @@ namespace rockpaper_djd
 
             team1Points = 0;
             team2Points = 0;
-            matchClock = 0;
+            matchTimer = gmManager.timeLimit*60;
 
         }
 
@@ -30,21 +29,49 @@ namespace rockpaper_djd
         {
             gameFinished = CheckForWinner();
 
+
             if (!gameFinished)
             {
-
+                UpdateMatchClock();
             }
-
-
         }
 
+        private void UpdateMatchClock() { matchTimer -= Time.deltaTime; }
 
-        private bool CheckForWinner()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            private bool CheckForWinner()
         {
             if (team1Points >= gmManager.scoreLimit ||
                 team2Points >= gmManager.scoreLimit) return true;
 
-            if (matchClock >= gmManager.timeLimit) return true;
+            if (matchTimer <= 0) return true;
 
             return false;
         }

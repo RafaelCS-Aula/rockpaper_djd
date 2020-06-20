@@ -45,6 +45,14 @@ namespace rockpaper_djd
 
         #endregion
 
+        #region Match Vars
+
+        [SerializeField] private MatchManager matchManager;
+
+        [SerializeField] private TextMeshProUGUI clockText;
+
+        #endregion
+
         private void Awake()
         {
             Destroy(player2.gameObject.GetComponentInChildren<AudioListener>());
@@ -62,6 +70,8 @@ namespace rockpaper_djd
 
             if (player2.oldType != player2.newType) UpdateIndicator(player2,
                 rockIndP2, paperIndP2, scissorsIndP2);
+
+            UpdateClockDisplay();
 
         }
 
@@ -121,6 +131,19 @@ namespace rockpaper_djd
                 default:
                     break;
             }
+        }
+
+        private void UpdateClockDisplay()
+        {
+            string minutes = Mathf.Floor(matchManager.matchTimer / 60).ToString("00");
+            string seconds = (matchManager.matchTimer % 60).ToString("00");
+
+            if ((matchManager.matchTimer % 60).ToString("00") == "60")
+            {
+                seconds = "00";
+                minutes = Mathf.Floor((matchManager.matchTimer / 60) + 1).ToString("00");
+            }
+                clockText.text = minutes + ":" + seconds;
         }
     }
 }

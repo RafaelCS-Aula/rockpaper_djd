@@ -14,7 +14,7 @@ namespace rockpaper_djd
         public string gameModeDescription;
 
         [Header("-Win Conditions-")]
-        [Tooltip("Set Time Limit for this Game Mode")]
+        [Tooltip("Set Time Limit for this Game Mode (MINUTES)")]
         public float timeLimit;
 
         [Tooltip("Set Score Limit for this Game Mode")]
