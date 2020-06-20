@@ -159,8 +159,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
         otherConnectorGroup.transform.SetParent(null, true);
         otherPiece.transform.SetParent(otherConnectorGroup.transform, true);
-        print("Parent Switch");
-
+       
         // Put the other piece on my connector
         newPieceTrn.position = myConnectorGroup.transform.position;
 
