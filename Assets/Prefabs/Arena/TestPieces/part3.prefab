@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783962251433915841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.02, y: 1.837, z: 3.42}
+  m_LocalPosition: {x: 11.852, y: 1.499, z: 2.2531}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3804803258941085886}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 0
+  isUsed: 1
   connectorCount: 5
   connectorSpacing: 0.5
   _gizmoColor: {r: 0.9622642, g: 0.8638041, b: 0, a: 1}
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 0
+  isUsed: 1
   connectorCount: 4
   connectorSpacing: 0.5
   _gizmoColor: {r: 0, g: 0.9607843, b: 0.95064735, a: 1}
@@ -1631,9 +1631,9 @@ MonoBehaviour:
   - {fileID: 5100375812903800934}
   _topConnector: {fileID: 0}
   _bottomConnector: {fileID: 0}
-  wasAnalysed: 0
-  largestGroupCount: 0
-  smallestGroupCount: 0
+  wasAnalysed: 1
+  largestGroupCount: 5
+  smallestGroupCount: 1
 --- !u!1 &6977114017826850695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,7 +1659,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6977114017826850695}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -5.138, y: 0.606, z: -0.592}
+  m_LocalPosition: {x: -5.1381, y: 0.606, z: -0.592}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3804803258941085886}
@@ -1678,7 +1678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 0
+  isUsed: 1
   connectorCount: 1
   connectorSpacing: 0.5
   _gizmoColor: {r: 0.5377358, g: 0.24603951, b: 0.24603951, a: 1}
@@ -1706,13 +1706,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8104306518807837682}
-  m_LocalRotation: {x: -0, y: -0, z: -0.052438192, w: 0.9986242}
-  m_LocalPosition: {x: 11.852, y: 1.499, z: 2.253}
+  m_LocalRotation: {x: -0, y: -0, z: 0.0049813827, w: 0.99998766}
+  m_LocalPosition: {x: 6.31, y: 1.83, z: 3.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3804803258941085886}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -6.012}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.57100004}
 --- !u!114 &91432572800769345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1726,7 +1726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 0
+  isUsed: 1
   connectorCount: 5
   connectorSpacing: 0.5
   _gizmoColor: {r: 0.009733135, g: 0.9607843, b: 0, a: 1}
@@ -1774,7 +1774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 0
+  isUsed: 1
   connectorCount: 4
   connectorSpacing: 0.5
   _gizmoColor: {r: 0, g: 0.9607843, b: 0.95064735, a: 1}

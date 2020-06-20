@@ -463,26 +463,26 @@ MonoBehaviour:
   - {x: 1, y: 1, z: 0}
   - {x: 1, y: 0, z: 1.3179958}
   - {x: 1, y: 1, z: 1.3179958}
-  - {x: 1, y: 2.5958278, z: 0}
-  - {x: 0, y: 2.5958278, z: 0}
-  - {x: 1, y: 2.5958278, z: 1.3179958}
-  - {x: 0, y: 2.5958278, z: 1.3179958}
+  - {x: 1, y: 8.035267, z: 0}
+  - {x: 0, y: 8.035267, z: 0}
+  - {x: 1, y: 8.035267, z: 1.3179958}
+  - {x: 0, y: 8.035267, z: 1.3179958}
   - {x: 1, y: 1, z: 0}
   - {x: 0, y: 1, z: 0}
-  - {x: 1, y: 2.5958278, z: 0}
-  - {x: 0, y: 2.5958278, z: 0}
+  - {x: 1, y: 8.035267, z: 0}
+  - {x: 0, y: 8.035267, z: 0}
   - {x: 1, y: 1, z: 1.3179958}
   - {x: 1, y: 1, z: 0}
-  - {x: 1, y: 2.5958278, z: 1.3179958}
-  - {x: 1, y: 2.5958278, z: 0}
+  - {x: 1, y: 8.035267, z: 1.3179958}
+  - {x: 1, y: 8.035267, z: 0}
   - {x: 0, y: 1, z: 0}
   - {x: 0, y: 1, z: 1.3179958}
-  - {x: 0, y: 2.5958278, z: 0}
-  - {x: 0, y: 2.5958278, z: 1.3179958}
+  - {x: 0, y: 8.035267, z: 0}
+  - {x: 0, y: 8.035267, z: 1.3179958}
   - {x: 0, y: 1, z: 1.3179958}
   - {x: 1, y: 1, z: 1.3179958}
-  - {x: 0, y: 2.5958278, z: 1.3179958}
-  - {x: 1, y: 2.5958278, z: 1.3179958}
+  - {x: 0, y: 8.035267, z: 1.3179958}
+  - {x: 1, y: 8.035267, z: 1.3179958}
   - {x: 0, y: 1, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: -1.6959877, y: 0.39857882, z: 0.3963353}
@@ -542,20 +542,20 @@ MonoBehaviour:
   - {x: 0, y: 1.3179958}
   - {x: 1, y: 1}
   - {x: 0, y: 1}
-  - {x: 1, y: 2.5958278}
-  - {x: 0, y: 2.5958278}
+  - {x: 1, y: 8.035267}
+  - {x: 0, y: 8.035267}
   - {x: 1.3179958, y: 1}
   - {x: 0, y: 1}
-  - {x: 1.3179958, y: 2.5958278}
-  - {x: 0, y: 2.5958278}
+  - {x: 1.3179958, y: 8.035267}
+  - {x: 0, y: 8.035267}
   - {x: 0, y: 1}
   - {x: -1.3179958, y: 1}
-  - {x: 0, y: 2.5958278}
-  - {x: -1.3179958, y: 2.5958278}
+  - {x: 0, y: 8.035267}
+  - {x: -1.3179958, y: 8.035267}
   - {x: 0, y: 1}
   - {x: -1, y: 1}
-  - {x: 0, y: 2.5958278}
-  - {x: -1, y: 2.5958278}
+  - {x: 0, y: 8.035267}
+  - {x: -1, y: 8.035267}
   - {x: 0, y: 1}
   - {x: 0, y: 0}
   - {x: -1.7416819, y: 0.39857882}
@@ -728,9 +728,17 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_IsSelectable: 1
-  m_SelectedFaces: 
-  m_SelectedEdges: []
-  m_SelectedVertices: 
+  m_SelectedFaces: 09000000
+  m_SelectedEdges:
+  - a: 36
+    b: 37
+  - a: 38
+    b: 36
+  - a: 37
+    b: 39
+  - a: 39
+    b: 38
+  m_SelectedVertices: 24000000250000002600000027000000
 --- !u!64 &4786094398147457888
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -790,13 +798,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4484642250097184013}
-  m_LocalRotation: {x: -0, y: 0.9976934, z: -0, w: 0.06788137}
-  m_LocalPosition: {x: -0.7750135, y: 0.404, z: 1.1640991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.118, y: 0.404, z: 1.334}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7133730224902815758}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -7.7850003, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2943259745828935446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,13 +846,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4693431992941317389}
-  m_LocalRotation: {x: -0, y: -0.7176708, z: -0, w: 0.6963826}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 1.2440999, y: 0.404, z: 0.203003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7133730224902815758}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 88.275, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &6161315193692970206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,13 +894,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5881965267727504602}
-  m_LocalRotation: {x: -0, y: 0.019182077, z: -0, w: 0.999816}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.5029962, y: 0.404, z: -1.2641}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7133730224902815758}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 182.198, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &3677672046116767234
 MonoBehaviour:
   m_ObjectHideFlags: 0
