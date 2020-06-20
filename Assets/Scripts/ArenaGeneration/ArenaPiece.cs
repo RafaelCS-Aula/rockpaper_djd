@@ -13,9 +13,8 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
     [HideInInspector] public bool wasAnalysed = false;
     
-    
-    [HideInInspector]public int largestGroupCount;
-    [HideInInspector]public int smallestGroupCount;
+    public int largestGroupCount;
+    public int smallestGroupCount;
 
 
 
@@ -52,7 +51,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
     }
 
-    public (bool valid, (Vector3 pos, Quaternion rot)? newPosRot) EvaluatePieceVertical(
+    public (bool valid, Transform position) EvaluatePieceVertical(
         ArenaPiece other, bool upper, float pieceDistance = 0.00f,
          int groupTolerance = 0)
         {
@@ -90,7 +89,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         }
 
 
-    public (bool valid, (Vector3 pos, Quaternion rot)? newPosRot) EvaluatePiece(
+    public (bool valid, Transform positionRot) EvaluatePiece(
         ArenaPiece other, float pieceDistance = 0.00f, int groupTolerance = 0)
     {
         
@@ -124,10 +123,10 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
             choosenCombo.chosenOther.isUsed = true;
             choosenCombo.chosenMine.isUsed = true;
 
-            (Vector3 pos, Quaternion rot) newTrn = TransformPiece(choosenCombo.chosenMine,
+            Transform trn = TransformPiece(choosenCombo.chosenMine,
             choosenCombo.chosenOther, other, pieceDistance);
 
-            return (true, newTrn);
+            return (true, trn);
         }
         return (false, null);
     }
@@ -140,23 +139,19 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     /// <param name="otherConnectorGroup"></param>
     /// <param name="otherPiece"></param>
     /// <returns></returns>
-    private (Vector3 pos, Quaternion rot) TransformPiece(
-        ConnectorGroup myConnectorGroup, ConnectorGroup otherConnectorGroup,
-        ArenaPiece otherPiece, 
+    private Transform TransformPiece(ConnectorGroup myConnectorGroup, ConnectorGroup otherConnectorGroup, ArenaPiece otherPiece, 
     float offset)
     {
-        Vector3 newPos = Vector3.zero;
-        Quaternion newRot = new Quaternion();
-        //ansform newPieceTrn = otherConnectorGroup.transform;
+        Transform newPieceTrn = otherConnectorGroup.transform;
         Quaternion connectorPointRotation = new Quaternion();
 
         // Put the other piece on my connector
-        newPos = myConnectorGroup.transform.position;
+        newPieceTrn.position = myConnectorGroup.transform.position;
 
         // temprarily revert parenting so we can move the connector
         // group and have the geometry follow.
-        //otherConnectorGroup.transform.SetParent(null, true);
-        //otherPiece.transform.SetParent(otherConnectorGroup.transform, true);
+        otherConnectorGroup.transform.SetParent(null, true);
+        otherPiece.transform.SetParent(otherConnectorGroup.transform, true);
 
         // Have the other connector group look towards my connector group
         connectorPointRotation.SetLookRotation(
@@ -164,16 +159,16 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
              transform.up);
 
         // Apply the rotation acquired above
-        newRot = connectorPointRotation;
+        newPieceTrn.rotation = connectorPointRotation;
 
         // move the pieces away from each other based on an offset
-        newPos -= otherConnectorGroup.heading * offset;
+        newPieceTrn.position -= newPieceTrn.forward * offset;
 
         // get the parenting back to normal to safeguard future transformations.
-        //otherConnectorGroup.transform.SetParent(null, true);
-        //otherPiece.transform.SetParent(otherConnectorGroup.transform, true);   	
+        otherConnectorGroup.transform.SetParent(null, true);
+        otherPiece.transform.SetParent(otherConnectorGroup.transform, true);   	
 
-        return (newPos, newRot) ;
+        return newPieceTrn;
         
     }
 
