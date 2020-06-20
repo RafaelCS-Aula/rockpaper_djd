@@ -14,7 +14,6 @@ public class GenerationManager : MonoBehaviour
     [Header("------ Generation Settings --------")]
 
     [SerializeField] private bool _corridorGeneration = false;
-    [SerializeField] private bool useAllPiecesOfList = true;
     [SerializeField] private bool _allowDuplicates = false;
     [SerializeField] private int _maxSidePieces;
     [SerializeField] private int _groupTolerance = 0;
@@ -56,13 +55,13 @@ public class GenerationManager : MonoBehaviour
     void Awake()
     {
         
-        if(_allowDuplicates && useAllPiecesOfList)
+        /*if(_allowDuplicates && useAllPiecesOfList)
         {
             Debug.LogError(" 'ALLOW DUPLICATES' AND 'USE ALL PIECES' CANNOT BE"
              +"ON AT THE SAME TIME IT IS AN INFINITE LOOP");
             Debug.Break();
 
-        }
+        }*/
         _sortedPieces = new List<List<ArenaPiece>>();
 
         foreach (ArenaPiece a in piecesForGeneration)
@@ -88,7 +87,10 @@ public class GenerationManager : MonoBehaviour
             MakeVerticalArena(_placedPieces);
 
 
-
+        foreach (ArenaPiece item in _placedPieces)
+        {
+            print(item.gameObject);
+        }
         //TODO: Serialise the _placedPieces list to Json so it can be
         // loaded back in again. And we can laod and save premade arenas
 
@@ -134,8 +136,6 @@ public class GenerationManager : MonoBehaviour
 
             }
 
-                    
-
             // Reset wasAnalyzed in all the pieces that are yet to be evaluated.
             foreach(ArenaPiece a in _sortedPieces[myPieceList])
                 a.wasAnalysed = false;
@@ -143,7 +143,15 @@ public class GenerationManager : MonoBehaviour
             // Pick a piece to evaluate against our selected placed one
             selectPiece:
 
-            int rng = Random.Range(0,_sortedPieces[myPieceList].Count);
+            int rng; 
+            if(_sortedPieces[myPieceList].Count != 0)
+                rng = Random.Range(0,_sortedPieces[myPieceList].Count);
+            else
+                {
+                    myPieceList--;
+                    goto selectPiece;
+                }
+
 
             // INFINITE LOOP IF ALL WERE ANALYSED ALREADY
             if(!_sortedPieces[myPieceList][rng].wasAnalysed)
@@ -168,13 +176,13 @@ public class GenerationManager : MonoBehaviour
                 /*Instantiate(_evaluatingPiece,
                 evaluationResult.trn.position, evaluationResult.trn.rotation);*/
 
-                arena.Add(_evaluatingPiece);
+                arena.Add(spawnedScript);
                 
                 if(!_allowDuplicates)
                     _sortedPieces[myPieceList].RemoveAt(rng);
 
                 // if we're at the piece limit break out of the method
-                if(!useAllPiecesOfList && arena.Count >= _maxSidePieces)
+                if(arena.Count >= _maxSidePieces)
                     return arena;
 
             }
