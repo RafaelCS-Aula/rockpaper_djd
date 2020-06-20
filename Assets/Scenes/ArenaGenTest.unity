@@ -252,12 +252,12 @@ MonoBehaviour:
   - {fileID: 8117472631686265746, guid: f15ef0eddb563f146b5414981bad39f6, type: 3}
   - {fileID: 6540018037060752925, guid: 81e2c725298ac004dbcf8c5adbd8439f, type: 3}
   - {fileID: 5530956160541815133, guid: 72106c53edd0a3843ab0636246b8c7e1, type: 3}
-  _corridorGeneration: 0
+  _corridorGeneration: 1
   useAllPiecesOfList: 0
-  _allowDuplicates: 1
-  _maxSidePieces: 6
+  _allowDuplicates: 0
+  _maxSidePieces: 4
   _groupTolerance: 1
-  _pieceDistance: 0.0001
+  _pieceDistance: 0
   _upperLevels: 0
   _upperIslandGeneration: 0
   _upperIslandsMaxPieces: 1
