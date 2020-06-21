@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 namespace rockpaper_djd
@@ -7,8 +8,8 @@ namespace rockpaper_djd
     public class HealthBehaviour : MonoBehaviour, IUseTeams
     {
 
-        [SerializeField] private int _maxHp;
-        private int _currentHp;
+        public int _maxHp;
+        [HideInInspector] public int _currentHp;
         [SerializeField] private int _startingHp;
         [SerializeField] private bool startWithMaxHp = true;
 
@@ -16,6 +17,19 @@ namespace rockpaper_djd
         private float _currentCooldown;
 
         public int teamID { get; set; }
+
+
+        private CharacterController cC;
+
+        private Vector3 spawnPosition;
+        private Quaternion spawnRotation;
+
+        [HideInInspector] public bool immunityEnabled = true;
+
+        private float immunityTimer;
+        [SerializeField] private float immunityDuration;
+
+        [SerializeField] private GameObject playerModel;
 
         // Start is called before the first frame update
         void Awake()
@@ -26,22 +40,32 @@ namespace rockpaper_djd
             _currentHp = _startingHp;
 
             _currentCooldown = _damagedCooldown;
+
+            spawnPosition = transform.position;
+            spawnRotation = transform.rotation;
         }
 
-        void Update()
+        private void Start()
+        {
+            cC = GetComponent<CharacterController>();
+        }
+
+        private void Update()
         {
             _currentCooldown += Time.deltaTime;
 
-            if (_currentHp <= 0)
-                Die();
-
             _currentHp = Mathf.Clamp(_currentHp, 0, _maxHp);
+
+
+            if (immunityTimer > 0 && immunityEnabled) immunityTimer -= Time.deltaTime;
+
+            FlashPlayer();
         }
 
         public void InteractFriend(IUseTeams other) { }
         public void InteractEnemy(IUseTeams other)
         {
-            if (_currentCooldown >= _damagedCooldown)
+            if (_currentCooldown >= _damagedCooldown && immunityTimer <= 0)
             {
                 _currentHp--;
                 _currentCooldown = 0;
@@ -51,10 +75,28 @@ namespace rockpaper_djd
 
         }
 
-        void Die()
+        public void ResetPosition()
         {
-            Destroy(gameObject);
+            cC.enabled = false;
+            transform.localPosition = spawnPosition;
+            transform.localRotation = spawnRotation;
+            cC.enabled = true;
+            if (immunityEnabled) immunityTimer = immunityDuration;
         }
 
+        private void FlashPlayer()
+        {
+            if (immunityTimer > 0.0f)
+            {
+                immunityTimer -= Time.deltaTime;
+
+                playerModel.SetActive((Mathf.FloorToInt(immunityTimer * 4.0f) % 2) == 0);
+
+                if (immunityTimer <= 0.0f)
+                {
+                    playerModel.SetActive(true);
+                }
+            }
+        }
     }
 }

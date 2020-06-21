@@ -70,11 +70,8 @@ namespace rockpaper_djd
 
         #endregion
 
+        private CharacterHandler cH;
 
-        [HideInInspector] public MovementBehaviour mB;
-        [HideInInspector] public ShooterBehaviour sB;
-
-        private CameraBehaviour camB;
 
         #region Helping Vars for other Classes
 
@@ -100,12 +97,7 @@ namespace rockpaper_djd
 
         private void Start()
         {
-            mB = GetComponent<MovementBehaviour>();
-            sB = GetComponent<ShooterBehaviour>();
-
-            camB = GetComponentInChildren<CameraBehaviour>();
-
-            mB.audioHandler = GetComponent<PlayerSoundHandler>();
+            cH = GetComponent<CharacterHandler>();
         }
 
         #region Update Methods
@@ -123,23 +115,23 @@ namespace rockpaper_djd
 
         private void UpdateMovementAxis()
         {
-            mB.strafeAxis = Input.GetAxisRaw(hMovAxis);
+            cH.mB.strafeAxis = Input.GetAxisRaw(hMovAxis);
 
-            mB.forwardAxis = Input.GetAxisRaw(vMovAxis);
+            cH.mB.forwardAxis = Input.GetAxisRaw(vMovAxis);
         }
 
         private void UpdateCamera()
         {
-            camB.RotateCamera(-Input.GetAxisRaw(vCamAxis));
+            cH.cB.RotateCamera(-Input.GetAxisRaw(vCamAxis));
 
             if (Input.GetKeyDown(switchShoulders))
-                camB.SwitchShoulders();
+                cH.cB.SwitchShoulders();
         }
 
         private void UpdateRotation()
         {
             float rotation = (inputName == "PS4Controller" ? -Input.GetAxisRaw(hCamAxis) :
-                Input.GetAxisRaw(hCamAxis)) * camB.camXSens;
+                Input.GetAxisRaw(hCamAxis)) * cH.cB.camXSens;
 
             transform.Rotate(0f, rotation, 0f);
         }
@@ -149,40 +141,40 @@ namespace rockpaper_djd
 
         private void UpdateAMR()
         {
-            mB.UpdateAMRCharges();
+            cH.mB.UpdateAMRCharges();
 
-            if (Input.GetKeyDown(jump)) mB.Jump();
-            if (Input.GetKeyDown(dash)) mB.Dash();
+            if (Input.GetKeyDown(jump)) cH.mB.Jump();
+            if (Input.GetKeyDown(dash)) cH.mB.Dash();
         }
 
         private void UpdateWeapon()
         {
-            oldType = sB.GetSelectedWeapon();
+            oldType = cH.sB.GetSelectedWeapon();
 
             if (Input.GetKey(shoot))
             {
-                sB.Shoot();
+                cH.sB.Shoot();
             }
 
             if (typeScrollAxis != "")
             {
-                if (Input.GetAxis(typeScrollAxis) > 0f) sB.SelectWeapon(-1);
-                else if (Input.GetAxis(typeScrollAxis) < 0f) sB.SelectWeapon(1);
+                if (Input.GetAxis(typeScrollAxis) > 0f) cH.sB.SelectWeapon(-1);
+                else if (Input.GetAxis(typeScrollAxis) < 0f) cH.sB.SelectWeapon(1);
             }
             else
             {
-                if (Input.GetKeyDown(previousType)) sB.SelectWeapon(-1);
-                if (Input.GetKeyDown(nextType)) sB.SelectWeapon(1);
+                if (Input.GetKeyDown(previousType)) cH.sB.SelectWeapon(-1);
+                if (Input.GetKeyDown(nextType)) cH.sB.SelectWeapon(1);
             }
 
             if (switchToRock != KeyCode.None)
             {
-                if (Input.GetKeyDown(switchToRock)) sB.SelectWeapon((uint)1);
-                if (Input.GetKeyDown(switchToPaper)) sB.SelectWeapon((uint)2);
-                if (Input.GetKeyDown(switchToScissors)) sB.SelectWeapon((uint)3);
+                if (Input.GetKeyDown(switchToRock)) cH.sB.SelectWeapon((uint)1);
+                if (Input.GetKeyDown(switchToPaper)) cH.sB.SelectWeapon((uint)2);
+                if (Input.GetKeyDown(switchToScissors)) cH.sB.SelectWeapon((uint)3);
             }
 
-            newType = sB.GetSelectedWeapon();
+            newType = cH.sB.GetSelectedWeapon();
         }
 
         #endregion

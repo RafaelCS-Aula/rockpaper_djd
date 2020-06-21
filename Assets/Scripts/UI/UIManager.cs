@@ -6,21 +6,36 @@ namespace rockpaper_djd
 {
     public class UIManager : MonoBehaviour
     {
-        #region Player Vars
+        #region Panels
+        [Header("-PANELS-")]
+        [SerializeField] private GameObject GameOverPanel;
+        #endregion
 
-        [SerializeField] private InputBehaviour player1;
-        [SerializeField] private InputBehaviour player2;
-
+        #region Displays
+        [Header("-DISPLAYS-")]
         [SerializeField] private Image p1Crosshair;
         [SerializeField] private Image p2Crosshair;
 
         [SerializeField] private TextMeshProUGUI p1AmmoDisplay;
         [SerializeField] private TextMeshProUGUI p2AmmoDisplay;
 
+        [SerializeField] private GameObject rockIndP1;
+        [SerializeField] private GameObject paperIndP1;
+        [SerializeField] private GameObject scissorsIndP1;
+
+        [SerializeField] private GameObject rockIndP2;
+        [SerializeField] private GameObject paperIndP2;
+        [SerializeField] private GameObject scissorsIndP2;
+
+
+        [SerializeField] private TextMeshProUGUI clockText;
+        [SerializeField] private TextMeshProUGUI winnerText;
+        [SerializeField] private TextMeshProUGUI team1PointsText;
+        [SerializeField] private TextMeshProUGUI team2PointsText;
         #endregion
 
         #region Aim Sprites
-
+        [Header("-AIM SPRITES-")]
         [SerializeField] private Sprite aim00;
         [SerializeField] private Sprite aim01;
         [SerializeField] private Sprite aim02;
@@ -33,49 +48,46 @@ namespace rockpaper_djd
 
         #endregion
 
-        #region Indicator Vars
-
-        [SerializeField] private GameObject rockIndP1;
-        [SerializeField] private GameObject paperIndP1;
-        [SerializeField] private GameObject scissorsIndP1;
-
-        [SerializeField] private GameObject rockIndP2;
-        [SerializeField] private GameObject paperIndP2;
-        [SerializeField] private GameObject scissorsIndP2;
-
-        #endregion
-
         #region Match Vars
 
         [SerializeField] private MatchManager matchManager;
 
-        [SerializeField] private TextMeshProUGUI clockText;
 
         #endregion
 
         private void Awake()
         {
-            Destroy(player2.gameObject.GetComponentInChildren<AudioListener>());
+            Destroy(matchManager.player2.gameObject.GetComponentInChildren<AudioListener>());
         }
         private void Update()
         {
-            UpdateCrosshair(player1, p1Crosshair);
-            UpdateCrosshair(player2, p2Crosshair);
+            if (!matchManager.gameFinished)
+            {
+                #region Crosshair Updates
+                UpdateCrosshair(matchManager.player1, p1Crosshair);
+                UpdateCrosshair(matchManager.player2, p2Crosshair);
+                #endregion
+                #region AmmoDisplay Updates
+                UpdateAmmoDisplay(matchManager.player1, p1AmmoDisplay);
+                UpdateAmmoDisplay(matchManager.player2, p2AmmoDisplay);
+                #endregion
+                #region Indicator Updates
+                if (matchManager.player1.iB.oldType != matchManager.player1.iB.newType) UpdateIndicator(matchManager.player1,
+                    rockIndP1, paperIndP1, scissorsIndP1);
 
-            UpdateAmmoDisplay(player1, p1AmmoDisplay);
-            UpdateAmmoDisplay(player2, p2AmmoDisplay);
+                if (matchManager.player2.iB.oldType != matchManager.player2.iB.newType) UpdateIndicator(matchManager.player2,
+                    rockIndP2, paperIndP2, scissorsIndP2);
+                #endregion
+                UpdateClockDisplay();
+                UpdatePointsDisplay();
+            }
 
-            if (player1.oldType != player1.newType) UpdateIndicator(player1,
-                rockIndP1, paperIndP1, scissorsIndP1);
 
-            if (player2.oldType != player2.newType) UpdateIndicator(player2,
-                rockIndP2, paperIndP2, scissorsIndP2);
-
-            UpdateClockDisplay();
+            if (matchManager.gameFinished) GameOverDisplay();
 
         }
 
-        private void UpdateCrosshair(InputBehaviour player, Image crosshair)
+        private void UpdateCrosshair(CharacterHandler player, Image crosshair)
         {
             Sprite newSprite = crosshair.sprite;
 
@@ -93,7 +105,7 @@ namespace rockpaper_djd
             crosshair.overrideSprite = newSprite;
         }
 
-        private void UpdateAmmoDisplay(InputBehaviour player, TextMeshProUGUI ammoDisplay)
+        private void UpdateAmmoDisplay(CharacterHandler player, TextMeshProUGUI ammoDisplay)
         {
             (float maxRock, float currentRock) = player.sB.GetMana(ProjectileTypes.ROCK);
             (float maxPaper, float currentPaper) = player.sB.GetMana(ProjectileTypes.PAPER);
@@ -103,7 +115,7 @@ namespace rockpaper_djd
                 $"Cube (Scissors) ammo: {currentScissors}/{maxScissors}\n";
         }
 
-        private void UpdateIndicator(InputBehaviour player, GameObject rockInd,
+        private void UpdateIndicator(CharacterHandler player, GameObject rockInd,
             GameObject paperInd, GameObject scissorsInd)
         {
             ProjectileTypes pType = player.sB.GetSelectedWeapon();
@@ -138,12 +150,39 @@ namespace rockpaper_djd
             string minutes = Mathf.Floor(matchManager.matchTimer / 60).ToString("00");
             string seconds = (matchManager.matchTimer % 60).ToString("00");
 
-            if ((matchManager.matchTimer % 60).ToString("00") == "60")
+            // Check if the clock displays "60" seconds (This is done to correct cases like, i.e. the clock displays 3:60 istead of 4:00)
+            if (seconds == "60")
             {
+                // Display "00" seconds instead
                 seconds = "00";
+                // Add 1 minute to the display
                 minutes = Mathf.Floor((matchManager.matchTimer / 60) + 1).ToString("00");
             }
-                clockText.text = minutes + ":" + seconds;
+            // Correct the wrong display when the timer reaches 0
+            if (minutes == "-01") minutes = "00";
+
+            // Change clock text to display the current minutes and seconds
+            clockText.text = minutes + ":" + seconds;
+        }
+
+        private void UpdatePointsDisplay()
+        {
+            string points1;
+            string points2;
+
+            points1 = matchManager.player1.points.ToString("00") + " -";
+            points2 = "- " + matchManager.player2.points.ToString("00");
+
+            if(team1PointsText.text != points1) team1PointsText.text = points1;
+            if(team2PointsText.text != points2) team2PointsText.text = points2;
+        }
+
+        private void GameOverDisplay()
+        {
+            GameOverPanel.SetActive(true);
+            if (matchManager.winner != "")
+                winnerText.text = matchManager.winner + " wins!!";
+            else winnerText.text = "it's a draw!!";
         }
     }
 }

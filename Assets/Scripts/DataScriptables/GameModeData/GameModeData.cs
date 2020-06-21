@@ -13,12 +13,14 @@ namespace rockpaper_djd
         [Tooltip("Description for this Game Mode"), Multiline(10)]
         public string gameModeDescription;
 
+
         [Header("-Win Conditions-")]
         [Tooltip("Set Time Limit for this Game Mode (MINUTES)")]
         public float timeLimit;
 
         [Tooltip("Set Score Limit for this Game Mode")]
         public int scoreLimit;
+
 
         [Header("-Rules-")]
         [Tooltip("Points earned for kill for this Game Mode")]
@@ -29,10 +31,6 @@ namespace rockpaper_djd
 
         [Tooltip("Set if both players are returned to their spawn after every kill")]
         public bool resetBothPlayers = false;
-
-
-        [Tooltip("Enable/Disbale Arena Changes for this Game Mode")]
-        public bool arenaChanges = true;
 
         [Tooltip("Set if Trinity Gauntlet starts incomplete")]
         public bool gauntletStartsIncomplete = false;

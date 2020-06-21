@@ -17,7 +17,7 @@ MonoBehaviour:
     Trinity Gauntlet.\n\nThe pieces needed to complete their Trinity Gauntlets are
     on the opponent's field.\n\nOnce the round begins, they have to reach the other
     side and arm themselves to attack and counter their adversary.\r"
-  timeLimit: 1000
+  timeLimit: 1
   scoreLimit: 3
   pointsPerKill: 1
   pointsPerScondInZone: 0

@@ -4,8 +4,6 @@ namespace rockpaper_djd
 {
     public class GameModeManager : MonoBehaviour
     {
-        #region Data Handling
-
         public GameModeData[] gameModes = new GameModeData[3];
 
         public string gameModeName;
@@ -25,8 +23,6 @@ namespace rockpaper_djd
 
         public bool resetBothPlayers = false;
 
-        public bool arenaChanges;
-
         public bool[] availableAmmoTypes = new bool[3];
 
         public bool ammoPickups;
@@ -39,7 +35,6 @@ namespace rockpaper_djd
 
         public bool smokeScreen;
 
-        #endregion
 
         public void LoadGameModeData(GameModeData gameModeData)
         {
@@ -50,7 +45,6 @@ namespace rockpaper_djd
             pointsPerKill = gameModeData.pointsPerKill;
             pointsPerScondInZone = gameModeData.pointsPerScondInZone;
             resetBothPlayers = gameModeData.resetBothPlayers;
-            arenaChanges = gameModeData.arenaChanges;
             availableAmmoTypes = gameModeData.availableAmmoTypes;
             ammoPickups = gameModeData.ammoPickups;
             healthPickups = gameModeData.healthPickups;

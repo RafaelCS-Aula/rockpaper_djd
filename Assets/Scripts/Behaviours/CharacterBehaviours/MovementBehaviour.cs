@@ -5,7 +5,7 @@ using UnityEngine;
 namespace rockpaper_djd
 {
     [RequireComponent(typeof(PlayerSoundHandler))]
-    public class MovementBehaviour : MonoBehaviour, IDataUser<MovementData>, ISoundPlayer<PlayerSoundHandler>
+    public class MovementBehaviour : MonoBehaviour, IDataUser<MovementData>
     {
         #region Data Handling
 
@@ -70,9 +70,7 @@ namespace rockpaper_djd
         #region Class SetUp	
 
         [HideInInspector] public CharacterController controller;
-
-        // Implement ISOundPlayer
-        [HideInInspector] public PlayerSoundHandler audioHandler { get; set; }
+        [HideInInspector] public CharacterHandler cH;
 
         private Vector3 acceleration;
         private Vector3 velocity;
@@ -115,7 +113,7 @@ namespace rockpaper_djd
         private void Start()
         {
             controller = GetComponent<CharacterController>();
-            audioHandler = GetComponent<PlayerSoundHandler>();
+            cH = GetComponent<CharacterHandler>();
 
             acceleration = Vector3.zero;
             velocity = Vector3.zero;
@@ -259,7 +257,7 @@ namespace rockpaper_djd
                 jump = true;
 
                 // Play Jump Audio
-                audioHandler.PlayAudio(audioHandler.dJump, 3);
+                cH.audioHandler.PlayAudio(cH.audioHandler.dJump, 3);
             }
 
             else if (canDoubleJump && doubleJumpCharges > 0)
@@ -268,7 +266,7 @@ namespace rockpaper_djd
                 canDoubleJump = false;
 
                 // Play double jump sound
-                audioHandler.PlayAudio(audioHandler.dDoubleJump, 3);
+                cH.audioHandler.PlayAudio(cH.audioHandler.dDoubleJump, 3);
 
                 doubleJumpCharges--;
             }
@@ -280,7 +278,7 @@ namespace rockpaper_djd
             {
 
                 // Play dash audio
-                audioHandler.PlayAudio(audioHandler.dDash, 3);
+                cH.audioHandler.PlayAudio(cH.audioHandler.dDash, 3);
 
                 StartCoroutine(DashCoroutine());
                 dashCharges--;

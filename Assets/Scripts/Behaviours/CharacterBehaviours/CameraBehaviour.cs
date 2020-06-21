@@ -60,6 +60,8 @@ namespace rockpaper_djd
 
         public Transform Pivot { get; set; }
 
+        private bool isBeingRepositioned;
+
 
         void Awake()
         {
@@ -80,6 +82,8 @@ namespace rockpaper_djd
             cam.fieldOfView = fieldOfView;
 
             currentOffset = cameraOffset;
+
+            isBeingRepositioned = false;
 
         }
 

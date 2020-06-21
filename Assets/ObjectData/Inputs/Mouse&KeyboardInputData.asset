@@ -19,7 +19,7 @@ MonoBehaviour:
   dash: 304
   hCamAxis: Mouse X
   vCamAxis: Mouse Y
-  switchShoulders: 0
+  switchShoulders: 118
   shoot: 323
   previousType: 0
   nextType: 0

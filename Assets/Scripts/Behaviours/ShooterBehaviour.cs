@@ -51,7 +51,7 @@ namespace rockpaper_djd
 
         private ProjectileTypes[] _inventory = new ProjectileTypes[3];
 
-        private CameraBehaviour cameraRig;
+        private CharacterHandler cH;
 
         [HideInInspector]
         public Vector3 shootingTarget;
@@ -69,7 +69,7 @@ namespace rockpaper_djd
 
 
 
-            cameraRig = GetComponentInChildren<CameraBehaviour>();
+            cH = GetComponentInChildren<CharacterHandler>();
             //shootingTarget = transform.forward;
             GetData();
 
@@ -209,7 +209,7 @@ namespace rockpaper_djd
             if (_selectedProjectile != null)
             {
 
-                shootingTarget = cameraRig.GetCenterTarget();
+                shootingTarget = cH.cB.GetCenterTarget();
 
                 Quaternion t
                     = Quaternion.LookRotation(

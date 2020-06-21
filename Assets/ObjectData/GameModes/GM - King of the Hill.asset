@@ -16,7 +16,7 @@ MonoBehaviour:
   gameModeDescription: "The contestants start on opposite sides of the map, each with
     a \u201CTrinity Gauntlet\u201D that can cycle through the three projectile types.\n\nThere
     is an area on the arena that the players need to stand on to get points."
-  timeLimit: 1000
+  timeLimit: 2
   scoreLimit: 750
   pointsPerKill: 20
   pointsPerScondInZone: 0
