@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,9 +68,12 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         if(_bottomConnector != null)
             _bottomConnector.isUsed = false;
         
-            
-        gameObject.AddComponent<Rigidbody>();
+        
         Rigidbody rb = GetComponent<Rigidbody>();
+
+        if(rb == null)
+            rb = gameObject.AddComponent<Rigidbody>();
+        
         if(_useRigidBody)
         {
             rb.isKinematic = false;
