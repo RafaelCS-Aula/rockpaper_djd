@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &832052586555207982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 136347383809291208}
+  - component: {fileID: 5313459968704684968}
+  m_Layer: 0
+  m_Name: GameObject (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &136347383809291208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832052586555207982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.59, y: 0.08, z: 0.605}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7133730224902815758}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5313459968704684968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 832052586555207982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: 2
+  isUsed: 0
+  connectorCount: 2
+  connectorSpacing: 0.5
+  _gizmoColor: {r: 0.5754717, g: 0.29587933, b: 0.29587933, a: 1}
 --- !u!1 &1095860909315618790
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,6 +62,7 @@ GameObject:
   - component: {fileID: 5356874933546482572}
   - component: {fileID: 4786094398147457888}
   - component: {fileID: 6540018037060752925}
+  - component: {fileID: 946715601064607106}
   m_Layer: 0
   m_Name: part2
   m_TagString: Untagged
@@ -35,6 +84,8 @@ Transform:
   - {fileID: 4309573955578876231}
   - {fileID: 3491855518978100903}
   - {fileID: 7122053091351761573}
+  - {fileID: 7064565023261013222}
+  - {fileID: 136347383809291208}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -728,17 +779,9 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_IsSelectable: 1
-  m_SelectedFaces: 09000000
-  m_SelectedEdges:
-  - a: 36
-    b: 37
-  - a: 38
-    b: 36
-  - a: 37
-    b: 39
-  - a: 39
-    b: 38
-  m_SelectedVertices: 24000000250000002600000027000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!64 &4786094398147457888
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -750,7 +793,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 0}
 --- !u!114 &6540018037060752925
@@ -767,13 +810,110 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sideConnectorGroups:
   - {fileID: 2943259745828935446}
+  - {fileID: 2943259745828935446}
+  - {fileID: 2943259745828935446}
+  - {fileID: 2943259745828935446}
   - {fileID: 6161315193692970206}
+  - {fileID: 2943259745828935446}
+  - {fileID: 6161315193692970206}
+  - {fileID: 6161315193692970206}
+  - {fileID: 6161315193692970206}
+  - {fileID: 6161315193692970206}
+  - {fileID: 6161315193692970206}
+  - {fileID: 2943259745828935446}
+  - {fileID: 2943259745828935446}
+  - {fileID: 2943259745828935446}
+  - {fileID: 6161315193692970206}
+  - {fileID: 2943259745828935446}
+  - {fileID: 6161315193692970206}
+  - {fileID: 6161315193692970206}
+  - {fileID: 6161315193692970206}
+  - {fileID: 6161315193692970206}
+  - {fileID: 2943259745828935446}
+  - {fileID: 6161315193692970206}
+  - {fileID: 2943259745828935446}
+  - {fileID: 2943259745828935446}
   - {fileID: 3677672046116767234}
-  _topConnector: {fileID: 0}
-  _bottomConnector: {fileID: 0}
+  - {fileID: 3677672046116767234}
+  - {fileID: 3677672046116767234}
+  - {fileID: 3677672046116767234}
+  - {fileID: 3677672046116767234}
+  - {fileID: 3677672046116767234}
+  - {fileID: 3677672046116767234}
+  - {fileID: 3677672046116767234}
+  - {fileID: 3677672046116767234}
+  - {fileID: 3677672046116767234}
+  - {fileID: 3677672046116767234}
+  - {fileID: 3677672046116767234}
+  _topConnector: {fileID: 5153954121205905864}
+  _bottomConnector: {fileID: 5313459968704684968}
   wasAnalysed: 1
   largestGroupCount: 4
   smallestGroupCount: 1
+--- !u!54 &946715601064607106
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095860909315618790}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 900
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!1 &1686326283042739507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7064565023261013222}
+  - component: {fileID: 5153954121205905864}
+  m_Layer: 0
+  m_Name: GameObject (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7064565023261013222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686326283042739507}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.239, y: 8.218, z: 0.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7133730224902815758}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5153954121205905864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686326283042739507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: 1
+  isUsed: 0
+  connectorCount: 2
+  connectorSpacing: 0.5
+  _gizmoColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &4484642250097184013
 GameObject:
   m_ObjectHideFlags: 0
