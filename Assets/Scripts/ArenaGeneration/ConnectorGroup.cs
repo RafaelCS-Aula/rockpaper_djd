@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
 {
-    [SerializeField] private ConnectorGroupTypes orientation;
+    [SerializeField] public ConnectorGroupTypes orientation;
     public Vector3 heading => orientation == ConnectorGroupTypes.SIDE ?  transform.forward : orientation == ConnectorGroupTypes.TOP ? transform.up : -transform.up;
 
 
