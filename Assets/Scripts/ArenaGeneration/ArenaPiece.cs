@@ -3,24 +3,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 {
 
-    [SerializeField] private List<ConnectorGroup> sideConnectorGroups;
-    [SerializeField] private ConnectorGroup _topConnector;
-    [SerializeField] private ConnectorGroup _bottomConnector;
+      [SerializeField] private List<ConnectorGroup> sideConnectorGroups = 
+      new List<ConnectorGroup>() ; 
+        
+      [SerializeField] private ConnectorGroup _topConnector = null ;
+      [SerializeField] private ConnectorGroup _bottomConnector = null ;
 
-
+    private bool _useRigidBody;
     [HideInInspector] public bool wasAnalysed = false;
     
-    public int largestGroupCount;
-    public int smallestGroupCount;
+    [HideInInspector] public int largestGroupCount;
+    [HideInInspector] public int smallestGroupCount;
 
 
-
-
-    public void Setup()
+    private void Start() 
     {
+        
+        
+    }
+
+    public void Setup(bool spawnRigid)
+    {
+        _useRigidBody = spawnRigid;
+        //Detect connectors
+        foreach(ConnectorGroup c in GetComponentsInChildren<ConnectorGroup>())
+        {
+            if(c.orientation == ConnectorGroupTypes.SIDE)
+                sideConnectorGroups.Add(c);
+            else if (c.orientation == ConnectorGroupTypes.TOP)
+            {
+                if(_topConnector != null)
+                    Debug.Log("MULTIPLE TOP CONNECTORS FOUND, USING 1ST");
+                else
+                    _topConnector = c;
+            }
+            else if (c.orientation == ConnectorGroupTypes.BOTTOM)
+            {
+                if(_bottomConnector != null)
+                    Debug.Log("MULTIPLE BOT CONNECTORS FOUND, USING 1ST");
+                else
+                    _bottomConnector = c;
+            }
+
+
+        }
+        
+        _useRigidBody = spawnRigid;
         sideConnectorGroups.Sort();
         largestGroupCount = sideConnectorGroups[0].connectorCount;
         smallestGroupCount = 
@@ -30,8 +62,28 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         {
             g.isUsed = false;
         }
+        if(_topConnector != null)
+            _topConnector.isUsed = false;
+        if(_bottomConnector != null)
+            _bottomConnector.isUsed = false;
         
             
+        gameObject.AddComponent<Rigidbody>();
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if(_useRigidBody)
+        {
+            rb.isKinematic = false;
+            GetComponent<MeshCollider>().convex = true;
+            rb = GetComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.drag = 900;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+        else
+        {
+            rb.isKinematic = true;
+        }
+  
         
     }
 
@@ -78,6 +130,9 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
             } 
 
+            if(otherCon == null || myCon == null)
+                return (false, null);
+                
             if(!otherCon.isUsed && !myCon.isUsed && 
                 otherCon.connectorCount >= myCon.connectorCount-groupTolerance 
                 && otherCon.connectorCount <= myCon.connectorCount)
@@ -165,14 +220,18 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
 
 
+        if (otherConnectorGroup.orientation == ConnectorGroupTypes.SIDE)
+        {
+            // Have the other connector group look towards my connector group
+            connectorPointRotation.SetLookRotation(
+                -myConnectorGroup.heading,
+                 transform.up);
 
-        // Have the other connector group look towards my connector group
-        connectorPointRotation.SetLookRotation(
-            -myConnectorGroup.heading,
-             transform.up);
+            // Apply the rotation acquired above
+            newPieceTrn.rotation = connectorPointRotation;
 
-        // Apply the rotation acquired above
-        newPieceTrn.rotation = connectorPointRotation;
+        }
+
 
         // move the pieces away from each other based on an offset
         newPieceTrn.position -= otherConnectorGroup.heading * offset;
