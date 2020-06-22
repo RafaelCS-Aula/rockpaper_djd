@@ -21,16 +21,8 @@ namespace rockpaper_djd
         [Tooltip("Set Score Limit for this Game Mode")]
         public int scoreLimit;
 
-        [Header("-Specifics-")]
-        [Tooltip("Points earned for kill for this Game Mode")]
-        public int pointsPerKill;
 
-        [Tooltip("Points earned for each second in zone for this Game Mode")]
-        public int pointsPerScondInZone;
-
-        [Tooltip("Set how many seconds the pre-match/pre-round timer has (SECONDS)")]
-        public int preMatchRoundTimerDuration;
-
+        [Header("-RoundBased-")]
         [Tooltip("Set it Game Mode has rounds (if true, timeLimit refers to how long each round takes)")]
         public bool roundBased;
 
@@ -38,15 +30,29 @@ namespace rockpaper_djd
         public int numberOfRounds;
 
 
+        [Header("-ZoneBased-")]
+        [Tooltip("Set it Game Mode has zones")]
+        public bool zoneBased;
+
+        [Tooltip("Points earned for each second in zone for this Game Mode")]
+        public int pointsPerScondInZone;
+
+        [Tooltip("Set interval between zone changes (SECONDS)")]
+        public float zoneChangeInterval;
+
+
         [Header("-Rules-")]
+        [Tooltip("Set how many seconds the pre-match/pre-round timer has (SECONDS)")]
+        public int preMatchRoundTimerDuration;
+
+        [Tooltip("Points earned for kill for this Game Mode")]
+        public int pointsPerKill;
+
         [Tooltip("Set if both players are returned to their spawn after every kill")]
         public bool resetBothPlayers = false;
 
         [Tooltip("Set if Trinity Gauntlet starts incomplete")]
         public bool gauntletStartsIncomplete = false;
-
-        [Tooltip("Set Available Ammo Types for this Game Mode")]
-        public bool[] availableAmmoTypes = new bool[3] { true, true, true };
 
         [Tooltip("Enable/Disable Ammo Pickups for this Game Mode")]
         public bool ammoPickups = true;
@@ -59,8 +65,5 @@ namespace rockpaper_djd
 
         [Tooltip("Enable/Disable AMR for this Game Mode")]
         public bool AMRAuthorized = true;
-
-        [Tooltip("Enable/Disable Smoke Screen for this Game Mode")]
-        public bool smokeScreen = true;
     }
 }

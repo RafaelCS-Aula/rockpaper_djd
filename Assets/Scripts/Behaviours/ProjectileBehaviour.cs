@@ -93,7 +93,7 @@ typeof(MeshCollider))]
             }
 
 
-            Destroy(gameObject);
+            if (!other.CompareTag("Zone")) Destroy(gameObject);
 
         }
 

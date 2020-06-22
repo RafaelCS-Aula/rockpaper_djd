@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.PlayerLoop;
 
 namespace rockpaper_djd
 {
@@ -28,6 +29,14 @@ namespace rockpaper_djd
         [HideInInspector] public int preMatchTimer;
         [HideInInspector] public bool isCountingDown = false;
 
+
+        public ZoneBehaviour[] zones;
+        [HideInInspector] public int activeZone;
+
+        [HideInInspector] public float zoneChangeTimer;
+        private float zonePointsTimer;
+
+
         private void Start()
         {
             // Find GameModeManager component on the scene object name "GameModeManager"
@@ -36,13 +45,21 @@ namespace rockpaper_djd
             // Set match timer based on the game mode time limit
             matchTimer = gmManager.timeLimit * 60;
 
-
             // Disable each player immunity system if the game mode doesn't allow it
             player1.hB.immunityEnabled = gmManager.respawnImmunity;
             player2.hB.immunityEnabled = gmManager.respawnImmunity;
 
             player1.mB.AMRAuthorized = gmManager.AMRAuthorized;
             player2.mB.AMRAuthorized = gmManager.AMRAuthorized;
+
+            if (gmManager.zoneBased)
+            {
+                int zone = Random.Range(0, zones.Length);
+                zones[zone].gameObject.SetActive(true);
+                activeZone = zone;
+                zoneChangeTimer = gmManager.zoneChangeInterval;
+                
+            }
 
             StartCoroutine(PreMatchCountdown());
         }
@@ -58,13 +75,21 @@ namespace rockpaper_djd
                 if (!isCountingDown)
                 {
                     UpdateMatchClock();
-                    if (!gmManager.roundBased)CheckForKill();
+                    if (!gmManager.roundBased) CheckForKill();
+
+                    #region ZoneBased Specifics
+                    if (gmManager.zoneBased)
+                    {
+                        UpdateZoneChange();
+                        UpdateZonePointsTimer();
+                    }
+                    #endregion
                 }
                 if (gmManager.roundBased) CheckForRoundEnd();
             }
             else GameOver();
 
-            if (Input.GetKeyDown(KeyCode.P)) NextRound();
+            if (Input.GetKeyDown(KeyCode.P)) NewZone();
         }
 
         private void UpdateMatchClock() { matchTimer -= Time.deltaTime; }
@@ -87,9 +112,6 @@ namespace rockpaper_djd
             }
         }
 
-
-
-
         private void NextRound()
         {
             player1.hB._currentHp = player1.hB._maxHp;
@@ -104,12 +126,7 @@ namespace rockpaper_djd
             matchTimer = gmManager.timeLimit * 60;
 
             StartCoroutine(PreMatchCountdown());
-
         }
-
-
-
-
 
         private void CheckForRoundEnd()
         {
@@ -127,15 +144,6 @@ namespace rockpaper_djd
             }
         }
 
-
-
-
-
-
-
-
-
-
         private bool CheckForWin()
         {
             if (player1.points >= gmManager.scoreLimit ||
@@ -146,6 +154,53 @@ namespace rockpaper_djd
             if (gmManager.roundBased && currentRound > gmManager.numberOfRounds) return true;
 
             return false;
+        }
+
+
+
+        private void UpdateZonePointsTimer()
+        {
+            zonePointsTimer += Time.deltaTime;
+            if (zonePointsTimer >= 1f)
+            {
+                zonePointsTimer = 0f;
+                UpdateZonePoints();
+            }
+        }
+
+        private void NewZone()
+        {
+            int newZone = activeZone;
+            while (newZone == activeZone)
+            {
+                newZone = Random.Range(0, zones.Length);
+            }
+
+            zones[activeZone].gameObject.SetActive(false);
+            activeZone = newZone;
+            zones[activeZone].gameObject.SetActive(true);
+        }
+
+
+        private void UpdateZonePoints()
+        {
+            if (zones[activeZone].currentOccupant == ZoneOccupants.TEAM1)
+                player1.points += gmManager.pointsPerScondInZone;
+
+            if (zones[activeZone].currentOccupant == ZoneOccupants.TEAM2)
+                player2.points += gmManager.pointsPerScondInZone;
+        }
+
+
+        private void UpdateZoneChange()
+        {
+            zoneChangeTimer -= Time.deltaTime;
+
+            if (zoneChangeTimer <= 0)
+            {
+                NewZone();
+                zoneChangeTimer = gmManager.zoneChangeInterval;
+            }
         }
 
         private void GameOver()
@@ -177,6 +232,5 @@ namespace rockpaper_djd
             player1.iB.enabled = true;
             player2.iB.enabled = true;
         }
-
     }
 }

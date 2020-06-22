@@ -38,6 +38,9 @@ namespace rockpaper_djd
 
         [SerializeField] private TextMeshProUGUI round;
         [SerializeField] private TextMeshProUGUI preMatchRoundTimer;
+
+        [SerializeField] private TextMeshProUGUI zoneTimer;
+        [SerializeField] private TextMeshProUGUI zoneOccupant;
         #endregion
 
         #region Aim Sprites
@@ -88,8 +91,12 @@ namespace rockpaper_djd
                 UpdatePointsDisplay();
                 UpdatePreMatchTimer();
                 if (matchManager.gmManager.roundBased) UpdateRoundDisplay();
+                if (matchManager.gmManager.zoneBased)
+                {
+                    UpdateZoneTimer();
+                    UpdateZoneOccupant();
+                }
             }
-
 
             if (matchManager.gameFinished) GameOverDisplay();
 
@@ -181,8 +188,8 @@ namespace rockpaper_djd
             points1 = matchManager.player1.points.ToString("000") + " -";
             points2 = "- " + matchManager.player2.points.ToString("000");
 
-            if(team1Points.text != points1) team1Points.text = points1;
-            if(team2Points.text != points2) team2Points.text = points2;
+            if (team1Points.text != points1) team1Points.text = points1;
+            if (team2Points.text != points2) team2Points.text = points2;
         }
 
         private void UpdatePreMatchTimer()
@@ -206,6 +213,16 @@ namespace rockpaper_djd
                 round.text = "Round " + matchManager.currentRound.ToString("00");
         }
 
+        private void UpdateZoneTimer()
+        {
+            zoneTimer.text = "Time until next zone: " + matchManager.zoneChangeTimer.ToString("00");
+        }
+
+        private void UpdateZoneOccupant()
+        {
+            zoneOccupant.text = "Current occupant: " +
+                matchManager.zones[matchManager.activeZone].currentOccupant.ToString();
+        }
         private void GameOverDisplay()
         {
             GameOverPanel.SetActive(true);

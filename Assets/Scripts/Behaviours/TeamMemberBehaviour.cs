@@ -9,7 +9,7 @@ namespace rockpaper_djd
         [SerializeField] private bool useSetTeam;
         [SerializeField] private int setTeamID;
 
-        private int myTeam;
+        [HideInInspector] public int myTeam;
 
         private void Start()
         {

@@ -16,22 +16,22 @@ namespace rockpaper_djd
         public int scoreLimit;
 
 
-        public int pointsPerKill;
+        public bool roundBased;
+        public int numberOfRounds;
 
+
+        public bool zoneBased;
         public int pointsPerScondInZone;
+        public float zoneChangeInterval;
+
 
         public int preMatchRoundTimerDuration;
 
-        public bool roundBased;
-
-        public int numberOfRounds;
-
+        public int pointsPerKill;
 
         public bool resetBothPlayers;
 
         public bool gauntletStartsIncomplete;
-
-        public bool[] availableAmmoTypes = new bool[3];
 
         public bool ammoPickups;
 
@@ -41,28 +41,25 @@ namespace rockpaper_djd
 
         public bool AMRAuthorized;
 
-        public bool smokeScreen;
-
-
         public void LoadGameModeData(GameModeData gameModeData)
         {
             gameModeName = gameModeData.gameModeName;
             gameModeDescription = gameModeData.gameModeDescription;
             timeLimit = gameModeData.timeLimit;
             scoreLimit = gameModeData.scoreLimit;
-            pointsPerKill = gameModeData.pointsPerKill;
-            pointsPerScondInZone = gameModeData.pointsPerScondInZone;
-            preMatchRoundTimerDuration = gameModeData.preMatchRoundTimerDuration;
             roundBased = gameModeData.roundBased;
             numberOfRounds = gameModeData.numberOfRounds;
+            zoneBased = gameModeData.zoneBased;
+            pointsPerScondInZone = gameModeData.pointsPerScondInZone;
+            zoneChangeInterval = gameModeData.zoneChangeInterval;
+            preMatchRoundTimerDuration = gameModeData.preMatchRoundTimerDuration;
+            pointsPerKill = gameModeData.pointsPerKill;
             resetBothPlayers = gameModeData.resetBothPlayers;
             gauntletStartsIncomplete = gameModeData.gauntletStartsIncomplete;
-            availableAmmoTypes = gameModeData.availableAmmoTypes;
             ammoPickups = gameModeData.ammoPickups;
             healthPickups = gameModeData.healthPickups;
             respawnImmunity = gameModeData.respawnImmunity;
             AMRAuthorized = gameModeData.AMRAuthorized;
-            smokeScreen = gameModeData.smokeScreen;
         }
     }
 }
