@@ -21,11 +21,6 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     [HideInInspector] public int smallestGroupCount;
 
 
-    private void Start() 
-    {
-        
-        
-    }
 
     public void Setup(bool spawnRigid)
     {
@@ -36,14 +31,14 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         //Detect connectors
         foreach(ConnectorGroup c in GetComponentsInChildren<ConnectorGroup>())
         {
-            if(c.orientation == ConnectorGroupTypes.SIDE)
+            if(c.orientation == ConnectorOrientations.SIDE)
                 children.Add(c);
-            else if (c.orientation == ConnectorGroupTypes.TOP)
+            else if (c.orientation == ConnectorOrientations.TOP)
             {
                 if(_topConnector == null)
                     _topConnector = c;
             }
-            else if (c.orientation == ConnectorGroupTypes.BOTTOM)
+            else if (c.orientation == ConnectorOrientations.BOTTOM)
             {
                 if(_bottomConnector == null)
                     _bottomConnector = c;
@@ -224,7 +219,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
 
 
-        if (otherConnectorGroup.orientation == ConnectorGroupTypes.SIDE)
+        if (otherConnectorGroup.orientation == ConnectorOrientations.SIDE)
         {
             // Have the other connector group look towards my connector group
             connectorPointRotation.SetLookRotation(

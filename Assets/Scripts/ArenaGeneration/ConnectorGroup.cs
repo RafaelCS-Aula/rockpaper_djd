@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
 {
-    [SerializeField] public ConnectorGroupTypes orientation;
-    public Vector3 heading => orientation == ConnectorGroupTypes.SIDE ?  transform.forward : orientation == ConnectorGroupTypes.TOP ? transform.up : -transform.up;
+    [SerializeField] public ConnectorOrientations orientation;
+    public Vector3 heading => orientation == ConnectorOrientations.SIDE ?  transform.forward : orientation == ConnectorOrientations.TOP ? transform.up : -transform.up;
 
 
     [HideInInspector] public bool isUsed = false;
@@ -61,7 +61,7 @@ public class ConnectorGroup : MonoBehaviour, IComparable<ConnectorGroup>
              //pos.x = transform.position.x + (i * connectorSpacing);
              pos = transform.position + transform.right * i * connectorSpacing;
              //pos.z = transform.position.z * transform.right.z  + (i * connectorSpacing);
-             if(orientation == ConnectorGroupTypes.SIDE)
+             if(orientation == ConnectorOrientations.SIDE)
                 Gizmos.DrawWireCube(pos , new Vector3(
                     connectorSpacing,
                     connectorSpacing,

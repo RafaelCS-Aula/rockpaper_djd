@@ -1,5 +1,5 @@
 
-public enum ConnectorGroupTypes
+public enum ConnectorOrientations
 {
     SIDE,
     TOP,
