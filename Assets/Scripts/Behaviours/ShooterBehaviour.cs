@@ -41,7 +41,7 @@ namespace rockpaper_djd
 
         [SerializeField] private GameObject _selectedProjectile;
         [SerializeField] private GameObject _rockProjectile;
-        [SerializeField] private int _currentRockMana;
+        [SerializeField]  int _currentRockMana;
 
         [SerializeField] private GameObject _paperProjectile;
         [SerializeField] private int _currentPaperMana;
@@ -301,6 +301,15 @@ namespace rockpaper_djd
 
         public ProjectileTypes GetSelectedWeapon() =>
             _inventory[_selectedInventoryIndex];
+
+
+        public void FillMana()
+        {
+            _currentRockMana = _dMaxRMana;
+            _currentPaperMana = _dMaxPMana;
+            _currentScissorMana = _dMaxSMana;
+        }
+
 
         public void OnDrawGizmos()
         {

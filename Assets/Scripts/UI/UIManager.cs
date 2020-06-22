@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +10,7 @@ namespace rockpaper_djd
     {
         #region Panels
         [Header("-PANELS-")]
+        [SerializeField] private GameObject PreMatchRoundPanel;
         [SerializeField] private GameObject GameOverPanel;
         #endregion
 
@@ -28,10 +31,13 @@ namespace rockpaper_djd
         [SerializeField] private GameObject scissorsIndP2;
 
 
-        [SerializeField] private TextMeshProUGUI clockText;
-        [SerializeField] private TextMeshProUGUI winnerText;
-        [SerializeField] private TextMeshProUGUI team1PointsText;
-        [SerializeField] private TextMeshProUGUI team2PointsText;
+        [SerializeField] private TextMeshProUGUI clock;
+        [SerializeField] private TextMeshProUGUI winner;
+        [SerializeField] private TextMeshProUGUI team1Points;
+        [SerializeField] private TextMeshProUGUI team2Points;
+
+        [SerializeField] private TextMeshProUGUI round;
+        [SerializeField] private TextMeshProUGUI preMatchRoundTimer;
         #endregion
 
         #region Aim Sprites
@@ -80,6 +86,8 @@ namespace rockpaper_djd
                 #endregion
                 UpdateClockDisplay();
                 UpdatePointsDisplay();
+                UpdatePreMatchTimer();
+                if (matchManager.gmManager.roundBased) UpdateRoundDisplay();
             }
 
 
@@ -162,7 +170,7 @@ namespace rockpaper_djd
             if (minutes == "-01") minutes = "00";
 
             // Change clock text to display the current minutes and seconds
-            clockText.text = minutes + ":" + seconds;
+            clock.text = minutes + ":" + seconds;
         }
 
         private void UpdatePointsDisplay()
@@ -170,19 +178,40 @@ namespace rockpaper_djd
             string points1;
             string points2;
 
-            points1 = matchManager.player1.points.ToString("00") + " -";
-            points2 = "- " + matchManager.player2.points.ToString("00");
+            points1 = matchManager.player1.points.ToString("000") + " -";
+            points2 = "- " + matchManager.player2.points.ToString("000");
 
-            if(team1PointsText.text != points1) team1PointsText.text = points1;
-            if(team2PointsText.text != points2) team2PointsText.text = points2;
+            if(team1Points.text != points1) team1Points.text = points1;
+            if(team2Points.text != points2) team2Points.text = points2;
+        }
+
+        private void UpdatePreMatchTimer()
+        {
+            if (matchManager.isCountingDown)
+            {
+                if (!PreMatchRoundPanel.activeSelf) PreMatchRoundPanel.SetActive(true);
+
+                preMatchRoundTimer.text = matchManager.preMatchTimer.ToString();
+            }
+
+            else
+            {
+                if (PreMatchRoundPanel.activeSelf) PreMatchRoundPanel.SetActive(false);
+            }
+        }
+
+        private void UpdateRoundDisplay()
+        {
+            if (round.text != matchManager.currentRound.ToString())
+                round.text = "Round " + matchManager.currentRound.ToString("00");
         }
 
         private void GameOverDisplay()
         {
             GameOverPanel.SetActive(true);
             if (matchManager.winner != "")
-                winnerText.text = matchManager.winner + " wins!!";
-            else winnerText.text = "it's a draw!!";
+                winner.text = matchManager.winner + " wins!!";
+            else winner.text = "it's a draw!!";
         }
     }
 }

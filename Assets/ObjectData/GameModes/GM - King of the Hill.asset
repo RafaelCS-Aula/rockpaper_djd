@@ -19,13 +19,15 @@ MonoBehaviour:
   timeLimit: 2
   scoreLimit: 750
   pointsPerKill: 20
-  pointsPerScondInZone: 0
+  pointsPerScondInZone: 5
+  preMatchRoundTimerDuration: 3
+  roundBased: 0
+  numberOfRounds: 0
   resetBothPlayers: 0
-  arenaChanges: 1
   gauntletStartsIncomplete: 0
   availableAmmoTypes: 010101
   ammoPickups: 1
   healthPickups: 1
   respawnImmunity: 1
-  AMR: 1
+  AMRAuthorized: 1
   smokeScreen: 1

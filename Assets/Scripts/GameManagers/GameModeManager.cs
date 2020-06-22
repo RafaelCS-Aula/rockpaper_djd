@@ -12,16 +12,24 @@ namespace rockpaper_djd
         public string gameModeDescription;
 
 
-
         public float timeLimit;
         public int scoreLimit;
 
 
-
         public int pointsPerKill;
+
         public int pointsPerScondInZone;
 
-        public bool resetBothPlayers = false;
+        public int preMatchRoundTimerDuration;
+
+        public bool roundBased;
+
+        public int numberOfRounds;
+
+
+        public bool resetBothPlayers;
+
+        public bool gauntletStartsIncomplete;
 
         public bool[] availableAmmoTypes = new bool[3];
 
@@ -31,7 +39,7 @@ namespace rockpaper_djd
 
         public bool respawnImmunity;
 
-        public bool AMR;
+        public bool AMRAuthorized;
 
         public bool smokeScreen;
 
@@ -44,12 +52,16 @@ namespace rockpaper_djd
             scoreLimit = gameModeData.scoreLimit;
             pointsPerKill = gameModeData.pointsPerKill;
             pointsPerScondInZone = gameModeData.pointsPerScondInZone;
+            preMatchRoundTimerDuration = gameModeData.preMatchRoundTimerDuration;
+            roundBased = gameModeData.roundBased;
+            numberOfRounds = gameModeData.numberOfRounds;
             resetBothPlayers = gameModeData.resetBothPlayers;
+            gauntletStartsIncomplete = gameModeData.gauntletStartsIncomplete;
             availableAmmoTypes = gameModeData.availableAmmoTypes;
             ammoPickups = gameModeData.ammoPickups;
             healthPickups = gameModeData.healthPickups;
             respawnImmunity = gameModeData.respawnImmunity;
-            AMR = gameModeData.AMR;
+            AMRAuthorized = gameModeData.AMRAuthorized;
             smokeScreen = gameModeData.smokeScreen;
         }
     }

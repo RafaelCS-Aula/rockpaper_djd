@@ -15,20 +15,30 @@ namespace rockpaper_djd
 
 
         [Header("-Win Conditions-")]
-        [Tooltip("Set Time Limit for this Game Mode (MINUTES)")]
+        [Tooltip("Set Time Limit (MINUTES) for this Game Mode (if Game Mode is Round Based, it refers to Time Limit for each round)")]
         public float timeLimit;
 
         [Tooltip("Set Score Limit for this Game Mode")]
         public int scoreLimit;
 
-
-        [Header("-Rules-")]
+        [Header("-Specifics-")]
         [Tooltip("Points earned for kill for this Game Mode")]
         public int pointsPerKill;
 
         [Tooltip("Points earned for each second in zone for this Game Mode")]
         public int pointsPerScondInZone;
 
+        [Tooltip("Set how many seconds the pre-match/pre-round timer has (SECONDS)")]
+        public int preMatchRoundTimerDuration;
+
+        [Tooltip("Set it Game Mode has rounds (if true, timeLimit refers to how long each round takes)")]
+        public bool roundBased;
+
+        [Tooltip("Set number of rounds, if the Game Mode is Round Based")]
+        public int numberOfRounds;
+
+
+        [Header("-Rules-")]
         [Tooltip("Set if both players are returned to their spawn after every kill")]
         public bool resetBothPlayers = false;
 
@@ -48,7 +58,7 @@ namespace rockpaper_djd
         public bool respawnImmunity = true;
 
         [Tooltip("Enable/Disable AMR for this Game Mode")]
-        public bool AMR = true;
+        public bool AMRAuthorized = true;
 
         [Tooltip("Enable/Disable Smoke Screen for this Game Mode")]
         public bool smokeScreen = true;

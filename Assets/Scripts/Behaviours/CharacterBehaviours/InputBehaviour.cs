@@ -72,7 +72,6 @@ namespace rockpaper_djd
 
         private CharacterHandler cH;
 
-
         #region Helping Vars for other Classes
 
         [HideInInspector] public ProjectileTypes oldType;

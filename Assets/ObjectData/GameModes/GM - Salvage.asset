@@ -21,12 +21,14 @@ MonoBehaviour:
   scoreLimit: 3
   pointsPerKill: 1
   pointsPerScondInZone: 0
+  preMatchRoundTimerDuration: 3
+  roundBased: 1
+  numberOfRounds: 5
   resetBothPlayers: 1
-  arenaChanges: 1
   gauntletStartsIncomplete: 1
   availableAmmoTypes: 010101
   ammoPickups: 1
   healthPickups: 1
   respawnImmunity: 1
-  AMR: 1
+  AMRAuthorized: 1
   smokeScreen: 1

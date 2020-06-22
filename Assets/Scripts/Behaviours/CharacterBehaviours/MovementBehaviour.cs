@@ -98,6 +98,7 @@ namespace rockpaper_djd
         public LayerMask wallLayers;
 
 
+        [HideInInspector] public bool AMRAuthorized = true;
 
         private void Awake()
         {
@@ -250,7 +251,7 @@ namespace rockpaper_djd
 
         public void Jump()
         {
-            if (controller.isGrounded) canDoubleJump = true;
+            if (AMRAuthorized && controller.isGrounded) canDoubleJump = true;
 
             if (controller.isGrounded)
             {
@@ -274,14 +275,17 @@ namespace rockpaper_djd
 
         public void Dash()
         {
-            if (dashCharges > 0 && (velocity.x != 0 || velocity.z != 0))
+            if (AMRAuthorized)
             {
+                if (dashCharges > 0 && (velocity.x != 0 || velocity.z != 0))
+                {
 
-                // Play dash audio
-                cH.audioHandler.PlayAudio(cH.audioHandler.dDash, 3);
+                    // Play dash audio
+                    cH.audioHandler.PlayAudio(cH.audioHandler.dDash, 3);
 
-                StartCoroutine(DashCoroutine());
-                dashCharges--;
+                    StartCoroutine(DashCoroutine());
+                    dashCharges--;
+                }
             }
         }
         private IEnumerator DashCoroutine()
@@ -303,5 +307,12 @@ namespace rockpaper_djd
         }
 
         #endregion
+
+
+        public void ResetAMRCHarges()
+        {
+            doubleJumpCharges = maxDoubleJumpCharges;
+            dashCharges = maxDashCharges;
+        }
     }
 }
