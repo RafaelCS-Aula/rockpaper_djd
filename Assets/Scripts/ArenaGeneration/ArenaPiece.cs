@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,12 +29,13 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
     public void Setup(bool spawnRigid)
     {
+        List<ConnectorGroup> children = new List<ConnectorGroup>();
         _useRigidBody = spawnRigid;
         //Detect connectors
         foreach(ConnectorGroup c in GetComponentsInChildren<ConnectorGroup>())
         {
             if(c.orientation == ConnectorGroupTypes.SIDE)
-                sideConnectorGroups.Add(c);
+                children.Add(c);
             else if (c.orientation == ConnectorGroupTypes.TOP)
             {
                 if(_topConnector != null)
@@ -53,6 +54,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
         }
         
+        sideConnectorGroups = children.Distinct().ToList();
         _useRigidBody = spawnRigid;
         sideConnectorGroups.Sort();
         largestGroupCount = sideConnectorGroups[0].connectorCount;
