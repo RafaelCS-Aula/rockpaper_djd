@@ -12,10 +12,9 @@ public class GenerationManager : MonoBehaviour
     [SerializeField] private List<ArenaPiece> piecesForGeneration;
     
 
-    [Header("------ Generation Settings --------")]
+    [Header("------ Horizontal Level Generation Settings --------")]
 
     [SerializeField] private bool _corridorGeneration = false;
-    [SerializeField] private bool _allowDuplicates = false;
     [SerializeField] private int _maxSidePieces;
     [SerializeField] private int _groupTolerance = 0;
     [SerializeField] private bool _clippingCorrection = false;
@@ -185,8 +184,8 @@ public class GenerationManager : MonoBehaviour
 
                 arena.Add(spawnedScript);
                 
-                if(!_allowDuplicates)
-                    _sortedPieces[myPieceList].RemoveAt(rng);
+                /*if(!_allowDuplicates)
+                    _sortedPieces[myPieceList].RemoveAt(rng);*/
 
                 // if we're at the piece limit break out of the method
                 if(arena.Count >= _maxSidePieces)
@@ -368,8 +367,8 @@ public class GenerationManager : MonoBehaviour
 
         }
 
-        if(!_allowDuplicates && _setCentralPiece)
-            _sortedPieces[0].RemoveAt(0);
+        /*if(!_allowDuplicates && _setCentralPiece)
+            _sortedPieces[0].RemoveAt(0);*/
 
         _placedPieces.Add(choosen);
         Instantiate(_placedPieces[0].gameObject);
