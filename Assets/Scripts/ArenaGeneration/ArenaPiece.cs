@@ -29,6 +29,8 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
     public void Setup(bool spawnRigid)
     {
+
+        Debug.Log("Using first bottom/top connectors found.");
         List<ConnectorGroup> children = new List<ConnectorGroup>();
         _useRigidBody = spawnRigid;
         //Detect connectors
@@ -38,16 +40,12 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
                 children.Add(c);
             else if (c.orientation == ConnectorGroupTypes.TOP)
             {
-                if(_topConnector != null)
-                    Debug.Log("MULTIPLE TOP CONNECTORS FOUND, USING 1ST");
-                else
+                if(_topConnector == null)
                     _topConnector = c;
             }
             else if (c.orientation == ConnectorGroupTypes.BOTTOM)
             {
-                if(_bottomConnector != null)
-                    Debug.Log("MULTIPLE BOT CONNECTORS FOUND, USING 1ST");
-                else
+                if(_bottomConnector == null)
                     _bottomConnector = c;
             }
 
