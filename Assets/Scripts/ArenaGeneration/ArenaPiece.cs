@@ -49,13 +49,13 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
         }
         
-        sideConnectorGroups = children.Distinct().ToList();
+        sideConnectors = children.Distinct().ToList();
         _useRigidBody = spawnRigid;
-        sideConnectorGroups.Sort();
-        ConnectorsCount = sideConnectorGroups.Count;
+        sideConnectors.Sort();
+        ConnectorsCount = sideConnectors.Count;
         
 
-        foreach (ConnectorGroup g in sideConnectorGroups)
+        foreach (ConnectorGroup g in sideConnectors)
         {
             g.isUsed = false;
         }
@@ -94,7 +94,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     /// <returns> Are all the connectors in this piece used?</returns>
     public bool isFull()
     {
-        foreach(ConnectorGroup c in sideConnectorGroups)
+        foreach(ConnectorGroup c in sideConnectors)
             if(!c.isUsed)
                 return false;
         return true;
@@ -168,9 +168,9 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         //Spawn the piece and have it tell if the trigger collider reports back
         // ...but what if the piece is not all in one mesh?
 
-        foreach(ConnectorGroup co in other.sideConnectorGroups)
+        foreach(ConnectorGroup co in other.sideConnectors)
         {
-            foreach(ConnectorGroup ct in this.sideConnectorGroups)
+            foreach(ConnectorGroup ct in this.sideConnectors)
             {
                 if(!co.isUsed && !ct.isUsed && 
                     co.connectorCount >= ct.connectorCount - groupTolerance &&
@@ -257,11 +257,11 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     /// <returns></returns>
     public int CompareTo(ArenaPiece other)
     {
-        if (this.sideConnectorGroups.Count >
-            other.sideConnectorGroups.Count)
+        if (this.sideConnectors.Count >
+            other.sideConnectors.Count)
             return -1;
-        else if (this.sideConnectorGroups.Count <
-            other.sideConnectorGroups.Count)
+        else if (this.sideConnectors.Count <
+            other.sideConnectors.Count)
             return 1;
         else
             return 0;
