@@ -6,33 +6,34 @@ public class GenerationManager : MonoBehaviour
 {
    
     [Header("----- Content Settings ------")]
-    [SerializeField] private bool _setCentralPiece = false;
-    [SerializeField] private ArenaPiece _centralPiece;
-        
     [SerializeField] private List<ArenaPiece> piecesForGeneration;
-    
+
+    [Header("-- Starting Piece Settings --")]
+    [SerializeField] private bool _setStartingPiece = false;
+    [SerializeField] private List<ArenaPiece> _possibleStartingPieces;
+    [SerializeField] private int _connectorCountTolerance = 0;
 
     [Header("------ Horizontal Level Generation Settings --------")]
 
     [SerializeField] private bool _corridorGeneration = false;
-    [SerializeField] private int _maxSidePieces;
+    [SerializeField] private int _maxLevelPieceCount;
     [SerializeField] private int _groupTolerance = 0;
     [SerializeField] private bool _clippingCorrection = false;
     [SerializeField] private float _pieceDistance = 0.0001f;
 
     [Header("------ Vertical Level Settings --------")]
-    [SerializeField] private int _upperLevels = 0;
+    [SerializeField] private bool _createUpperLevel;
 
     [Tooltip("Choose random pieces and put other pieces above them.")]
-    [SerializeField] private bool _upperIslandGeneration;
-    [SerializeField] private int _upperIslandsMaxPieces = 1;
+    [SerializeField] private bool _upperLevelIslandGeneration;
+    [SerializeField] private int _upperIslandsCount = 1;
 
     [Header("--")]
-    [SerializeField] private int _lowerLevels = 0;
+    [SerializeField] private bool _createLowerLevel;
 
     [Tooltip("Choose random pieces and put other pieces under them.")]
-    [SerializeField] private bool _lowerIslandGeneration;
-    [SerializeField] private int _lowerIslandsMaxPieces = 1;
+    [SerializeField] private bool _lowerLevelIslandGeneration;
+    [SerializeField] private int _lowerIslandsCount = 1;
 
 
     private List<ArenaPiece> _placedPieces;
@@ -49,7 +50,6 @@ public class GenerationManager : MonoBehaviour
 
 
     private int largestGroup;
-    private int smallestLargestGroup;
     
     // Start is called before the first frame update
     void Awake()
@@ -69,9 +69,8 @@ public class GenerationManager : MonoBehaviour
 
         piecesForGeneration.Sort();
         largestGroup = 
-            piecesForGeneration[0].largestGroupCount;
-        smallestLargestGroup = 
-            piecesForGeneration[piecesForGeneration.Count - 1].largestGroupCount;
+            piecesForGeneration[0].ConnectorsCount;
+
 
         
         // Seperate pieces into seperate lists based on largest group
@@ -83,7 +82,7 @@ public class GenerationManager : MonoBehaviour
         // Make base level of Arena and add those pieces to the list
         _placedPieces.AddRange(MakeHorizontalArena(_placedPieces[0]));
 
-        if(_upperLevels > 0 || _lowerLevels > 0)
+        if(_createUpperLevel || _createLowerLevel)
             MakeVerticalArena(_placedPieces);
 
 
@@ -114,7 +113,7 @@ public class GenerationManager : MonoBehaviour
         sizeArray = new int[_sortedPieces.Count];
 
         for(int i = 0; i < sizeArray.Length; i++)
-            sizeArray[i] = _sortedPieces[i][0].largestGroupCount;
+            sizeArray[i] = _sortedPieces[i][0].ConnectorsCount;
 
          // Check what list of the sorted list the selected belongs to
         int myPieceList = 0;
@@ -126,17 +125,6 @@ public class GenerationManager : MonoBehaviour
             else
                 _selectedPiece = arena[i];
 
-
-           /* for (int x = 0; x < sizeArray.Length; x++)
-            {
-                if (_selectedPiece.largestGroupCount == sizeArray[x])
-                {
-                    myPieceList = x;
-                    break;
-
-                }
-
-            }*/
 
             // Reset wasAnalyzed in all the pieces that are yet to be evaluated.
             foreach(ArenaPiece a in _sortedPieces[myPieceList])
@@ -159,11 +147,6 @@ public class GenerationManager : MonoBehaviour
 
             _evaluatingPiece = _sortedPieces[myPieceList][rng];
             
-            // INFINITE LOOP IF ALL WERE ANALYSED ALREADY
-            /*if(!_sortedPieces[myPieceList][rng].wasAnalysed)
-                _evaluatingPiece = _sortedPieces[myPieceList][rng];
-            else
-                goto selectPiece;*/
 
             // Compare all the connectors on both pieces and get a transform to
             // where to place the evaluated piece
@@ -179,16 +162,10 @@ public class GenerationManager : MonoBehaviour
             // If things worked out, spawn the piece in the correct position
             if(evaluationResult.valid)
             {
-                /*Instantiate(_evaluatingPiece,
-                evaluationResult.trn.position, evaluationResult.trn.rotation);*/
 
                 arena.Add(spawnedScript);
                 
-                /*if(!_allowDuplicates)
-                    _sortedPieces[myPieceList].RemoveAt(rng);*/
-
-                // if we're at the piece limit break out of the method
-                if(arena.Count >= _maxSidePieces)
+                if(arena.Count >= _maxLevelPieceCount)
                     return arena;
 
             }
@@ -204,7 +181,7 @@ public class GenerationManager : MonoBehaviour
             // placed piece
             if(_corridorGeneration)
             {
-                //float funnelChance = Random.Range(0,1);
+                
 
                 continue;
             }
@@ -219,10 +196,12 @@ public class GenerationManager : MonoBehaviour
         return arena;
     }
 
+    /// <summary>
+    /// Create the vertical upper and lower levels of the arena
+    /// </summary>
+    /// <param name="arena">The placed pieces that will be selected</param>
     private void MakeVerticalArena(ICollection<ArenaPiece> arena)
     {
-        
-
         
         List<ArenaPiece> placedHaveTopConns = new List<ArenaPiece>();
         List<ArenaPiece> placedHaveBotConns = new List<ArenaPiece>();
@@ -241,10 +220,10 @@ public class GenerationManager : MonoBehaviour
         }
         
         // Upper Levels
-        if(_upperIslandGeneration && placedHaveTopConns.Count > 0)
+        if(_upperLevelIslandGeneration && placedHaveTopConns.Count > 0)
         {
 
-            for(int i = 0; i < _upperIslandsMaxPieces; i++)
+            for(int i = 0; i < _upperIslandsCount; i++)
             {
                 int rng = Random.Range(0,placedHaveTopConns.Count);
                 _selectedPiece = placedHaveTopConns[rng];
@@ -271,10 +250,6 @@ public class GenerationManager : MonoBehaviour
                 {
                     _placedPieces.Add(spawnedScript);
 
-                    /*Instantiate(_evaluatingPiece,
-                    evaluationResult.trn.position,
-                     evaluationResult.trn.rotation);*/
-
                 }
                 else
                     Destroy(spawnedPiece);
@@ -283,7 +258,7 @@ public class GenerationManager : MonoBehaviour
             }
 
         }
-        else if(!_upperIslandGeneration && placedHaveTopConns.Count > 0)
+        else if(!_upperLevelIslandGeneration && placedHaveTopConns.Count > 0)
         {
 
             _placedPieces.AddRange(MakeHorizontalArena
@@ -292,10 +267,10 @@ public class GenerationManager : MonoBehaviour
         }
 
         // Lower Levels
-        if(_lowerIslandGeneration && placedHaveBotConns.Count > 0)
+        if(_lowerLevelIslandGeneration && placedHaveBotConns.Count > 0)
         {
 
-            for(int i = 0; i < _lowerIslandsMaxPieces; i++)
+            for(int i = 0; i < _lowerIslandsCount; i++)
             {
                 int rng = Random.Range(0,placedHaveBotConns.Count);
                 _selectedPiece = placedHaveBotConns[rng];
@@ -322,9 +297,6 @@ public class GenerationManager : MonoBehaviour
                 {
                     _placedPieces.Add(spawnedScript);
 
-                    /*Instantiate(_evaluatingPiece,
-                    evaluationResult.trn.position,
-                     evaluationResult.trn.rotation);*/
 
                 }
                 else
@@ -335,11 +307,10 @@ public class GenerationManager : MonoBehaviour
 
 
         }
-        else if(!_lowerIslandGeneration && placedHaveBotConns.Count > 0)
+        else if(!_lowerLevelIslandGeneration && placedHaveBotConns.Count > 0)
         {
 
-            
-
+        
             _placedPieces.AddRange(MakeHorizontalArena
             (placedHaveTopConns[Random.Range(0, placedHaveBotConns.Count)]));
 
@@ -352,23 +323,48 @@ public class GenerationManager : MonoBehaviour
     /// </summary>
     private void PickFirstPiece()
     {
-        ArenaPiece choosen = null;
-        int choosenIndex = Random.Range(0, _sortedPieces[0].Count);
+        // To be safe if the starters list fails
+        chooseStarter:
 
+        ArenaPiece choosen = null;
+        
+        
+        int choosenIndex = 0;
         _placedPieces = new List<ArenaPiece>();
-        if (_setCentralPiece)
+
+        if (_setStartingPiece)
         {
-            choosen = _centralPiece;
-            
+            if(_possibleStartingPieces.Count == 0)
+            {
+                Debug.LogError(
+                    "'Set starting piece' is on but no ArenaPieces were given");
+                _setStartingPiece = false;
+                goto chooseStarter;
+            }
+
+            choosenIndex = Random.Range(0, _possibleStartingPieces.Count);
+            choosen =     _possibleStartingPieces[choosenIndex];    
+    
         }
         else
         {
-            choosen = _sortedPieces[0][choosenIndex];
+            
+            if(_corridorGeneration)
+            {
+                choosenIndex = Random.Range(0, _sortedPieces[0].Count);
+                choosen = _sortedPieces[0][choosenIndex];
 
+            }
+                
+            else
+            {
+                choosenIndex = Random.Range(
+                    0, _sortedPieces[_sortedPieces.Count - 1].Count);
+                    
+                choosen = _sortedPieces[_sortedPieces.Count - 1][choosenIndex];
+            }
+                
         }
-
-        /*if(!_allowDuplicates && _setCentralPiece)
-            _sortedPieces[0].RemoveAt(0);*/
 
         _placedPieces.Add(choosen);
         Instantiate(_placedPieces[0].gameObject);
@@ -387,16 +383,17 @@ public class GenerationManager : MonoBehaviour
         for (int i = 0; i < piecesForGeneration.Count; i++)
         {
             // Piece belongs in a new list made for its size            
-            if (piecesForGeneration[i].largestGroupCount < lastConsidered)
+            if (piecesForGeneration[i].ConnectorsCount < lastConsidered)
             {
                 considererdList = new List<ArenaPiece>();
                 considererdList.Add(piecesForGeneration[i]);
-                lastConsidered = piecesForGeneration[i].largestGroupCount;
+                lastConsidered = piecesForGeneration[i].ConnectorsCount;
                 sortedList.Add(considererdList);
 
             }
             // piece belongs in the already made list
-            else if (piecesForGeneration[i].largestGroupCount == lastConsidered)
+            else if (piecesForGeneration[i].ConnectorsCount >= 
+            lastConsidered - _connectorCountTolerance)
             {
 
                 considererdList.Add(piecesForGeneration[i]);
