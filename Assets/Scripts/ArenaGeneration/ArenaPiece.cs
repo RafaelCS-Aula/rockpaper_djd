@@ -8,17 +8,16 @@ using UnityEngine;
 public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 {
 
-      [SerializeField] private List<ConnectorGroup> sideConnectorGroups = 
+       private List<ConnectorGroup> sideConnectors = 
       new List<ConnectorGroup>() ; 
         
-      [SerializeField] private ConnectorGroup _topConnector = null ;
-      [SerializeField] private ConnectorGroup _bottomConnector = null ;
+       private ConnectorGroup _topConnector = null ;
+       private ConnectorGroup _bottomConnector = null ;
 
     private bool _useRigidBody;
     [HideInInspector] public bool wasAnalysed = false;
     
-    [HideInInspector] public int largestGroupCount;
-    [HideInInspector] public int smallestGroupCount;
+    [HideInInspector] public int ConnectorsCount;
 
 
     /// <summary>
@@ -53,9 +52,8 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         sideConnectorGroups = children.Distinct().ToList();
         _useRigidBody = spawnRigid;
         sideConnectorGroups.Sort();
-        largestGroupCount = sideConnectorGroups[0].connectorCount;
-        smallestGroupCount = 
-            sideConnectorGroups[sideConnectorGroups.Count - 1].connectorCount;
+        ConnectorsCount = sideConnectorGroups.Count;
+        
 
         foreach (ConnectorGroup g in sideConnectorGroups)
         {
