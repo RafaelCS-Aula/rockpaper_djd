@@ -21,7 +21,10 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     [HideInInspector] public int smallestGroupCount;
 
 
-
+    /// <summary>
+    /// Detects the connectors, sorts them and activates the rigidbodies
+    /// </summary>
+    /// <param name="spawnRigid"></param>
     public void Setup(bool spawnRigid)
     {
 
@@ -75,6 +78,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
             GetComponent<MeshCollider>().convex = true;
             rb = GetComponent<Rigidbody>();
             rb.useGravity = false;
+            rb.mass = 0;
             rb.drag = 900;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
@@ -86,6 +90,10 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         
     }
 
+    /// <summary>
+    /// Checks all connectors to see if they're already connected to another
+    /// </summary>
+    /// <returns> Are all the connectors in this piece used?</returns>
     public bool isFull()
     {
         foreach(ConnectorGroup c in sideConnectorGroups)
@@ -244,13 +252,18 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         
     }
 
+    /// <summary>
+    /// Order the peices by how many connectors they have
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
     public int CompareTo(ArenaPiece other)
     {
-        if (this.sideConnectorGroups[0].connectorCount >
-            other.sideConnectorGroups[0].connectorCount)
+        if (this.sideConnectorGroups.Count >
+            other.sideConnectorGroups.Count)
             return -1;
-        else if (this.sideConnectorGroups[0].connectorCount <
-            other.sideConnectorGroups[0].connectorCount)
+        else if (this.sideConnectorGroups.Count <
+            other.sideConnectorGroups.Count)
             return 1;
         else
             return 0;
