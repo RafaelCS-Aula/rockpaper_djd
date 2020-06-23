@@ -8,11 +8,11 @@ using UnityEngine;
 public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 {
 
-       private List<ConnectorGroup> sideConnectors = 
-      new List<ConnectorGroup>() ; 
+       private List<Connector> sideConnectors = 
+      new List<Connector>() ; 
         
-       private ConnectorGroup _topConnector = null ;
-       private ConnectorGroup _bottomConnector = null ;
+       private Connector _topConnector = null ;
+       private Connector _bottomConnector = null ;
 
     private bool _useRigidBody;
     [HideInInspector] public bool wasAnalysed = false;
@@ -28,10 +28,10 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     {
 
         Debug.Log("Using first bottom/top connectors found.");
-        List<ConnectorGroup> children = new List<ConnectorGroup>();
+        List<Connector> children = new List<Connector>();
         _useRigidBody = spawnRigid;
         //Detect connectors
-        foreach(ConnectorGroup c in GetComponentsInChildren<ConnectorGroup>())
+        foreach(Connector c in GetComponentsInChildren<Connector>())
         {
             if(c.orientation == ConnectorOrientations.SIDE)
                 children.Add(c);
@@ -55,7 +55,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         ConnectorsCount = sideConnectors.Count;
         
 
-        foreach (ConnectorGroup g in sideConnectors)
+        foreach (Connector g in sideConnectors)
         {
             g.isUsed = false;
         }
@@ -94,7 +94,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     /// <returns> Are all the connectors in this piece used?</returns>
     public bool isFull()
     {
-        foreach(ConnectorGroup c in sideConnectors)
+        foreach(Connector c in sideConnectors)
             if(!c.isUsed)
                 return false;
         return true;
@@ -120,8 +120,8 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
         ArenaPiece other, bool upper, float pieceDistance = 0.00f,
          int groupTolerance = 0)
         {
-            ConnectorGroup myCon = null;
-            ConnectorGroup otherCon = null;
+            Connector myCon = null;
+            Connector otherCon = null;
             if(upper && other._topConnector != null)
             {
                 myCon = _topConnector;
@@ -139,8 +139,8 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
                 return (false, null);
                 
             if(!otherCon.isUsed && !myCon.isUsed && 
-                otherCon.connectorCount >= myCon.connectorCount-groupTolerance 
-                && otherCon.connectorCount <= myCon.connectorCount)
+                otherCon.pins >= myCon.pins-groupTolerance 
+                && otherCon.pins <= myCon.pins)
                     {
                         otherCon.isUsed = true;
                         myCon.isUsed = true;
@@ -162,19 +162,19 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     {
         
 
-        List<(ConnectorGroup mine, ConnectorGroup oth)> possibleCombos =
-        new List<(ConnectorGroup mine, ConnectorGroup oth)>();
+        List<(Connector mine, Connector oth)> possibleCombos =
+        new List<(Connector mine, Connector oth)>();
         //Check for intersecting geometry?
         //Spawn the piece and have it tell if the trigger collider reports back
         // ...but what if the piece is not all in one mesh?
 
-        foreach(ConnectorGroup co in other.sideConnectors)
+        foreach(Connector co in other.sideConnectors)
         {
-            foreach(ConnectorGroup ct in this.sideConnectors)
+            foreach(Connector ct in this.sideConnectors)
             {
                 if(!co.isUsed && !ct.isUsed && 
-                    co.connectorCount >= ct.connectorCount - groupTolerance &&
-                    co.connectorCount <= ct.connectorCount)
+                    co.pins >= ct.pins - groupTolerance &&
+                    co.pins <= ct.pins)
                 {
                     possibleCombos.Add((ct, co));
                 }
@@ -184,7 +184,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
         if(possibleCombos.Count > 0)
         {
-            (ConnectorGroup chosenMine, ConnectorGroup chosenOther)
+            (Connector chosenMine, Connector chosenOther)
              choosenCombo = possibleCombos[
                  UnityEngine.Random.Range(0, possibleCombos.Count)];
 
@@ -207,7 +207,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     /// <param name="otherConnectorGroup"></param>
     /// <param name="otherPiece"></param>
     /// <returns></returns>
-    private Transform TransformPiece(ConnectorGroup myConnectorGroup, ConnectorGroup otherConnectorGroup, ArenaPiece otherPiece, 
+    private Transform TransformPiece(Connector myConnectorGroup, Connector otherConnectorGroup, ArenaPiece otherPiece, 
     float offset)
     {
         
