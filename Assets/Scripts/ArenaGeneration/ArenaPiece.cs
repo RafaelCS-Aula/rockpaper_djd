@@ -21,7 +21,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     private Connector _bottomConnector = null;
 
     private bool _useRigidBody;
-    [HideInInspector] public bool wasAnalysed = false;
+    [HideInInspector]  public bool wasAnalysed = false;
     
     [HideInInspector] public int ConnectorsCount;
 
@@ -123,7 +123,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 
     }
 
-    public (bool valid, Transform position) EvaluatePieceVertical(
+   /* public (bool valid, Transform position) EvaluatePieceVertical(
         ArenaPiece other, bool upper, float pieceDistance = 0.00f,
          int groupTolerance = 0)
         {
@@ -161,11 +161,11 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
             else 
                 return (false, null);
 
-        }
+        }*/
 
 
     public (bool valid, Transform positionRot) EvaluatePiece(
-        ArenaPiece other, float pieceDistance = 0.00f, int groupTolerance = 0)
+        ArenaPiece other, float pieceDistance = 0.00f, uint groupTolerance = 0)
     {
         
 
