@@ -90,8 +90,6 @@ namespace rockpaper_djd
             }
 
             else GetData();
-
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Start()

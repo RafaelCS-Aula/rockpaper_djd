@@ -209,8 +209,8 @@ namespace rockpaper_djd
 
         private void UpdateRoundDisplay()
         {
-            if (round.text != matchManager.currentRound.ToString())
-                round.text = "Round " + matchManager.currentRound.ToString("00");
+            string newText = "Round " + matchManager.currentRound.ToString("00");
+            if (round.text != newText) round.text = newText;
         }
 
         private void UpdateZoneTimer()

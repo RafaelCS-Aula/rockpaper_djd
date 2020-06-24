@@ -4,6 +4,7 @@ namespace rockpaper_djd
 {
     public class GameModeManager : MonoBehaviour
     {
+        #region Vars
         public GameModeData[] gameModes = new GameModeData[3];
 
         public string gameModeName;
@@ -40,6 +41,11 @@ namespace rockpaper_djd
         public bool respawnImmunity;
 
         public bool AMRAuthorized;
+        #endregion
+
+        [HideInInspector] public string p1Name;
+        [HideInInspector] public string p2Name;
+
 
         public void LoadGameModeData(GameModeData gameModeData)
         {

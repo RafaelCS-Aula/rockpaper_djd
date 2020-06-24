@@ -7,9 +7,14 @@ namespace rockpaper_djd
 {
     public class SceneManagement : MonoBehaviour
     {
-        public void Play()
+        public void NextScene()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        
+        public void PreviousScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
 
         public void Quit()
