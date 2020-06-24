@@ -8,20 +8,28 @@ public class GenerationManager : MonoBehaviour
     [Header("----- Content Settings ------")]
     [SerializeField] private List<ArenaPiece> piecesForGeneration;
 
-    [Header("-- Starting Piece Settings --")]
+    [Header("Starting Piece Settings ---")]
     [SerializeField] private bool _setStartingPiece = false;
     [SerializeField] private List<ArenaPiece> _possibleStartingPieces;
-    [SerializeField] private int _connectorCountTolerance = 0;
+    [SerializeField] private uint _connectorCountTolerance = 0;
 
-    [Header("------ Horizontal Level Generation Settings --------")]
+    [Header("------ General Generation Settings --------")]
 
-    [SerializeField] private bool _corridorGeneration = false;
-    [SerializeField] private int _maxLevelPieceCount;
-    [SerializeField] private int _groupTolerance = 0;
+    [SerializeField] private GenerationTypes _generationMethod;
+    [SerializeField] private uint _maxLevelPieceCount;
+    [SerializeField] private uint _groupTolerance = 0;
     [SerializeField] private bool _clippingCorrection = false;
     [SerializeField] private float _pieceDistance = 0.0001f;
 
-    [Header("------ Vertical Level Settings --------")]
+    [Header("Star & Branch Generation Settings --------")]
+    [SerializeField] private uint _branchPieceCount;
+    [SerializeField] private int _branchSizeVariance = 0;
+
+    [Header("---")]
+    [SerializeField] private uint _branchGenPieceSkipping = 0;
+    [SerializeField] private uint _PieceSkippingVariance = 0;
+
+    /*[Header("------ Vertical Level Settings --------")]
     [SerializeField] private bool _createUpperLevel;
 
     [Tooltip("Choose random pieces and put other pieces above them.")]
@@ -33,7 +41,7 @@ public class GenerationManager : MonoBehaviour
 
     [Tooltip("Choose random pieces and put other pieces under them.")]
     [SerializeField] private bool _lowerLevelIslandGeneration;
-    [SerializeField] private int _lowerIslandsCount = 1;
+    [SerializeField] private int _lowerIslandsCount = 1;*/
 
 
     private List<ArenaPiece> _placedPieces;
@@ -104,8 +112,13 @@ public class GenerationManager : MonoBehaviour
     /// <returns> The pieces placed during this method's process</returns>
     private List<ArenaPiece> MakeHorizontalArena(ArenaPiece startingPiece)
     {
+        int placedAmount = 0;
+        int jumpsTaken = 0;
+        int failureCount = 0;
+        uint maxFailures = _maxLevelPieceCount;
         // Pieces placed by this method call
         List<ArenaPiece> arena = new List<ArenaPiece>(); 
+        //List<ArenaPiece> spawnedArena = new List<ArenaPiece>();
 
         // Make an array listing all the sizes of the biggest groups in the 
         // sorted pieces groups
@@ -140,16 +153,14 @@ public class GenerationManager : MonoBehaviour
                 rng = Random.Range(0,_sortedPieces[myPieceList].Count);
             else
             {
-                 myPieceList++;
                 goto selectPiece;
             
             }
 
+       
             _evaluatingPiece = _sortedPieces[myPieceList][rng];
             
-
-            // Compare all the connectors on both pieces and get a transform to
-            // where to place the evaluated piece
+            
 
             GameObject spawnedPiece = Instantiate(_evaluatingPiece).gameObject;
             ArenaPiece spawnedScript = spawnedPiece.GetComponent<ArenaPiece>();
@@ -164,25 +175,83 @@ public class GenerationManager : MonoBehaviour
             {
 
                 arena.Add(spawnedScript);
-                
+                placedAmount++;
+
+                spawnedScript.gameObject.transform.SetParent(_selectedPiece.transform);
+
                 if(arena.Count >= _maxLevelPieceCount)
                     return arena;
 
             }
             else
             {
+                if (failureCount > maxFailures)
+                    return arena;
+
                 // No valid connectors in the given piece
                 Destroy(spawnedPiece);
                 _evaluatingPiece.wasAnalysed = true;
+                failureCount++;
+                
                 goto selectPiece;
 
             } 
 
+            
             // if this one has no more free connectors, move on to the next 
             // placed piece
-            if(_corridorGeneration)
+            switch(_generationMethod)
             {
+                case GenerationTypes.CORRIDOR:
                 continue;
+
+                case GenerationTypes.STAR:
+                    int[] multi = new int[] {-1, 1};
+                    int variance = 
+                        multi[Random.Range(0,2)] * _branchSizeVariance;
+
+                    if(placedAmount < _branchPieceCount + variance)
+                        continue;
+
+                    else if(placedAmount >= _branchPieceCount + variance &&
+                            !startingPiece.IsFull())
+                    {
+                        placedAmount = 0;
+                        _selectedPiece = startingPiece;
+                        goto selectPiece;
+                    }
+                    return arena;
+
+                case GenerationTypes.BRANCH:
+                    int[] mult = new int[] {-1, 1};
+                    int multiplier =  
+                        mult[Random.Range(0,2)] * _branchSizeVariance;
+
+                    if(placedAmount < _branchPieceCount + multiplier)
+                        continue;
+                    else if(placedAmount >= _branchPieceCount + multiplier)
+                    {
+                        int variableVariance;
+                        variableVariance =mult[(int)Random.Range(0,
+                            _PieceSkippingVariance + 1)];
+
+                        int dist = 
+                           (int)_branchGenPieceSkipping + variableVariance * jumpsTaken;
+
+                        int jump = (int)Mathf.Clamp(dist,
+                        1, arena.Count - 1);
+
+                        if(!arena[0 + jump].IsFull())
+                        {
+                            placedAmount = 0;
+                            _selectedPiece = arena[0 + jump];
+                            jumpsTaken++;
+                            goto selectPiece;
+
+                        }
+                            
+                    }
+                    break;
             }
 
 
@@ -195,6 +264,7 @@ public class GenerationManager : MonoBehaviour
         return arena;
     }
 
+    // Vertical generation is a no-go for now
     /// <summary>
     /// Create the vertical upper and lower levels of the arena
     /// </summary>
@@ -387,7 +457,8 @@ public class GenerationManager : MonoBehaviour
         else
         {
             
-            if(_corridorGeneration)
+            if(_generationMethod == GenerationTypes.CORRIDOR ||
+            _generationMethod == GenerationTypes.BRANCH)
             {
 
                 choosenIndex = Random.Range(
@@ -407,9 +478,9 @@ public class GenerationManager : MonoBehaviour
             }
                 
         }
-
-        _placedPieces.Add(choosen);
-        Instantiate(_placedPieces[0].gameObject);
+        GameObject piece = Instantiate(choosen.gameObject);
+        _placedPieces.Add(piece.GetComponent<ArenaPiece>());
+        
     }
 
     /// <summary>
