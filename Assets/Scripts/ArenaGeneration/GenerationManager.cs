@@ -82,8 +82,8 @@ public class GenerationManager : MonoBehaviour
         // Make base level of Arena and add those pieces to the list
         _placedPieces.AddRange(MakeHorizontalArena(_placedPieces[0]));
 
-        if(_createUpperLevel || _createLowerLevel)
-            MakeVerticalArena(_placedPieces);
+        /*if(_createUpperLevel || _createLowerLevel)
+            MakeVerticalArena(_placedPieces);*/
 
 
         foreach (ArenaPiece item in _placedPieces)
@@ -174,6 +174,7 @@ public class GenerationManager : MonoBehaviour
                 // No valid connectors in the given piece
                 Destroy(spawnedPiece);
                 _evaluatingPiece.wasAnalysed = true;
+                goto selectPiece;
 
             } 
 
@@ -181,13 +182,11 @@ public class GenerationManager : MonoBehaviour
             // placed piece
             if(_corridorGeneration)
             {
-                
-
                 continue;
             }
 
 
-            if(_selectedPiece.isFull())
+            if(_selectedPiece.IsFull())
                 continue;
             else // else choose another piece to evaluate for this one
                 goto selectPiece;
@@ -200,7 +199,7 @@ public class GenerationManager : MonoBehaviour
     /// Create the vertical upper and lower levels of the arena
     /// </summary>
     /// <param name="arena">The placed pieces that will be selected</param>
-    private void MakeVerticalArena(ICollection<ArenaPiece> arena)
+   /* private void MakeVerticalArena(ICollection<ArenaPiece> arena)
     {
         
         List<ArenaPiece> placedHaveTopConns = new List<ArenaPiece>();
@@ -262,23 +261,26 @@ public class GenerationManager : MonoBehaviour
         {
 
             _placedPieces.AddRange(MakeHorizontalArena
-            (placedHaveBotConns[Random.Range(0, placedHaveTopConns.Count)]));
+            (placedHaveTopConns[Random.Range(0, placedHaveTopConns.Count)]));
 
         }
 
         // Lower Levels
-        if(_lowerLevelIslandGeneration && placedHaveBotConns.Count > 0)
+        if (_lowerLevelIslandGeneration && placedHaveBotConns.Count > 0)
         {
-
-            for(int i = 0; i < _lowerIslandsCount; i++)
+            int placed = 0;
+            while(placed < _lowerIslandsCount)
             {
-                int rng = Random.Range(0,placedHaveBotConns.Count);
+                int rng = Random.Range(0, placedHaveBotConns.Count);
                 _selectedPiece = placedHaveBotConns[rng];
+
+                foreach (ArenaPiece a in placedHaveBotConns)
+                    a.wasAnalysed = false;
 
                 pickEvaluatingPiece:
 
-                int sortRng = Random.Range(0,_sortedPieces.Count);
-                int listRng = Random.Range(0,_sortedPieces[sortRng].Count);
+                int sortRng = Random.Range(0, _sortedPieces.Count);
+                int listRng = Random.Range(0, _sortedPieces[sortRng].Count);
 
                 _evaluatingPiece = _sortedPieces[sortRng][listRng];
 
@@ -287,7 +289,7 @@ public class GenerationManager : MonoBehaviour
                 ArenaPiece spawnedScript =
                     spawnedPiece.GetComponent<ArenaPiece>();
 
-                if (_evaluatingPiece != null)
+                if (_evaluatingPiece != null && !_evaluatingPiece.wasAnalysed)
                     evaluationResult = _selectedPiece.EvaluatePieceVertical(
                         spawnedScript, false);
                 else
@@ -296,27 +298,63 @@ public class GenerationManager : MonoBehaviour
                 if (evaluationResult.valid)
                 {
                     _placedPieces.Add(spawnedScript);
-
+                    placed++;
 
                 }
                 else
+                {
+                    _evaluatingPiece.wasAnalysed = true;
                     Destroy(spawnedPiece);
+                    goto pickEvaluatingPiece;
+                }
+
 
 
             }
 
 
         }
-        else if(!_lowerLevelIslandGeneration && placedHaveBotConns.Count > 0)
+        else if (!_lowerLevelIslandGeneration && placedHaveBotConns.Count > 0)
         {
 
-        
-            _placedPieces.AddRange(MakeHorizontalArena
-            (placedHaveTopConns[Random.Range(0, placedHaveBotConns.Count)]));
+            int rng = Random.Range(0, placedHaveBotConns.Count);
+            _selectedPiece = placedHaveBotConns[rng];
 
+            foreach (ArenaPiece a in placedHaveBotConns)
+                a.wasAnalysed = false;
+
+            pickEvaluatingPiece:
+
+            int sortRng = Random.Range(0, _sortedPieces.Count);
+            int listRng = Random.Range(0, _sortedPieces[sortRng].Count);
+
+            _evaluatingPiece = _sortedPieces[sortRng][listRng];
+
+            GameObject spawnedPiece =
+                               Instantiate(_evaluatingPiece).gameObject;
+            ArenaPiece spawnedScript =
+                spawnedPiece.GetComponent<ArenaPiece>();
+
+            if (_evaluatingPiece != null && !_evaluatingPiece.wasAnalysed)
+                evaluationResult = _selectedPiece.EvaluatePieceVertical(
+                    spawnedScript, false);
+            else
+                goto pickEvaluatingPiece;
+
+            if (evaluationResult.valid)
+            {
+                _placedPieces.Add(spawnedScript);
+                _placedPieces.AddRange(MakeHorizontalArena(spawnedScript));
+
+            }
+            else
+            {
+                _evaluatingPiece.wasAnalysed = true;
+                Destroy(spawnedPiece);
+                goto pickEvaluatingPiece;
+            }
         }
-            
-    }
+    }*/
 
     /// <summary>
     /// Select and place the first piece of the arena
@@ -351,17 +389,21 @@ public class GenerationManager : MonoBehaviour
             
             if(_corridorGeneration)
             {
-                choosenIndex = Random.Range(0, _sortedPieces[0].Count);
-                choosen = _sortedPieces[0][choosenIndex];
+
+                choosenIndex = Random.Range(
+                    0, _sortedPieces[_sortedPieces.Count - 1].Count);
+                    
+                choosen = _sortedPieces[_sortedPieces.Count - 1][choosenIndex];
 
             }
                 
             else
             {
-                choosenIndex = Random.Range(
-                    0, _sortedPieces[_sortedPieces.Count - 1].Count);
-                    
-                choosen = _sortedPieces[_sortedPieces.Count - 1][choosenIndex];
+
+                choosenIndex = Random.Range(0, _sortedPieces[0].Count);
+                choosen = _sortedPieces[0][choosenIndex];
+
+
             }
                 
         }
