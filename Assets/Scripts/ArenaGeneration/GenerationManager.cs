@@ -94,10 +94,10 @@ public class GenerationManager : MonoBehaviour
             MakeVerticalArena(_placedPieces);*/
 
 
-        foreach (ArenaPiece item in _placedPieces)
+        /*foreach (ArenaPiece item in _placedPieces)
         {
             print(item.gameObject);
-        }
+        }*/
         //TODO: Serialise the _placedPieces list to Json so it can be
         // loaded back in again. And we can laod and save premade arenas
 
@@ -176,7 +176,7 @@ public class GenerationManager : MonoBehaviour
 
                 arena.Add(spawnedScript);
                 placedAmount++;
-
+                print("Found piece.");
                 spawnedScript.gameObject.transform.SetParent(_selectedPiece.transform);
 
                 if(arena.Count >= _maxLevelPieceCount)
@@ -205,6 +205,7 @@ public class GenerationManager : MonoBehaviour
                 case GenerationTypes.CORRIDOR:
                 continue;
 
+                // For some reason the first branch gets double pieces
                 case GenerationTypes.STAR:
                     int[] multi = new int[] {-1, 1};
                     int variance = 
@@ -216,8 +217,10 @@ public class GenerationManager : MonoBehaviour
                     else if(placedAmount >= _branchPieceCount + variance &&
                             !startingPiece.IsFull())
                     {
+                        print($"placed: {placedAmount}, arena: {arena.Count}");
                         placedAmount = 0;
                         _selectedPiece = startingPiece;
+                        print($"Selected piece is now {_selectedPiece.gameObject}");
                         goto selectPiece;
                     }
                     return arena;
