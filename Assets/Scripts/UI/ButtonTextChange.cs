@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using RPS_DJDIII.Assets.Scripts.DataScriptables.GameModeData;
 
 namespace RPS_DJDIII.Assets.Scripts.UI
 {

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using RPS_DJDIII.Assets.Scripts.Enums;
+using RPS_DJDIII.Assets.Scripts.GameManagers;
 
 namespace RPS_DJDIII.Assets.Scripts.UI
 {
