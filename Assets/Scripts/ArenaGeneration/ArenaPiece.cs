@@ -77,14 +77,18 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             
             
             Rigidbody rb = GetComponent<Rigidbody>();
+            MeshCollider mc = GetComponent<MeshCollider>();
 
             if(rb == null)
                 rb = gameObject.AddComponent<Rigidbody>();
+            if (mc == null)
+                mc = gameObject.AddComponent<MeshCollider>();
+
             
             if(_useRigidBody)
             {
                 rb.isKinematic = false;
-                GetComponent<MeshCollider>().convex = true;
+                mc.convex = true;
                 rb = GetComponent<Rigidbody>();
                 rb.useGravity = false;
                 rb.mass = 0;

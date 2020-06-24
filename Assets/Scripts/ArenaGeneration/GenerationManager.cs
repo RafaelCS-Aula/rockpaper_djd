@@ -257,7 +257,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                             (int)_branchGenPieceSkipping + variableVariance * jumpsTaken;
 
                             int jump = (int)Mathf.Clamp(dist,
-                            1, arena.Count - 1);
+                            1, arena.Count );
 
                             if(!arena[0 + jump].IsFull())
                             {
@@ -265,6 +265,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                                 placedAmount = 0;
                                 //_selectedPiece = arena[jump];
                                 i =  jump - 1;
+                                //i = Mathf.Clamp(i, 0, arena.Count - 1);
                                 jumpsTaken++;
                                 continue;
 
