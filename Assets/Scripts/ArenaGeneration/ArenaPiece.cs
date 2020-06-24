@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
 public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 {
+    /// <summary>
+    /// DO NOT UNDER ANY EXCUSE REMOVE THE [SERIALIZEFIELD] OR 
+    /// THE INITIALIZATION FROM THESE LINES IT WILL MAKE UNITY HANG AND
+    /// EAT YOUR MEMORY.
+    /// </summary>
+    [HideInInspector] [SerializeField] private List<Connector> sideConnectors
+    = new List<Connector>();
 
-       private List<Connector> sideConnectors = 
-      new List<Connector>() ; 
-        
-       private Connector _topConnector = null ;
-       private Connector _bottomConnector = null ;
+    [HideInInspector] [SerializeField] 
+    private Connector _topConnector = null;
+    
+    [HideInInspector] [SerializeField] 
+    private Connector _bottomConnector = null;
 
     private bool _useRigidBody;
     [HideInInspector] public bool wasAnalysed = false;
@@ -26,8 +32,9 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     /// <param name="spawnRigid"></param>
     public void Setup(bool spawnRigid)
     {
+        wasAnalysed = false;
 
-        Debug.Log("Using first bottom/top connectors found.");
+        //Debug.Log("Using first bottom/top connectors found.");
         List<Connector> children = new List<Connector>();
         _useRigidBody = spawnRigid;
         //Detect connectors
@@ -92,7 +99,7 @@ public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     /// Checks all connectors to see if they're already connected to another
     /// </summary>
     /// <returns> Are all the connectors in this piece used?</returns>
-    public bool isFull()
+    public bool IsFull()
     {
         foreach(Connector c in sideConnectors)
             if(!c.isUsed)
