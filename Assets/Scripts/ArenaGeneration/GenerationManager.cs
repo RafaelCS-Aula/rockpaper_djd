@@ -247,7 +247,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
                         if(placedAmount < _branchPieceCount + multiplier)
                             continue;
-                        else if(placedAmount >= _branchPieceCount + multiplier)
+                        else if(placedAmount > _branchPieceCount + multiplier)
                         {
                             int variableVariance;
                             variableVariance =mult[(int)Random.Range(0,
@@ -261,10 +261,12 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
                             if(!arena[0 + jump].IsFull())
                             {
+                                print($"{jumpsTaken} - {jump}");
                                 placedAmount = 0;
-                                _selectedPiece = arena[0 + jump];
+                                //_selectedPiece = arena[jump];
+                                i =  jump - 1;
                                 jumpsTaken++;
-                                goto selectPiece;
+                                continue;
 
                             }
                                 

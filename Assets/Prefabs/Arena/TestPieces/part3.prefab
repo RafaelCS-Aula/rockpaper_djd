@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 135239027230159448}
   - component: {fileID: 5161354568059858006}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   isUsed: 0
   pins: 3
   _pinSpacing: 0.5
-  _gizmoColor: {r: 0.15663938, g: 0.6037736, b: 0.25081146, a: 1}
+  _gizmoColor: {r: 0, g: 1, b: 0.21052623, a: 1}
 --- !u!1 &4218105143420797986
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 3283387308640314682}
   - component: {fileID: 3281694136065854486}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: Connector3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   isUsed: 0
   pins: 6
   _pinSpacing: 0.5
-  _gizmoColor: {r: 0.15508187, g: 0.67692214, b: 0.8018868, a: 1}
+  _gizmoColor: {r: 0, g: 0.81097555, b: 1, a: 1}
 --- !u!1 &4497047319012950322
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +134,6 @@ Transform:
   - {fileID: 3283387308640314682}
   - {fileID: 7771485272185606804}
   - {fileID: 3458116004828615144}
-  - {fileID: 9072182670205442360}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1625,6 +1624,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577b0b5e3d196aa49944d107d4bbcc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sideConnectors: []
+  _topConnector: {fileID: 0}
+  _bottomConnector: {fileID: 0}
   wasAnalysed: 0
   ConnectorsCount: 0
 --- !u!54 &384875261662365868
@@ -1654,7 +1656,7 @@ GameObject:
   - component: {fileID: 3458116004828615144}
   - component: {fileID: 1090474449490893301}
   m_Layer: 0
-  m_Name: GameObject (4)
+  m_Name: Connector5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1690,55 +1692,7 @@ MonoBehaviour:
   isUsed: 0
   pins: 1
   _pinSpacing: 0.5
-  _gizmoColor: {r: 0.9245283, g: 0.62439734, b: 0.25729796, a: 1}
---- !u!1 &7404854369855143830
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9072182670205442360}
-  - component: {fileID: 2819216196374617342}
-  m_Layer: 0
-  m_Name: bottom
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9072182670205442360
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7404854369855143830}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.99, y: -0.69, z: -1.62}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3804803258941085886}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2819216196374617342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7404854369855143830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: 2
-  isUsed: 0
-  pins: 2
-  _pinSpacing: 0.5
-  _gizmoColor: {r: 0, g: 0, b: 0, a: 1}
+  _gizmoColor: {r: 1, g: 0.5470589, b: 0, a: 1}
 --- !u!1 &8104306518807837682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,7 +1704,7 @@ GameObject:
   - component: {fileID: 6414454252087831086}
   - component: {fileID: 2307540833079788418}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Connector2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1786,7 +1740,7 @@ MonoBehaviour:
   isUsed: 0
   pins: 6
   _pinSpacing: 0.5
-  _gizmoColor: {r: 0.15886435, g: 0.6603774, b: 0.6603774, a: 1}
+  _gizmoColor: {r: 1, g: 0.7874857, b: 0, a: 1}
 --- !u!1 &8810626641056950712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,7 +1752,7 @@ GameObject:
   - component: {fileID: 7771485272185606804}
   - component: {fileID: 7595061602312354036}
   m_Layer: 0
-  m_Name: GameObject (3)
+  m_Name: Connector4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1834,4 +1788,4 @@ MonoBehaviour:
   isUsed: 0
   pins: 6
   _pinSpacing: 0.5
-  _gizmoColor: {r: 0.9622642, g: 0.74229467, b: 0.14070843, a: 1}
+  _gizmoColor: {r: 1, g: 0.7320574, b: 0, a: 1}
