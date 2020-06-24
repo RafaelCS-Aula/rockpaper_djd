@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3983662654480673923}
-  - component: {fileID: 6136531160996382251}
+  - component: {fileID: 18394081551287364}
   m_Layer: 0
   m_Name: connector1
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 7982916880001846963}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &6136531160996382251
+--- !u!114 &18394081551287364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,14 +40,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 429010577954036854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  connectorCount: 4
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 0.10230694, g: 0.990566, b: 0.014017418, a: 1}
+  pins: 5
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 0.126691, g: 0.61211395, b: 0.6886792, a: 1}
 --- !u!1 &1546618943793029402
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 640750437211738952}
-  - component: {fileID: 6655206066539801108}
+  - component: {fileID: 6747202431531800457}
   m_Layer: 0
   m_Name: upperconnector
   m_TagString: Untagged
@@ -79,7 +79,7 @@ Transform:
   m_Father: {fileID: 7982916880001846963}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6655206066539801108
+--- !u!114 &6747202431531800457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,13 +88,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1546618943793029402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 1
   isUsed: 0
-  connectorCount: 2
-  connectorSpacing: 0.5
+  pins: 2
+  _pinSpacing: 0.5
   _gizmoColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &5907765464791582893
 GameObject:
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5806548030647518746}
-  - component: {fileID: 6088863155632667269}
+  - component: {fileID: 3922454864313720519}
   m_Layer: 0
   m_Name: connector1 (2)
   m_TagString: Untagged
@@ -127,7 +127,7 @@ Transform:
   m_Father: {fileID: 7982916880001846963}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -121.31701, z: 0}
---- !u!114 &6088863155632667269
+--- !u!114 &3922454864313720519
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,14 +136,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5907765464791582893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  connectorCount: 4
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 0.99215686, g: 0.35839567, b: 0.01568625, a: 1}
+  pins: 5
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 0.8301887, g: 0.07440368, b: 0.07440368, a: 1}
 --- !u!1 &6708717307672950519
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9074244449331731157}
-  - component: {fileID: 4889370997716984902}
+  - component: {fileID: 6758554380449761542}
   m_Layer: 0
   m_Name: connector1 (3)
   m_TagString: Untagged
@@ -175,7 +175,7 @@ Transform:
   m_Father: {fileID: 7982916880001846963}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 93.39101, z: 0}
---- !u!114 &4889370997716984902
+--- !u!114 &6758554380449761542
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,14 +184,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6708717307672950519}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  connectorCount: 5
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 0.8055863, g: 0.01568625, b: 0.99215686, a: 1}
+  pins: 4
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 0.7830189, g: 0.6147145, b: 0.09972411, a: 1}
 --- !u!1 &7982916880001846965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,16 +1432,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577b0b5e3d196aa49944d107d4bbcc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sideConnectorGroups:
-  - {fileID: 4889370997716984902}
-  - {fileID: 6136531160996382251}
-  - {fileID: 6725706560807675318}
-  - {fileID: 6088863155632667269}
-  _topConnector: {fileID: 6655206066539801108}
-  _bottomConnector: {fileID: 0}
   wasAnalysed: 0
-  largestGroupCount: 5
-  smallestGroupCount: 4
+  ConnectorsCount: 0
 --- !u!54 &-3239425375903912961
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1467,7 +1459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6941352386940079687}
-  - component: {fileID: 6725706560807675318}
+  - component: {fileID: 2497162392852367079}
   m_Layer: 0
   m_Name: connector1 (1)
   m_TagString: Untagged
@@ -1489,7 +1481,7 @@ Transform:
   m_Father: {fileID: 7982916880001846963}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &6725706560807675318
+--- !u!114 &2497162392852367079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1498,11 +1490,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8464382430815897504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  connectorCount: 4
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 0.01568625, g: 0.8252756, b: 0.99215686, a: 1}
+  pins: 4
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 0.1708134, g: 0.8490566, b: 0.16420433, a: 1}

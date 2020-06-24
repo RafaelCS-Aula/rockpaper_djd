@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6742051252815097360}
-  - component: {fileID: 4172737947986348798}
+  - component: {fileID: 4121816703445128067}
   m_Layer: 0
   m_Name: sideconnector1
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 4426204257089815660}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &4172737947986348798
+--- !u!114 &4121816703445128067
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,14 +40,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 108058732348388457}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 1
-  connectorCount: 4
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 0.019819736, g: 0, b: 1, a: 1}
+  isUsed: 0
+  pins: 3
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 0, g: 1, b: 0.29786587, a: 1}
 --- !u!1 &434820143836661487
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1889225000362603745}
-  - component: {fileID: 4922105769896070798}
+  - component: {fileID: 6701219791070908850}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -79,7 +79,7 @@ Transform:
   m_Father: {fileID: 4426204257089815660}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &4922105769896070798
+--- !u!114 &6701219791070908850
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,14 +88,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 434820143836661487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 1
-  connectorCount: 5
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 1, g: 0.010550697, b: 0, a: 1}
+  isUsed: 0
+  pins: 5
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 1, g: 0.40043405, b: 0.0047169924, a: 1}
 --- !u!1 &1195668644549691546
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6604066341845661146}
-  - component: {fileID: 3790110531325248163}
+  - component: {fileID: 6268332037599911371}
   m_Layer: 0
   m_Name: sideconnector1 (2)
   m_TagString: Untagged
@@ -127,7 +127,7 @@ Transform:
   m_Father: {fileID: 4426204257089815660}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3790110531325248163
+--- !u!114 &6268332037599911371
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,14 +136,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1195668644549691546}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 1
-  connectorCount: 6
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 0.4245283, g: 0.07008721, b: 0.18813442, a: 1}
+  isUsed: 0
+  pins: 6
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 0, g: 0.36750436, b: 1, a: 1}
 --- !u!1 &3227726521508107614
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 137434754886699481}
-  - component: {fileID: 427742459999449990}
+  - component: {fileID: 4164628228716025263}
   m_Layer: 0
   m_Name: GameObject (2)
   m_TagString: Untagged
@@ -175,7 +175,7 @@ Transform:
   m_Father: {fileID: 4426204257089815660}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &427742459999449990
+--- !u!114 &4164628228716025263
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,14 +184,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3227726521508107614}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 1
-  connectorCount: 5
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 1, g: 0.010550697, b: 0, a: 1}
+  isUsed: 0
+  pins: 4
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 0, g: 1, b: 0.62501025, a: 1}
 --- !u!1 &3278293483623427681
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1372207767102004863}
-  - component: {fileID: 9166231277872643689}
+  - component: {fileID: 6023433587270961134}
   m_Layer: 0
   m_Name: sideconnector1 (3)
   m_TagString: Untagged
@@ -223,7 +223,7 @@ Transform:
   m_Father: {fileID: 4426204257089815660}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &9166231277872643689
+--- !u!114 &6023433587270961134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,14 +232,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3278293483623427681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 1
-  connectorCount: 6
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 0.4245283, g: 0.07008721, b: 0.18813442, a: 1}
+  isUsed: 0
+  pins: 6
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 1, g: 0, b: 0.87729645, a: 1}
 --- !u!1 &3311427762977121242
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8330888088191308655}
-  - component: {fileID: 5451328139983437959}
+  - component: {fileID: 1981775841858978206}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -265,13 +265,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3311427762977121242}
   m_LocalRotation: {x: -0, y: -0.68880916, z: -0, w: 0.7249428}
-  m_LocalPosition: {x: 2.41, y: 8.62, z: 0.59}
+  m_LocalPosition: {x: 2.41, y: 12.84, z: 0.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4426204257089815660}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -87.07201, z: 0}
---- !u!114 &5451328139983437959
+--- !u!114 &1981775841858978206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -280,14 +280,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3311427762977121242}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 1
   isUsed: 0
-  connectorCount: 4
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 0, g: 0, b: 0, a: 1}
+  pins: 1
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 0, g: 1, b: 0.9063735, a: 1}
 --- !u!1 &8550389270511437642
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +297,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5411572018373155014}
-  - component: {fileID: 660242941260119564}
+  - component: {fileID: 1377998876933074588}
   m_Layer: 0
   m_Name: sideconnector1 (1)
   m_TagString: Untagged
@@ -319,7 +319,7 @@ Transform:
   m_Father: {fileID: 4426204257089815660}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &660242941260119564
+--- !u!114 &1377998876933074588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,14 +328,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8550389270511437642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f365103337084d0458d222e34e61071e, type: 3}
+  m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: 0
-  isUsed: 1
-  connectorCount: 4
-  connectorSpacing: 0.5
-  _gizmoColor: {r: 0.8808007, g: 1, b: 0, a: 1}
+  isUsed: 0
+  pins: 3
+  _pinSpacing: 0.5
+  _gizmoColor: {r: 0.7169812, g: 0.5130832, b: 0.1724813, a: 1}
 --- !u!1 &9039322076546114954
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,15 +2053,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577b0b5e3d196aa49944d107d4bbcc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sideConnectorGroups:
-  - {fileID: 3790110531325248163}
-  - {fileID: 9166231277872643689}
-  - {fileID: 4922105769896070798}
-  - {fileID: 427742459999449990}
-  - {fileID: 4172737947986348798}
-  - {fileID: 660242941260119564}
-  _topConnector: {fileID: 5451328139983437959}
-  _bottomConnector: {fileID: 0}
   wasAnalysed: 1
-  largestGroupCount: 6
-  smallestGroupCount: 4
+  ConnectorsCount: 0
