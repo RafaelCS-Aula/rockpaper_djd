@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData
 {
     [CreateAssetMenu(fileName = "Shooter",
     menuName = "Data/Arena/Shooter Data", order = 0)]

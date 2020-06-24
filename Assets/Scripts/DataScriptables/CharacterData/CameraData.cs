@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData
 {
     [CreateAssetMenu(fileName = "CameraData",
     menuName = "Data/Settings/Camera Data", order = 0)]

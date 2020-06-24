@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPS_DJDIII.Assets.Scripts.Enums;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
     public class ZoneBehaviour : MonoBehaviour
     {
@@ -13,7 +14,8 @@ namespace rockpaper_djd
 
         private void UpdateOccupants()
         {
-            if (team1Inside && team2Inside) currentOccupant = ZoneOccupants.CONTESTED;
+            if (team1Inside && team2Inside) currentOccupant =
+                       ZoneOccupants.CONTESTED;
             else if (team1Inside) currentOccupant = ZoneOccupants.TEAM1;
             else if (team2Inside) currentOccupant = ZoneOccupants.TEAM2;
             else currentOccupant = ZoneOccupants.NONE;
@@ -23,7 +25,8 @@ namespace rockpaper_djd
         {
             if (col.CompareTag("Player"))
             {
-                TeamMemberBehaviour colTB = col.gameObject.GetComponent<TeamMemberBehaviour>();
+                TeamMemberBehaviour colTB = 
+                    col.gameObject.GetComponent<TeamMemberBehaviour>();
 
                 if (colTB.myTeam == 1) team1Inside = true;
                 if (colTB.myTeam == 2) team2Inside = true;
@@ -35,7 +38,8 @@ namespace rockpaper_djd
         {
             if (col.CompareTag("Player"))
             {
-                TeamMemberBehaviour colTB = col.gameObject.GetComponent<TeamMemberBehaviour>();
+                TeamMemberBehaviour colTB = 
+                    col.gameObject.GetComponent<TeamMemberBehaviour>();
 
                 if (colTB.myTeam == 1) team1Inside = false;
                 if (colTB.myTeam == 2) team2Inside = false;

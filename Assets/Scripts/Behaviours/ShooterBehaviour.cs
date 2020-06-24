@@ -1,8 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPS_DJDIII.Assets.Scripts.Enums;
+using RPS_DJDIII.Assets.Scripts.Interfaces;
+using RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData;
+using RPS_DJDIII.Assets.Scripts.Sound;
+using RPS_DJDIII.Assets.Scripts.UI;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
     [RequireComponent(typeof(PlayerSoundHandler))]
     public class ShooterBehaviour : MonoBehaviour, IDataUser<ShooterData>,

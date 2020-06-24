@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using RPS_DJDIII.Assets.Scripts.DataScriptables.SoundData;
+using RPS_DJDIII.Assets.Scripts.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.Sound
 {
     [RequireComponent(typeof(AudioSource))]
     public class AmdSoundHandler : MonoBehaviour, ISoundHolder,

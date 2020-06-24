@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData
 {
     [CreateAssetMenu(fileName = "SpawnerData",
     menuName = "Data/Arena/Spawner Data", order = 1)]

@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.GameManagers
 {
     public class SceneManagement : MonoBehaviour
     {

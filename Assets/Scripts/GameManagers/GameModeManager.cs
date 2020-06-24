@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using RPS_DJDIII.Assets.Scripts.DataScriptables.GameModeData;
+using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.GameManagers
 {
     public class GameModeManager : MonoBehaviour
     {

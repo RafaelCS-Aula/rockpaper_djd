@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using RPS_DJDIII.Assets.Scripts.Enums;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData
 {
     [CreateAssetMenu(fileName = "Projectile",
     menuName = "Data/Projectile/Projectile Data", order = 0)]

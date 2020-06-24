@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using TMPro;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.UI
 {
     public class ButtonTextChange : MonoBehaviour, IPointerEnterHandler
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.DataScriptables.GameModeData
 {
     [CreateAssetMenu(fileName = "GameModeData",
     menuName = "Data/GameMode/Game Mode Data", order = 0)]

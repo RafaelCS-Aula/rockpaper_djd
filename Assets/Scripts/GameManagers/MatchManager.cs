@@ -1,9 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
+using RPS_DJDIII.Assets.Scripts.Enums;
+using RPS_DJDIII.Assets.Scripts.Behaviours;
+using RPS_DJDIII.Assets.Scripts.UI;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.GameManagers
 {
     public class MatchManager : MonoBehaviour
     {

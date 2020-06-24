@@ -1,7 +1,8 @@
-﻿using System;
+﻿using RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData;
+using RPS_DJDIII.Assets.Scripts.Interfaces;
 using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 {
     public class CameraBehaviour : MonoBehaviour, IDataUser<CameraData>
     {

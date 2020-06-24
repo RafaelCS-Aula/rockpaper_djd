@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GenerationTypes 
+namespace RPS_DJDIII.Assets.Scripts.Enums
 {
-    ARENA,
-    CORRIDOR,
-    STAR,
-    BRANCH
+
+    public enum GenerationTypes 
+    {
+        ARENA,
+        CORRIDOR,
+        STAR,
+        BRANCH
+    }
 }

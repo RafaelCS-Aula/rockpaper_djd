@@ -3,8 +3,9 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using RPS_DJDIII.Assets.Scripts.Enums;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.UI
 {
     public class UIManager : MonoBehaviour
     {

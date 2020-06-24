@@ -1,7 +1,11 @@
-
-public enum ConnectorOrientations
+namespace RPS_DJDIII.Assets.Scripts.Enums
 {
-    SIDE,
-    TOP,
-    BOTTOM    
+    public enum ConnectorOrientations
+    {
+        SIDE,
+        TOP,
+        BOTTOM    
+    }
+    
 }
+

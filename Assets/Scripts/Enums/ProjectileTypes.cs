@@ -1,6 +1,6 @@
 using System;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.Enums
 {
     [Flags]
     public enum ProjectileTypes

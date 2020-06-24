@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
+using RPS_DJDIII.Assets.Scripts.Enums;
+using RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData;
+using RPS_DJDIII.Assets.Scripts.Interfaces;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer),
 typeof(MeshCollider))]

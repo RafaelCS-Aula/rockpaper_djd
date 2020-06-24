@@ -1,8 +1,10 @@
-﻿using System;
+﻿using RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData;
+using RPS_DJDIII.Assets.Scripts.Interfaces;
+using RPS_DJDIII.Assets.Scripts.Sound;
 using System.Collections;
 using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 {
     [RequireComponent(typeof(PlayerSoundHandler))]
     public class MovementBehaviour : MonoBehaviour, IDataUser<MovementData>
