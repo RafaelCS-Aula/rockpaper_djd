@@ -254,12 +254,12 @@ MonoBehaviour:
   _setStartingPiece: 0
   _possibleStartingPieces: []
   _connectorCountTolerance: 0
-  _generationMethod: 3
-  _maxLevelPieceCount: 12
+  _generationMethod: 2
+  _maxLevelPieceCount: 20
   _groupTolerance: 2
   _clippingCorrection: 0
   _pieceDistance: 0
-  _branchPieceCount: 3
+  _branchPieceCount: 6
   _branchSizeVariance: 0
   _branchGenPieceSkipping: 1
   _PieceSkippingVariance: 0
