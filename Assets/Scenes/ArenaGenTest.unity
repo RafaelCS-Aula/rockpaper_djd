@@ -246,25 +246,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83fc937f04f710b4995ae0294abdb68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _setCentralPiece: 1
-  _centralPiece: {fileID: 6836022424422644613, guid: ad22c1b97140fb54f800b2c449cb3ada,
-    type: 3}
   piecesForGeneration:
   - {fileID: 6836022424422644613, guid: ad22c1b97140fb54f800b2c449cb3ada, type: 3}
   - {fileID: 8117472631686265746, guid: f15ef0eddb563f146b5414981bad39f6, type: 3}
   - {fileID: 6540018037060752925, guid: 81e2c725298ac004dbcf8c5adbd8439f, type: 3}
   - {fileID: 5530956160541815133, guid: 72106c53edd0a3843ab0636246b8c7e1, type: 3}
+  _setStartingPiece: 0
+  _possibleStartingPieces: []
+  _connectorCountTolerance: 0
   _corridorGeneration: 0
-  _maxSidePieces: 10
+  _maxLevelPieceCount: 1
   _groupTolerance: 2
   _clippingCorrection: 0
-  _pieceDistance: 10
-  _upperLevels: 0
-  _upperIslandGeneration: 0
-  _upperIslandsMaxPieces: 0
-  _lowerLevels: 0
-  _lowerIslandGeneration: 0
-  _lowerIslandsMaxPieces: 3
+  _pieceDistance: 0
+  _createUpperLevel: 0
+  _upperLevelIslandGeneration: 0
+  _upperIslandsCount: 1
+  _createLowerLevel: 0
+  _lowerLevelIslandGeneration: 0
+  _lowerIslandsCount: 1
 --- !u!1 &1410270581
 GameObject:
   m_ObjectHideFlags: 0
