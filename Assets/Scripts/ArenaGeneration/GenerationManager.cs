@@ -136,7 +136,11 @@ public class GenerationManager : MonoBehaviour
             if(i == -1)
                 _selectedPiece = startingPiece;
             else
+            {
                 _selectedPiece = arena[i];
+                //placedAmount++;
+            }
+                
 
 
             // Reset wasAnalyzed in all the pieces that are yet to be evaluated.
@@ -173,7 +177,7 @@ public class GenerationManager : MonoBehaviour
             // If things worked out, spawn the piece in the correct position
             if(evaluationResult.valid)
             {
-
+                spawnedPiece.name = $"{i}";
                 arena.Add(spawnedScript);
                 placedAmount++;
                 print("Found piece.");
@@ -212,7 +216,11 @@ public class GenerationManager : MonoBehaviour
                         multi[Random.Range(0,2)] * _branchSizeVariance;
 
                     if(placedAmount < _branchPieceCount + variance)
+                    {
+                        
                         continue;
+                    }
+                        
 
                     else if(placedAmount >= _branchPieceCount + variance &&
                             !startingPiece.IsFull())
@@ -220,7 +228,10 @@ public class GenerationManager : MonoBehaviour
                         print($"placed: {placedAmount}, arena: {arena.Count}");
                         placedAmount = 0;
                         _selectedPiece = startingPiece;
-                        print($"Selected piece is now {_selectedPiece.gameObject}");
+
+                        // it works dont ask me why
+                         i += 1;
+                        print($"Selected piece is now {_selectedPiece.gameObject} - index {i}");
                         goto selectPiece;
                     }
                     return arena;

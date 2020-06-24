@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
+
 public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
 {
     /// <summary>
