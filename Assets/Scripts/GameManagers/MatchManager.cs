@@ -9,6 +9,9 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
     public class MatchManager : MonoBehaviour
     {
         [HideInInspector] public GameModeManager gmManager;
+        [SerializeField] private HallOfFameManager hofManager;
+
+        private HallOfFameManager.SaveData saveData;
 
 
         [HideInInspector] public bool gameFinished;
@@ -36,12 +39,20 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
         [HideInInspector] public float zoneChangeTimer;
         private float zonePointsTimer;
+        private int currentSecond;
+        private int lastSecond;
+
+        bool doneAdding = false;
 
 
         private void Start()
         {
             // Find GameModeManager component on the scene object name "GameModeManager"
             gmManager = GameObject.Find("GameModeManager").GetComponent<GameModeManager>();
+
+            player1.characterName = gmManager.p1Name;
+            player2.characterName = gmManager.p2Name;
+
 
             // Set match timer based on the game mode time limit
             matchTimer = gmManager.timeLimit * 60;
@@ -53,6 +64,7 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             player1.mB.AMRAuthorized = gmManager.AMRAuthorized;
             player2.mB.AMRAuthorized = gmManager.AMRAuthorized;
 
+
             if (gmManager.zoneBased)
             {
                 int zone = Random.Range(0, zones.Length);
@@ -62,6 +74,8 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
                 
             }
 
+            Cursor.lockState = CursorLockMode.Locked;
+
             StartCoroutine(PreMatchCountdown());
         }
 
@@ -70,30 +84,47 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             // Determine whether the game is still in progress or not
             gameFinished = CheckForWin();
 
-            // Check if game is still in progress
+            // Run if game is still in progress
             if (!gameFinished)
             {
+                // Run if the pre-match/pre-round clock is not counting down
                 if (!isCountingDown)
                 {
-                    UpdateMatchClock();
+                    // Update all match timers
+                    UpdateTimers();
+
+                    // Check if any player is killed
                     if (!gmManager.roundBased) CheckForKill();
 
                     #region ZoneBased Specifics
+                    // Run only if the Game Mode is Zone Based
                     if (gmManager.zoneBased)
                     {
+                        // Update the current zone
                         UpdateZoneChange();
-                        UpdateZonePointsTimer();
+
+                        // Update the points of the players inside zone
+                        UpdateZonePoints();
                     }
                     #endregion
                 }
+                // If the Game Mode is Round Based, check if the round should end
                 if (gmManager.roundBased) CheckForRoundEnd();
             }
+            // If the game is not in progress, display game over screen
             else GameOver();
-
-            if (Input.GetKeyDown(KeyCode.P)) NewZone();
         }
 
-        private void UpdateMatchClock() { matchTimer -= Time.deltaTime; }
+        private void UpdateTimers()
+        {
+            matchTimer -= Time.deltaTime;
+
+            if (gmManager.zoneBased)
+            {
+                zonePointsTimer += Time.deltaTime;
+                zoneChangeTimer -= Time.deltaTime;
+            }
+        }
 
         private void CheckForKill()
         {
@@ -103,6 +134,9 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
                 player2.points += gmManager.pointsPerKill;
                 player1.hB.ResetPosition();
                 if (gmManager.resetBothPlayers) player2.hB.ResetPosition();
+
+                player1.deaths += 1;
+                player2.kills += 1;
             }
             if (player2.hB._currentHp <= 0)
             {
@@ -110,9 +144,12 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
                 player1.points += gmManager.pointsPerKill;
                 player2.hB.ResetPosition();
                 if (gmManager.resetBothPlayers) player1.hB.ResetPosition();
+
+                player1.kills += 1;
+                player2.deaths += 1;
             }
         }
-
+        #region RoundBased Methods
         private void NextRound()
         {
             player1.hB._currentHp = player1.hB._maxHp;
@@ -144,31 +181,11 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
                 NextRound();
             }
         }
-
-        private bool CheckForWin()
-        {
-            if (player1.points >= gmManager.scoreLimit ||
-                player2.points >= gmManager.scoreLimit) return true;
-
-            if (!gmManager.roundBased && matchTimer <= 0) return true;
-
-            if (gmManager.roundBased && currentRound > gmManager.numberOfRounds) return true;
-
-            return false;
-        }
+        #endregion
 
 
 
-        private void UpdateZonePointsTimer()
-        {
-            zonePointsTimer += Time.deltaTime;
-            if (zonePointsTimer >= 1f)
-            {
-                zonePointsTimer = 0f;
-                UpdateZonePoints();
-            }
-        }
-
+        #region ZoneBased Methods
         private void NewZone()
         {
             int newZone = activeZone;
@@ -182,26 +199,42 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             zones[activeZone].gameObject.SetActive(true);
         }
 
-
         private void UpdateZonePoints()
         {
-            if (zones[activeZone].currentOccupant == ZoneOccupants.TEAM1)
-                player1.points += gmManager.pointsPerScondInZone;
+            lastSecond = currentSecond;
+            currentSecond = (int)zonePointsTimer;
 
-            if (zones[activeZone].currentOccupant == ZoneOccupants.TEAM2)
-                player2.points += gmManager.pointsPerScondInZone;
+            if (currentSecond - lastSecond == 1)
+            {
+                if (zones[activeZone].currentOccupant == ZoneOccupants.TEAM1)
+                    player1.points += gmManager.pointsPerScondInZone;
+
+                if (zones[activeZone].currentOccupant == ZoneOccupants.TEAM2)
+                    player2.points += gmManager.pointsPerScondInZone;
+            }
         }
-
 
         private void UpdateZoneChange()
         {
-            zoneChangeTimer -= Time.deltaTime;
-
             if (zoneChangeTimer <= 0)
             {
                 NewZone();
                 zoneChangeTimer = gmManager.zoneChangeInterval;
             }
+        }
+        #endregion
+
+
+        private bool CheckForWin()
+        {
+            if (player1.points >= gmManager.scoreLimit ||
+                player2.points >= gmManager.scoreLimit) return true;
+
+            if (!gmManager.roundBased && matchTimer <= 0) return true;
+
+            if (gmManager.roundBased && currentRound > gmManager.numberOfRounds) return true;
+
+            return false;
         }
 
         private void GameOver()
@@ -212,7 +245,24 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             else if (player2.points >= gmManager.scoreLimit)
                 winner = player2.characterName;
 
+            // Load save file
+            saveData = hofManager.LoadSaveData();
+
+            // Try to add the two players to the Hall of Fame
+            string gameMode = gmManager.gameModeName;
+
+            // Abrevviate King of the Hill name for Hall of Fame display
+            if (gameMode == "King of the Hill") gameMode = "KOTH";
+
+            if (!doneAdding)
+            {
+                hofManager.AddEntry(saveData, player1, gameMode);
+                hofManager.AddEntry(saveData, player2, gameMode);
+                doneAdding = true;
+            }
+
             playersGroup.SetActive(false);
+            Cursor.lockState = CursorLockMode.None;
         }
 
         IEnumerator PreMatchCountdown()

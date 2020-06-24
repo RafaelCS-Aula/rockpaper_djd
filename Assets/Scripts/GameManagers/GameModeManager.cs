@@ -5,6 +5,7 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 {
     public class GameModeManager : MonoBehaviour
     {
+        #region Vars
         public GameModeData[] gameModes = new GameModeData[3];
 
         public string gameModeName;
@@ -41,6 +42,11 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
         public bool respawnImmunity;
 
         public bool AMRAuthorized;
+        #endregion
+
+        [HideInInspector] public string p1Name;
+        [HideInInspector] public string p2Name;
+
 
         public void LoadGameModeData(GameModeData gameModeData)
         {

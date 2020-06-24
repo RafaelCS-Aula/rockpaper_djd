@@ -94,8 +94,6 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             }
 
             else GetData();
-
-            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Start()
