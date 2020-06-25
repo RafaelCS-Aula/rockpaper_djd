@@ -37,7 +37,7 @@ namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
                 gameMode.text += saveData.hallOfFameEntryList[i].GameMode + "\n\n";
             }
 
-            int linesLeft = hofManager.maxEntrys - saveData.hallOfFameEntryList.Count;
+            int linesLeft = hofManager.maxEntries - saveData.hallOfFameEntryList.Count;
 
             if (linesLeft > 0)
             {
