@@ -26,8 +26,6 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             else if (team1Inside) currentOccupant = ZoneOccupants.TEAM1;
             else if (team2Inside) currentOccupant = ZoneOccupants.TEAM2;
             else currentOccupant = ZoneOccupants.NONE;
-
-            print(currentOccupant);
         }
 
         private void OnTriggerEnter(Collider col)
