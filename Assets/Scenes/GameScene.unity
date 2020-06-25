@@ -3540,7 +3540,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: '4-6 characters
 
-    no digits'
+    no digits
+
+    no spaces'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -3609,12 +3611,12 @@ MonoBehaviour:
   m_margin: {x: 0.13677242, y: 0, z: -0.12918656, w: 0.08152101}
   m_textInfo:
     textComponent: {fileID: 1059185661}
-    characterCount: 24
+    characterCount: 34
     spriteCount: 0
-    spaceCount: 3
-    wordCount: 4
+    spaceCount: 5
+    wordCount: 6
     linkCount: 0
-    lineCount: 2
+    lineCount: 3
     pageCount: 1
     materialCount: 2
   m_isUsingLegacyAnimationComponent: 0

@@ -55,10 +55,8 @@ namespace RPS_DJDIII.Assets.Scripts.UI
             }
             foreach (char c in name)
             {
-                if (Char.IsDigit(c))
-                {
-                    return false;
-                }
+                if (Char.IsDigit(c)) return false;
+                if (c == ' ') return false;
             }
 
             return true;
