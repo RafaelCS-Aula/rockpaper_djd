@@ -25,7 +25,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         private Connector _bottomConnector = null;
 
         private bool _useRigidBody;
-        [HideInInspector]  public bool wasAnalysed = false;
         
         [HideInInspector] public int ConnectorsCount;
 
@@ -36,7 +35,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         /// <param name="spawnRigid"></param>
         public void Setup(bool spawnRigid)
         {
-            wasAnalysed = false;
 
             //Debug.Log("Using first bottom/top connectors found.");
             List<Connector> children = new List<Connector>();

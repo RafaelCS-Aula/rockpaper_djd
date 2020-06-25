@@ -123,14 +123,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             List<ArenaPiece> arena = new List<ArenaPiece>(); 
             //List<ArenaPiece> spawnedArena = new List<ArenaPiece>();
 
-            // Make an array listing all the sizes of the biggest groups in the 
-            // sorted pieces groups
-            int[] sizeArray;
-            sizeArray = new int[_sortedPieces.Count];
-
-            for(int i = 0; i < sizeArray.Length; i++)
-                sizeArray[i] = _sortedPieces[i][0].ConnectorsCount;
-
             // Check what list of the sorted list the selected belongs to
             int myPieceList = 0;
 
@@ -144,12 +136,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                     //placedAmount++;
                 }
                     
-
-
-                // Reset wasAnalyzed in all the pieces that are yet to be evaluated.
-                foreach(ArenaPiece a in _sortedPieces[myPieceList])
-                    a.wasAnalysed = false;
-
                 // Pick a piece to evaluate against our selected placed one
                 selectPiece:
 
@@ -197,7 +183,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
                     // No valid connectors in the given piece
                     Destroy(spawnedPiece);
-                    _evaluatingPiece.wasAnalysed = true;
                     failureCount++;
                     
                     goto selectPiece;
