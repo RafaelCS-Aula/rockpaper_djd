@@ -19,9 +19,9 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         [Header("------ General Generation Settings --------")]
 
         [SerializeField] private GenerationTypes _generationMethod;
-        [SerializeField] private uint _maxLevelPieceCount;
-        [SerializeField] private uint _groupTolerance = 0;
-        [SerializeField] private bool _clippingCorrection = false;
+        [SerializeField] private uint _maxPieceCount;
+        [SerializeField] private uint _pinCountTolerance = 0;
+        [SerializeField] private bool _useClippingCorrection = false;
         [SerializeField] private float _pieceDistance = 0.0001f;
 
         [Header("Star & Branch Generation Settings --------")]
@@ -76,7 +76,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             _sortedPieces = new List<List<ArenaPiece>>();
 
             foreach (ArenaPiece a in piecesForGeneration)
-                a.Setup(_clippingCorrection);
+                a.Setup(_useClippingCorrection);
 
             piecesForGeneration.Sort();
             largestGroup = 
@@ -118,7 +118,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             int placedAmount = 0;
             int jumpsTaken = 0;
             int failureCount = 0;
-            uint maxFailures = _maxLevelPieceCount;
+            uint maxFailures = _maxPieceCount;
             // Pieces placed by this method call
             List<ArenaPiece> arena = new List<ArenaPiece>(); 
             //List<ArenaPiece> spawnedArena = new List<ArenaPiece>();
@@ -175,7 +175,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                 (bool valid, Transform trn) evaluationResult =
                     _selectedPiece.EvaluatePiece(spawnedScript, 
                     _pieceDistance, 
-                    _groupTolerance);
+                    _pinCountTolerance);
 
                 // If things worked out, spawn the piece in the correct position
                 if(evaluationResult.valid)
@@ -186,7 +186,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                     print("Found piece.");
                     spawnedScript.gameObject.transform.SetParent(_selectedPiece.transform);
 
-                    if(arena.Count >= _maxLevelPieceCount)
+                    if(arena.Count >= _maxPieceCount)
                         return arena;
 
                 }
