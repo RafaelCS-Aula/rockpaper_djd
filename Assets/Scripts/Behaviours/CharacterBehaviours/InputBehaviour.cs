@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using RPS_DJDIII.Assets.Scripts.Enums;
 using RPS_DJDIII.Assets.Scripts.Interfaces;
 using RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData;
-using RPS_DJDIII.Assets.Scripts.UI;
+
 
 namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 {

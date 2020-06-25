@@ -2,7 +2,8 @@
 using UnityEngine;
 using RPS_DJDIII.Assets.Scripts.Enums;
 using RPS_DJDIII.Assets.Scripts.Behaviours;
-using RPS_DJDIII.Assets.Scripts.UI;
+using RPS_DJDIII.Assets.Scripts.ScoreKeeping;
+
 
 namespace RPS_DJDIII.Assets.Scripts.GameManagers
 {

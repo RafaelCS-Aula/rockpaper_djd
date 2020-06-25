@@ -1,10 +1,9 @@
-﻿﻿using System;
-using System.Drawing;
-using UnityEngine;
+﻿using UnityEngine;
 using RPS_DJDIII.Assets.Scripts.Behaviours;
 using RPS_DJDIII.Assets.Scripts.Sound;
 using RPS_DJDIII.Assets.Scripts.Interfaces;
 using RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours;
+
 
 namespace RPS_DJDIII.Assets.Scripts
 {
@@ -27,6 +26,8 @@ namespace RPS_DJDIII.Assets.Scripts
         #endregion
 
         [HideInInspector] public int points;
+        [HideInInspector] public float kills;
+        [HideInInspector] public float deaths;
 
         private void Start()
         {

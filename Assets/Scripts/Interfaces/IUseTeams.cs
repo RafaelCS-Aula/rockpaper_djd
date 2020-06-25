@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace RPS_DJDIII.Assets.Scripts.Interfaces
+﻿namespace RPS_DJDIII.Assets.Scripts.Interfaces
 {
     public interface IUseTeams
     {

@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
 {
     public class HallOfFameManager : MonoBehaviour
     {
@@ -68,7 +68,7 @@ namespace rockpaper_djd
                 SortHighScores(saveData);
                 StoreSaveData(saveData);
             }
-            
+
             //If 'scoreList' Is Full
             else
             {

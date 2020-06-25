@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
 {
     [System.Serializable]
     public struct HallofFameEntry
@@ -16,7 +16,7 @@ namespace rockpaper_djd
             Name = name;
             Kills = kills;
             Deaths = deaths;
-            KDRatio = (deaths == 0) ?  kills : kills / deaths;
+            KDRatio = (deaths == 0) ? kills : kills / deaths;
             GameMode = gameMode;
         }
 

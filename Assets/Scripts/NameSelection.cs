@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using RPS_DJDIII.Assets.Scripts.GameManagers;
+using System;
 using TMPro;
 using UnityEngine;
 
-namespace rockpaper_djd
+namespace RPS_DJDIII.Assets.Scripts
 {
     public class NameSelection : MonoBehaviour
     {
