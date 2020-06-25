@@ -117,7 +117,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         {
             int placedAmount = 0;
             int jumpsTaken = 0;
-            int failureCount = 0;
+            
             uint maxFailures = _maxPieceCount;
             // Pieces placed by this method call
             List<ArenaPiece> arena = new List<ArenaPiece>(); 
@@ -128,6 +128,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
             for (int i = -1; i < arena.Count; i++)
             {
+                int failureCount = 0;
                 if(i == -1)
                     _selectedPiece = startingPiece;
                 else
@@ -179,7 +180,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                 else
                 {
                     if (failureCount > maxFailures)
-                        return arena;
+                        continue;
 
                     // No valid connectors in the given piece
                     Destroy(spawnedPiece);
@@ -241,14 +242,14 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                             (int)_branchGenPieceSkipping + variableVariance * jumpsTaken;
 
                             int jump = (int)Mathf.Clamp(dist,
-                            1, arena.Count );
+                            1, arena.Count - 1);
 
                             if(!arena[0 + jump].IsFull())
                             {
                                 print($"{jumpsTaken} - {jump}");
                                 placedAmount = 0;
                                 //_selectedPiece = arena[jump];
-                                i =  jump - 1;
+                                i =  jump;
                                 //i = Mathf.Clamp(i, 0, arena.Count - 1);
                                 jumpsTaken++;
                                 continue;
