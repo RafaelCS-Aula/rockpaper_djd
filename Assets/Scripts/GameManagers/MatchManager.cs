@@ -3,6 +3,7 @@ using UnityEngine;
 using RPS_DJDIII.Assets.Scripts.Enums;
 using RPS_DJDIII.Assets.Scripts.Behaviours;
 using RPS_DJDIII.Assets.Scripts.ScoreKeeping;
+using RPS_DJDIII.Assets.Scripts.ArenaGeneration;
 
 
 namespace RPS_DJDIII.Assets.Scripts.GameManagers
@@ -10,7 +11,8 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
     public class MatchManager : MonoBehaviour
     {
         [HideInInspector] public GameModeManager gmManager;
-        [SerializeField] private HallOfFameManager hofManager;
+        [HideInInspector] private HallOfFameManager hofManager;
+        [HideInInspector] private GenerationManager genManager;
 
         private HallOfFameManager.SaveData saveData;
 
@@ -48,12 +50,18 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
         private void Start()
         {
-            // Find GameModeManager component on the scene object name "GameModeManager"
+            // Find GameModeManager component on the scene object named "GameModeManager"
             gmManager = GameObject.Find("GameModeManager").GetComponent<GameModeManager>();
 
+            // Find HallOfFameManager component on the scene object named "HallOfFameManager"
+            hofManager = GameObject.Find("HallOfFameManager").GetComponent<HallOfFameManager>();
+
+            // Find GenerationManager component on the scene object named "GenerationManager"
+            genManager = GameObject.Find("GenerationManager").GetComponent<GenerationManager>();
+
+            #region Initialize Vars
             player1.characterName = gmManager.p1Name;
             player2.characterName = gmManager.p2Name;
-
 
             // Set match timer based on the game mode time limit
             matchTimer = gmManager.timeLimit * 60;
@@ -64,15 +72,16 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
             player1.mB.AMRAuthorized = gmManager.AMRAuthorized;
             player2.mB.AMRAuthorized = gmManager.AMRAuthorized;
+            #endregion
 
+            genManager.Create();
 
             if (gmManager.zoneBased)
             {
                 int zone = Random.Range(0, zones.Length);
                 zones[zone].gameObject.SetActive(true);
                 activeZone = zone;
-                zoneChangeTimer = gmManager.zoneChangeInterval;
-                
+                zoneChangeTimer = gmManager.zoneChangeInterval; 
             }
 
             Cursor.lockState = CursorLockMode.Locked;

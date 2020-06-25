@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using RPS_DJDIII.Assets.Scripts.Enums;
+using RPS_DJDIII.Assets.Scripts.Interfaces;
 
 namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 {
@@ -27,6 +28,8 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         private bool _useRigidBody;
         
         [HideInInspector] public int ConnectorsCount;
+
+        [SerializeField] private List<IArenaInitializable> initList = new List<IArenaInitializable>();
 
 
         /// <summary>
@@ -57,6 +60,14 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
 
             }
+
+
+            foreach (IArenaInitializable init in
+                GetComponentsInChildren<IArenaInitializable>())
+            {
+                initList.Add(init);
+            }
+
             
             sideConnectors = children.Distinct().ToList();
             _useRigidBody = spawnRigid;
@@ -97,8 +108,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             {
                 rb.isKinematic = true;
             }
-    
-            
         }
 
         /// <summary>
@@ -278,6 +287,15 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                 return 1;
             else
                 return 0;
+        }
+
+
+        public void Initialize()
+        {
+            foreach (IArenaInitializable init in initList)
+            {
+                init.Initialize();
+            }
         }
     }
 }
