@@ -48,7 +48,6 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         #region Class Setup
 
-        [SerializeField]
         private Transform target;
 
         public LayerMask wallLayers;
@@ -78,6 +77,8 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         void Start()
         {
             Pivot = transform.GetChild(0);
+
+            target = transform.parent.transform;
 
             cam = Pivot.GetComponentInChildren<Camera>();
             cam.fieldOfView = fieldOfView;

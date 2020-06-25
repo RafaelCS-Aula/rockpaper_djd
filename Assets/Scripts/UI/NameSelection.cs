@@ -3,7 +3,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace RPS_DJDIII.Assets.Scripts
+namespace RPS_DJDIII.Assets.Scripts.UI
 {
     public class NameSelection : MonoBehaviour
     {

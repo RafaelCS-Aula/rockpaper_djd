@@ -446,7 +446,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dataFile: {fileID: 11400000, guid: fb2a9b48c55e49f4280fd1f9ecc73fe9, type: 2}
   camXSens: 0
-  target: {fileID: 8242576867740898668}
   wallLayers:
     serializedVersion: 2
     m_Bits: 1024
@@ -832,7 +831,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59047144ee52c646b82bbd765149af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterName: 
+  iB: {fileID: 0}
+  mB: {fileID: 0}
+  sB: {fileID: 0}
+  tB: {fileID: 0}
+  hB: {fileID: 0}
+  cB: {fileID: 0}
   points: 0
+  kills: 0
+  deaths: 0
 --- !u!114 &7881810944088563343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,8 +869,6 @@ MonoBehaviour:
   switchToRock: 0
   switchToPaper: 0
   switchToScissors: 0
-  mB: {fileID: 0}
-  sB: {fileID: 0}
   oldType: 0
   newType: 0
 --- !u!114 &8242576867740898672
@@ -879,6 +885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dataFile: {fileID: 11400000, guid: 48b17cf615cfe0a4c87cd0da5513b78e, type: 2}
   controller: {fileID: 0}
+  cH: {fileID: 0}
   strafeAxis: 0
   forwardAxis: 0
   velocityFactor: 0
@@ -893,7 +900,8 @@ MonoBehaviour:
   isDashCharging: 0
   wallLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
+  AMRAuthorized: 1
 --- !u!114 &8242576867740898685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1051,7 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b9e046a2635ea4586840590d4bb315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soundSet: {fileID: 11400000, guid: adcf18e6c70a05f4bbcb6c3179b75b16, type: 2}
+  _soundSetData: {fileID: 0}
   dJump: {fileID: 0}
   dDoubleJump: {fileID: 0}
   dShot: {fileID: 0}
@@ -1072,6 +1080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useSetTeam: 1
   setTeamID: 2
+  myTeam: 0
 --- !u!114 &3453349216809464258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1085,6 +1094,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHp: 3
+  _currentHp: 0
   _startingHp: 0
   startWithMaxHp: 1
   _damagedCooldown: 0
+  immunityEnabled: 1
+  immunityDuration: 0
+  playerModel: {fileID: 0}

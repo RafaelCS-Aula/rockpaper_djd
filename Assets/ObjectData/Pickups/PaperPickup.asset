@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f719e947b8421e8458ccec290a1bfe6d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a732876a2a4e324f962e4c98b7bf4b1, type: 3}
   m_Name: PaperPickup
   m_EditorClassIdentifier: 
   manaGiven: 2
   amount: 5
-  isTemporary: 1
-  lifeTime: 10
+  isTemporary: 0
+  lifeTime: 0
   givesWeapon: 0
   needsWeapon: 0
