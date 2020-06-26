@@ -36,6 +36,7 @@ Transform:
   - {fileID: 1605733582963557365}
   - {fileID: 5435195909018777221}
   - {fileID: 1018049732401847060}
+  - {fileID: 3319550764893845644}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1051,6 +1052,50 @@ MonoBehaviour:
   _topConnector: {fileID: 0}
   _bottomConnector: {fileID: 0}
   ConnectorsCount: 0
+--- !u!1 &2629941372277334439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3319550764893845644}
+  - component: {fileID: 8006808774093850532}
+  m_Layer: 0
+  m_Name: RockWeaponSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3319550764893845644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2629941372277334439}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.5, y: 3, z: 6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6615022147503364876}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8006808774093850532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2629941372277334439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f38701447482684bb7d60dde2fe6259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dataHolder: {fileID: 0}
 --- !u!1 &4385854430860343354
 GameObject:
   m_ObjectHideFlags: 0
