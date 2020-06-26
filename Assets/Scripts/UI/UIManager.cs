@@ -29,8 +29,11 @@ namespace RPS_DJDIII.Assets.Scripts.UI
         [SerializeField] private Image p1SelectedProjectile;
         [SerializeField] private Image p2SelectedProjectile;
 
-        [SerializeField] private TextMeshProUGUI p1Ammo;
-        [SerializeField] private TextMeshProUGUI p2Ammo;
+        [SerializeField] private TextMeshProUGUI p1currentAmmo;
+        [SerializeField] private TextMeshProUGUI p1maxAmmo;
+        
+        [SerializeField] private TextMeshProUGUI p2currentAmmo;
+        [SerializeField] private TextMeshProUGUI p2maxAmmo;
 
         [SerializeField] private GameObject rockIndP1;
         [SerializeField] private GameObject paperIndP1;
@@ -92,8 +95,8 @@ namespace RPS_DJDIII.Assets.Scripts.UI
                 UpdateAbilitiesDisplay(matchManager.player2, p2Abilities);
                 #endregion
                 #region AmmoDisplay Updates
-                UpdateAmmoDisplay(matchManager.player1, p1Ammo);
-                UpdateAmmoDisplay(matchManager.player2, p2Ammo);
+                UpdateAmmoDisplay(matchManager.player1, p1currentAmmo, p1maxAmmo);
+                UpdateAmmoDisplay(matchManager.player2, p2currentAmmo, p2maxAmmo);
                 #endregion
                 #region Indicator Updates
                 if (matchManager.player1.iB.oldType != matchManager.player1.iB.newType) UpdateIndicatorDisplay(matchManager.player1,
@@ -144,14 +147,33 @@ namespace RPS_DJDIII.Assets.Scripts.UI
             abilities.overrideSprite = newSprite;
         }
 
-        private void UpdateAmmoDisplay(CharacterHandler player, TextMeshProUGUI ammoDisplay)
+        private void UpdateAmmoDisplay(CharacterHandler player, TextMeshProUGUI currentAmmo, TextMeshProUGUI maxAmmo)
         {
-            (float maxRock, float currentRock) = player.sB.GetMana(ProjectileTypes.ROCK);
-            (float maxPaper, float currentPaper) = player.sB.GetMana(ProjectileTypes.PAPER);
-            (float maxScissors, float currentScissors) = player.sB.GetMana(ProjectileTypes.SCISSORS);
-            ammoDisplay.text = $"Cylinder (Rock) ammo: {currentRock}/{maxRock}\n" +
-                $"Sphere (Paper) ammo: {currentPaper}/{maxPaper}\n" +
-                $"Cube (Scissors) ammo: {currentScissors}/{maxScissors}\n";
+            ProjectileTypes pType = player.sB.GetSelectedWeapon();
+
+            if (pType == ProjectileTypes.ROCK)
+            {
+                (float maxRock, float currentRock) = player.sB.GetMana(ProjectileTypes.ROCK);
+
+                currentAmmo.text = currentRock.ToString();
+                maxAmmo.text = "/" + maxRock.ToString();
+            }
+            
+            else if (pType == ProjectileTypes.PAPER)
+            {
+                (float maxPaper, float currentPaper) = player.sB.GetMana(ProjectileTypes.PAPER);
+
+                currentAmmo.text = currentPaper.ToString();
+                maxAmmo.text = "/" + maxPaper.ToString();
+            }
+            
+            else
+            {
+                (float maxScissors, float currentScissors) = player.sB.GetMana(ProjectileTypes.SCISSORS);
+
+                currentAmmo.text = currentScissors.ToString();
+                maxAmmo.text = "/" + maxScissors.ToString();
+            }
         }
 
         private void UpdateIndicatorDisplay(CharacterHandler player, GameObject rockInd,
@@ -212,8 +234,8 @@ namespace RPS_DJDIII.Assets.Scripts.UI
             string points1;
             string points2;
 
-            points1 = matchManager.player1.points.ToString("000") + " -";
-            points2 = "- " + matchManager.player2.points.ToString("000");
+            points1 = matchManager.player1.points.ToString("00") + " -";
+            points2 = "- " + matchManager.player2.points.ToString("00");
 
             if (team1Points.text != points1) team1Points.text = points1;
             if (team2Points.text != points2) team2Points.text = points2;
