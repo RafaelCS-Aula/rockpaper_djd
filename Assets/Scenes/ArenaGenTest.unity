@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83fc937f04f710b4995ae0294abdb68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arenaName: 
   piecesForGeneration:
   - {fileID: 4847854264658736788, guid: 37b7257a5bf8f2349b9fd7f4aee30e2f, type: 3}
   - {fileID: 2098119001933782540, guid: bb7dd5353cce35044932cf55f09ec945, type: 3}
