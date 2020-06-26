@@ -45,9 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  pins: 2
+  pins: 3
   _pinSpacing: 0.5
-  _gizmoColor: {r: 0, g: 0, b: 0, a: 1}
+  _gizmoColor: {r: 0.101960756, g: 0.5784477, b: 0.8, a: 1}
 --- !u!1 &4743479319710702291
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +905,7 @@ MonoBehaviour:
   isUsed: 0
   pins: 2
   _pinSpacing: 0.5
-  _gizmoColor: {r: 0, g: 0, b: 0, a: 1}
+  _gizmoColor: {r: 0.24563903, g: 0.754717, b: 0.32017118, a: 1}
 --- !u!1 &8358486430818856410
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,6 +951,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  pins: 4
+  pins: 5
   _pinSpacing: 0.5
   _gizmoColor: {r: 0.7924528, g: 0.31772873, b: 0.6201457, a: 1}

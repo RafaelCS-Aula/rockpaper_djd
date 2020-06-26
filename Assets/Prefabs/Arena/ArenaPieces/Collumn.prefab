@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6473415200209359338}
   - component: {fileID: 2077938333546108069}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SmallConnector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  pins: 1
+  pins: 2
   _pinSpacing: 0.5
   _gizmoColor: {r: 0.16779394, g: 0.8396226, b: 0.14653791, a: 1}
 --- !u!1 &3110730122417894994

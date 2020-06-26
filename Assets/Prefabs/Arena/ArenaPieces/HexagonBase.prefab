@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  pins: 2
+  pins: 3
   _pinSpacing: 0.5
   _gizmoColor: {r: 0.7372549, g: 0.16470587, b: 0.6326714, a: 1}
 --- !u!1 &3994343683632993270
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  pins: 2
+  pins: 3
   _pinSpacing: 0.5
   _gizmoColor: {r: 0.16470587, g: 0.7372549, b: 0.69507843, a: 1}
 --- !u!1 &5628305975409554139
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  pins: 2
+  pins: 3
   _pinSpacing: 0.5
   _gizmoColor: {r: 0.735849, g: 0.7149756, b: 0.16313633, a: 1}
 --- !u!1 &7806604821257194064
