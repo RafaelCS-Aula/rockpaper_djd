@@ -22,7 +22,7 @@ namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
 
         public HallOfFameEntry CreateSaveData(string name, float kills, float deaths, string gameMode)
         {
-            HallOfFameEntry saveData = new HaOfllOfFameEntry();
+            HallOfFameEntry saveData = new HallOfFameEntry();
 
             saveData.Name = name;
             saveData.Kills = kills;
