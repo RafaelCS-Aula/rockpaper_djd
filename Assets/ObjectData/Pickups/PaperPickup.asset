@@ -16,5 +16,5 @@ MonoBehaviour:
   amount: 5
   isTemporary: 0
   lifeTime: 0
-  givesWeapon: 1
+  givesWeapon: 0
   needsWeapon: 0
