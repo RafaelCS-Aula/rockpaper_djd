@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 638629831502913559}
   - component: {fileID: 5330589882172075281}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Aviator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1096,7 +1096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  pins: 2
+  pins: 3
   _pinSpacing: 0.5
   _gizmoColor: {r: 0.7264151, g: 0.6920785, b: 0, a: 1}
 --- !u!1 &6127232798717311744
@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  pins: 2
+  pins: 3
   _pinSpacing: 0.5
   _gizmoColor: {r: 0.7264151, g: 0.6920785, b: 0, a: 1}
 --- !u!1 &6880395798492168926
@@ -1190,9 +1190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eef3e4be6c9bec04d9a61d919a011f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orientation: 1
+  orientation: 0
   isUsed: 0
-  pins: 2
+  pins: 3
   _pinSpacing: 0.5
   _gizmoColor: {r: 0.9433962, g: 0.28034887, b: 0.831337, a: 1}
 --- !u!1 &8084581310287493988
@@ -1240,6 +1240,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: 0
   isUsed: 0
-  pins: 4
+  pins: 5
   _pinSpacing: 0.5
   _gizmoColor: {r: 0.8962264, g: 0.29169634, b: 0.29169634, a: 1}
