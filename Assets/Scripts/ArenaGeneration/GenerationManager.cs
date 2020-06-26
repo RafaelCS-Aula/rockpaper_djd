@@ -111,6 +111,8 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             {
                 print(item.gameObject);
             }*/
+            //TODO: Serialise the _placedPieces list to Json so it can be
+            // loaded back in again. And we can laod and save premade arenas
 
             if(!_autoCreate)
                 InitArenas();
