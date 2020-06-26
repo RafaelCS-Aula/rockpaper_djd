@@ -115,7 +115,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         }
     
 
-        public (bool hasTop, bool hasBottom) GetVerticalConnectors()
+        /*public (bool hasTop, bool hasBottom) GetVerticalConnectors()
         {
             bool t = false;
             bool b = false;
@@ -127,7 +127,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             
             return (t, b);
 
-        }
+        }*/
 
     /* public (bool valid, Transform position) EvaluatePieceVertical(
             ArenaPiece other, bool upper, float pieceDistance = 0.00f,
