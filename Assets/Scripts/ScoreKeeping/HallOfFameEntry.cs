@@ -3,7 +3,7 @@
 namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
 {
     [System.Serializable]
-    public struct HallFameEntry
+    public struct HallOfFameEntry
     {
         [SerializeField] public string Name;
         [SerializeField] public float Kills;
@@ -11,7 +11,7 @@ namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
         [SerializeField] public float KDRatio;
         [SerializeField] public string GameMode;
 
-        public HallFameEntry(string name, float kills, float deaths, string gameMode)
+        public HallOfFameEntry(string name, float kills, float deaths, string gameMode)
         {
             Name = name;
             Kills = kills;
@@ -20,9 +20,9 @@ namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
             GameMode = gameMode;
         }
 
-        public HallFameEntry CreateSaveData(string name, float kills, float deaths, string gameMode)
+        public HallOfFameEntry CreateSaveData(string name, float kills, float deaths, string gameMode)
         {
-            HallFameEntry saveData = new HallFameEntry();
+            HallOfFameEntry saveData = new HaOfllOfFameEntry();
 
             saveData.Name = name;
             saveData.Kills = kills;

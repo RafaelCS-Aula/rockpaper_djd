@@ -12,10 +12,10 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
     public class MatchManager : MonoBehaviour
     {
         [HideInInspector] public GameModeManager gmManager;
-        [HideInInspector] private HallFameManager hofManager;
+        [HideInInspector] private HallOfFameManager hofManager;
         [HideInInspector] private GenerationManager genManager;
 
-        private HallFameManager.SaveData saveData;
+        private HallOfFameManager.SaveData saveData;
 
 
         [HideInInspector] public bool gameFinished;
@@ -55,7 +55,7 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             gmManager = GameObject.Find("GameModeManager").GetComponent<GameModeManager>();
 
             // Find HallOfFameManager component on the scene object named "HallOfFameManager"
-            hofManager = GameObject.Find("HallOfFameManager").GetComponent<HallFameManager>();
+            hofManager = GameObject.Find("HallOfFameManager").GetComponent<HallOfFameManager>();
 
             // Find GenerationManager component on the scene object named "GenerationManager"
             genManager = GameObject.Find("GenerationManager").GetComponent<GenerationManager>();

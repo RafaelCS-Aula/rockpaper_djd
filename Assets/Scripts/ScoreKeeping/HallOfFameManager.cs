@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
 {
-    public class HallFameManager : MonoBehaviour
+    public class HallOfFameManager : MonoBehaviour
     {
         /// <summary>
         /// Name of the save file
@@ -31,7 +31,7 @@ namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
             /// <summary>
             /// List that stores all Hall of Fame Entries
             /// </summary>
-            public List<HallFameEntry> hallOfFameEntryList;
+            public List<HallOfFameEntry> hallOfFameEntryList;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
                 SaveData saveData = new SaveData
                 {
                     // Initializes the saveData list
-                    hallOfFameEntryList = new List<HallFameEntry>()
+                    hallOfFameEntryList = new List<HallOfFameEntry>()
                 };
 
                 // Stores the 'SaveData'
@@ -113,7 +113,7 @@ namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
             {
                 // Add Entry to the list
                 saveData.hallOfFameEntryList.Add(
-                    new HallFameEntry(player.characterName,
+                    new HallOfFameEntry(player.characterName,
                     player.kills, player.deaths, gameMode));
 
                 // Runs 'NewEntryManagement' method
@@ -143,7 +143,7 @@ namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
                 {
                     // Add Entry to the list
                     saveData.hallOfFameEntryList.Add(
-                        new HallFameEntry(player.characterName,
+                        new HallOfFameEntry(player.characterName,
                         player.kills, player.deaths, gameMode));
 
                     // Runs 'NewEntryManagement' method
