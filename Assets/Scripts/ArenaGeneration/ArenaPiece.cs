@@ -61,14 +61,16 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
             }
 
+            List<IArenaInitializable> initChildren = 
+                new List<IArenaInitializable>();
 
             foreach (IArenaInitializable init in
                 GetComponentsInChildren<IArenaInitializable>())
             {
-                initList.Add(init);
+                initChildren.Add(init);
             }
 
-            
+            initList = initChildren.Distinct().ToList();
             sideConnectors = children.Distinct().ToList();
             _useRigidBody = spawnRigid;
             sideConnectors.Sort();
