@@ -16,14 +16,8 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         /// THE INITIALIZATION FROM THESE LINES IT WILL MAKE UNITY HANG AND
         /// EAT YOUR MEMORY.
         /// </summary>
-        [HideInInspector] [SerializeField] private List<Connector> sideConnectors
+        [HideInInspector] [SerializeField] private List<Connector> _connectors
         = new List<Connector>();
-
-        [HideInInspector] [SerializeField] 
-        private Connector _topConnector = null;
-        
-        [HideInInspector] [SerializeField] 
-        private Connector _bottomConnector = null;
 
         private bool _useRigidBody;
         
@@ -45,19 +39,8 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             //Detect connectors
             foreach(Connector c in GetComponentsInChildren<Connector>())
             {
-                if(c.orientation == ConnectorOrientations.SIDE)
-                    children.Add(c);
-                else if (c.orientation == ConnectorOrientations.TOP)
-                {
-                    if(_topConnector == null)
-                        _topConnector = c;
-                }
-                else if (c.orientation == ConnectorOrientations.BOTTOM)
-                {
-                    if(_bottomConnector == null)
-                        _bottomConnector = c;
-                }
-
+ 
+                children.Add(c);
 
             }
 
@@ -71,20 +54,21 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             }
 
             initList = initChildren.Distinct().ToList();
-            sideConnectors = children.Distinct().ToList();
+            _connectors = children.Distinct().ToList();
             _useRigidBody = spawnRigid;
-            sideConnectors.Sort();
-            ConnectorsCount = sideConnectors.Count;
+            _connectors.Sort();
+            ConnectorsCount = _connectors.Count;
             
 
-            foreach (Connector g in sideConnectors)
+            foreach (Connector g in _connectors)
             {
                 g.isUsed = false;
             }
-            if(_topConnector != null)
+
+            /*if(_topConnector != null)
                 _topConnector.isUsed = false;
             if(_bottomConnector != null)
-                _bottomConnector.isUsed = false;
+                _bottomConnector.isUsed = false;*/
             
             
             Rigidbody rb = GetComponent<Rigidbody>();
@@ -118,7 +102,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         /// <returns> Are all the connectors in this piece used?</returns>
         public bool IsFull()
         {
-            foreach(Connector c in sideConnectors)
+            foreach(Connector c in _connectors)
                 if(!c.isUsed)
                     return false;
             return true;
@@ -191,15 +175,38 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             //Spawn the piece and have it tell if the trigger collider reports back
             // ...but what if the piece is not all in one mesh?
 
-            foreach(Connector co in other.sideConnectors)
+            foreach(Connector co in other._connectors)
             {
-                foreach(Connector ct in this.sideConnectors)
+                foreach(Connector ct in this._connectors)
                 {
                     if(!co.isUsed && !ct.isUsed && 
                         co.pins >= ct.pins - groupTolerance &&
                         co.pins <= ct.pins + groupTolerance)
                     {
-                        possibleCombos.Add((ct, co));
+                        // SIDE connects with SIDE
+                        if(ct.orientation == ConnectorOrientations.SIDE &&
+                        co.orientation == ConnectorOrientations.SIDE)
+                        {
+                            possibleCombos.Add((ct, co));
+                        }
+                         // BOTTOM connects with TOP and vice versa
+                        else
+                        {
+                            
+                            if(ct.orientation == ConnectorOrientations.BOTTOM &&co.orientation == ConnectorOrientations.TOP)
+                            {
+                                possibleCombos.Add((ct, co));
+                            }
+                            else if(
+                                ct.orientation == ConnectorOrientations.TOP 
+                                && co.orientation == 
+                                ConnectorOrientations.BOTTOM)
+                                {
+                                    possibleCombos.Add((ct, co));
+                                }
+                                    
+
+                        }
                     }
                 }
 
@@ -280,11 +287,11 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         /// <returns></returns>
         public int CompareTo(ArenaPiece other)
         {
-            if (this.sideConnectors.Count >
-                other.sideConnectors.Count)
+            if (this._connectors.Count >
+                other._connectors.Count)
                 return -1;
-            else if (this.sideConnectors.Count <
-                other.sideConnectors.Count)
+            else if (this._connectors.Count <
+                other._connectors.Count)
                 return 1;
             else
                 return 0;
