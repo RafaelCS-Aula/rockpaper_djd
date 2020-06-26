@@ -119,12 +119,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             return _placedPieces;
         }
 
- 
-
-
-
-
-
 
         /// <summary>
         /// Populates a horizontal level of the arena

@@ -69,6 +69,12 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
 
         public void SpawnObjects()
         {
+            foreach(GameObject g in _spawned)
+            {
+
+                Destroy(g);
+            }
+
             _spawned = new List<GameObject>();
 
             if(!_dSingleSpawn)
