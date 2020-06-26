@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MovementData
   m_EditorClassIdentifier: 
   maxAcceleration: 80
-  jumpAcceleration: 400
+  jumpAcceleration: 425
   gravityAcceleration: 20
   maxForwardVelocity: 10
   maxStrafeVelocity: 10

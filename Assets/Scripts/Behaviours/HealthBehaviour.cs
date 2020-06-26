@@ -1,6 +1,7 @@
 ﻿using RPS_DJDIII.Assets.Scripts.Interfaces;
 using UnityEngine;
 using System.Collections;
+using RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours;
 
 namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
@@ -19,6 +20,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
 
 
         private CharacterController cC;
+        private ShooterBehaviour sB;
 
         private Vector3 spawnPosition;
         private Quaternion spawnRotation;
@@ -27,6 +29,8 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
 
         private float immunityTimer;
         [SerializeField] private float immunityDuration;
+
+
 
         [SerializeField] private GameObject playerModel;
 
@@ -47,6 +51,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
         private void Start()
         {
             cC = GetComponent<CharacterController>();
+            sB = GetComponent<ShooterBehaviour>();
         }
 
         private void Update()
@@ -69,9 +74,6 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
                 _currentHp--;
                 _currentCooldown = 0;
             }
-
-
-
         }
 
         public void ResetPosition()
@@ -91,10 +93,14 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
 
                 playerModel.SetActive((Mathf.FloorToInt(immunityTimer * 4.0f) % 2) == 0);
 
-                if (immunityTimer <= 0.0f)
-                {
-                    playerModel.SetActive(true);
-                }
+                if (sB.enabled) sB.enabled = false;
+
+
+            }
+            if (immunityTimer <= 0.0f)
+            {
+                if (!sB.enabled) sB.enabled = true;
+                if (!playerModel.activeSelf) playerModel.SetActive(true);
             }
         }
     }

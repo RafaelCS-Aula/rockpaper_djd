@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 2205271524969824807}
   - component: {fileID: 2098119001933782540}
   - component: {fileID: -4895756791265462547}
+  - component: {fileID: 2060799992778556015}
   m_Layer: 0
   m_Name: TESTCUBE2
   m_TagString: Untagged
@@ -213,7 +214,6 @@ MonoBehaviour:
   - {fileID: 2046666238986549252}
   _topConnector: {fileID: 0}
   _bottomConnector: {fileID: 0}
-  wasAnalysed: 0
   ConnectorsCount: 4
 --- !u!54 &-4895756791265462547
 Rigidbody:
@@ -231,6 +231,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &2060799992778556015
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5696008206724100777}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &7279248021080862335
 GameObject:
   m_ObjectHideFlags: 0
