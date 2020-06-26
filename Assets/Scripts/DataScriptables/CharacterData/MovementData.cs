@@ -30,9 +30,11 @@ namespace RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData
 		public float maxFallVelocity;
 
 		[Header("-Factor Options-")]
-
 		[Tooltip("Velocity factor multiplier for when the player is walking")]
 		public float walkVelocityFactor;
+
+		[Tooltip("Velocity factor multiplier for when the player is walking")]
+		public float backwardsVelocityFactor;
 
 		[Tooltip("Velocity factor multiplier for when" +
 			"the character is walking diagonally")]

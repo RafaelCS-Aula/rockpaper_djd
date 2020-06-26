@@ -89,8 +89,7 @@ typeof(MeshCollider))]
                 {
                     t.InteractFriend(this);
                 }
-                else
-                    t.InteractEnemy(this);
+                else t.InteractEnemy(this);
 
 
             }

@@ -28,6 +28,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         private float maxFallVelocity;
 
         private float walkVelocityFactor;
+        private float backwardselocityFactor;
         private float diagonalVelocityFactor;
         private float fallingVelocityFactor;
 
@@ -53,6 +54,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             maxFallVelocity = DataHolder.maxFallVelocity;
 
             walkVelocityFactor = DataHolder.walkVelocityFactor;
+            backwardselocityFactor = DataHolder.backwardsVelocityFactor;
             diagonalVelocityFactor = DataHolder.diagonalVelocityFactor;
             fallingVelocityFactor = DataHolder.fallingVelocityFactor;
 
@@ -73,6 +75,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         [HideInInspector] public CharacterController controller;
         [HideInInspector] public CharacterHandler cH;
+        [HideInInspector] public Animator animator;
 
         private Vector3 acceleration;
         private Vector3 velocity;
@@ -102,6 +105,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         [HideInInspector] public bool AMRAuthorized = true;
 
+
         private void Awake()
         {
             if (DataHolder == null)
@@ -117,6 +121,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         {
             controller = GetComponent<CharacterController>();
             cH = GetComponent<CharacterHandler>();
+            animator = GetComponentInChildren<Animator>();
 
             acceleration = Vector3.zero;
             velocity = Vector3.zero;
@@ -134,6 +139,11 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         }
 
         #endregion
+
+        private void Update()
+        {
+            UpdateAnimatorVars();
+        }
 
         #region FixedUpdate Methods	
 
@@ -153,8 +163,8 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
             if (jump)
             {
-                jump = false;
                 acceleration.y = jumpAcceleration;
+                jump = false;
             }
 
             else acceleration.y = (controller.isGrounded) ? 0 :
@@ -163,6 +173,8 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         public void UpdateVelocityFactor()
         {
+            if (strafeAxis == 0 && forwardAxis < 0) velocityFactor = backwardselocityFactor;
+
             if (strafeAxis != 0 && forwardAxis != 0)
             {
                 if (!controller.isGrounded)
@@ -258,6 +270,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             if (controller.isGrounded)
             {
                 jump = true;
+                animator.SetTrigger("JumpTrigger");
 
                 // Play Jump Audio
                 cH.audioHandler.PlayAudio(cH.audioHandler.dJump, 3);
@@ -266,6 +279,8 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             else if (canDoubleJump && doubleJumpCharges > 0)
             {
                 jump = true;
+                animator.SetTrigger("JumpTrigger");
+
                 canDoubleJump = false;
 
                 // Play double jump sound
@@ -315,6 +330,16 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         {
             doubleJumpCharges = maxDoubleJumpCharges;
             dashCharges = maxDashCharges;
+        }
+
+        private void UpdateAnimatorVars()
+        {
+            animator.SetBool("isGrounded", controller.isGrounded);
+
+            //animator.SetBool("isJumping", jump);
+
+            animator.SetFloat("PosX", strafeAxis, 1f, Time.deltaTime * 10f);
+            animator.SetFloat("PosY", forwardAxis, 1f, Time.deltaTime * 10f);
         }
     }
 }
