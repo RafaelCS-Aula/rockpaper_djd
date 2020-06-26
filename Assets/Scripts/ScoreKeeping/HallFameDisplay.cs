@@ -4,9 +4,9 @@ using UnityEngine;
 namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
 {
 
-    public class HallOfFameDisplay : MonoBehaviour
+    public class HallFameDisplay : MonoBehaviour
     {
-        [SerializeField] private HallOfFameManager hofManager;
+        [SerializeField] private HallFameManager hofManager;
 
         [SerializeField] private TextMeshProUGUI playerName;
         [SerializeField] private TextMeshProUGUI kills;
@@ -15,7 +15,7 @@ namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
         [SerializeField] private TextMeshProUGUI gameMode;
 
 
-        HallOfFameManager.SaveData saveData;
+        HallFameManager.SaveData saveData;
         private void Start()
         {
             hofManager.CreateSaveData();
