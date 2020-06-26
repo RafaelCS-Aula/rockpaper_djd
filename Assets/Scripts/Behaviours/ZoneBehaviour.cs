@@ -1,16 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using RPS_DJDIII.Assets.Scripts.Enums;
+using RPS_DJDIII.Assets.Scripts.Interfaces;
 
 namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
-    public class ZoneBehaviour : MonoBehaviour
+    public class ZoneBehaviour : MonoBehaviour, IArenaInitializable
     {
+
+
         [HideInInspector] public ZoneOccupants currentOccupant;
 
-        private bool team1Inside = false;
-        private bool team2Inside = false;
+        private bool team1Inside;
+        private bool team2Inside;
+
+        public void Initialize()
+        {
+            team1Inside = false;
+            team2Inside = false;
+        }
 
         private void UpdateOccupants()
         {
@@ -19,6 +26,8 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             else if (team1Inside) currentOccupant = ZoneOccupants.TEAM1;
             else if (team2Inside) currentOccupant = ZoneOccupants.TEAM2;
             else currentOccupant = ZoneOccupants.NONE;
+
+            print(currentOccupant);
         }
 
         private void OnTriggerEnter(Collider col)

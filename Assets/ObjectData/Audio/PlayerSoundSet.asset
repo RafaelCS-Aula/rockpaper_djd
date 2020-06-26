@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a585fb956fe93f445b5fa33a0988f3fb, type: 3}
+  m_Script: {fileID: 11500000, guid: d305ad2bfcc3e2d41aad24ee404aafdb, type: 3}
   m_Name: PlayerSoundSet
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSoundSetData
   jumpSFX: {fileID: 8300000, guid: c722036772fbde54487ea086fa7d82fe, type: 3}

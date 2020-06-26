@@ -3,7 +3,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace RPS_DJDIII.Assets.Scripts
+namespace RPS_DJDIII.Assets.Scripts.UI
 {
     public class NameSelection : MonoBehaviour
     {
@@ -55,10 +55,8 @@ namespace RPS_DJDIII.Assets.Scripts
             }
             foreach (char c in name)
             {
-                if (Char.IsDigit(c))
-                {
-                    return false;
-                }
+                if (Char.IsDigit(c)) return false;
+                if (c == ' ') return false;
             }
 
             return true;

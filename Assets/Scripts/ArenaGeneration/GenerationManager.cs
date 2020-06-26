@@ -65,13 +65,9 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         // Start is called before the first frame update
         void Awake()
         {
-            
-        Create();
-            
-
         }
 
-        private void Create()
+        public void Create()
         {
             _sortedPieces = new List<List<ArenaPiece>>();
 
@@ -105,8 +101,21 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             // loaded back in again. And we can laod and save premade arenas
 
 
-
+            InitArenas();
         }
+
+        private void InitArenas()
+        {
+            foreach (ArenaPiece piece in _placedPieces)
+            {
+                piece.Initialize();
+            }
+        }
+
+
+
+
+
 
         /// <summary>
         /// Populates a horizontal level of the arena
@@ -170,7 +179,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                     spawnedPiece.name = $"{i}";
                     arena.Add(spawnedScript);
                     placedAmount++;
-                    print("Found piece.");
                     spawnedScript.gameObject.transform.SetParent(_selectedPiece.transform);
 
                     if(arena.Count >= _maxPieceCount)
@@ -523,8 +531,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
             return sortedList;
         }
-
-
     }
 }
 

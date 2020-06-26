@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a626c6529fa041e479ec93b858377e09, type: 3}
+  m_Script: {fileID: 11500000, guid: 705c7845dad401b47a70c760e9783af5, type: 3}
   m_Name: ArenaNoiseSet
   m_EditorClassIdentifier: 
   background: {fileID: 8300000, guid: 51d036fe0c4f9e844b678ba2935d17a7, type: 3}

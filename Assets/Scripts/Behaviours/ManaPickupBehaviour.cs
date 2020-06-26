@@ -2,6 +2,7 @@
 using RPS_DJDIII.Assets.Scripts.Enums;
 using RPS_DJDIII.Assets.Scripts.Interfaces;
 using RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData;
+using RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours;
 
 namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {

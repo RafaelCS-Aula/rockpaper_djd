@@ -11,11 +11,11 @@ namespace RPS_DJDIII.Assets.Scripts.Sound
     {
         private List<AudioSource> sources;
         private AudioSource sourceComponent;
-        [SerializeField] private PlayerSoundSetData _soundSet;
+        [SerializeField] private PlayerSoundSetData _soundSetData;
         public PlayerSoundSetData DataHolder
         {
-            get => _soundSet;
-            set => value = _soundSet;
+            get => _soundSetData;
+            set => value = _soundSetData;
         }
 
         [HideInInspector] public AudioClip dJump;
