@@ -183,7 +183,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             ArenaPiece other, float pieceDistance = 0.00f, uint groupTolerance = 0)
         {
             
-
             List<(Connector mine, Connector oth)> possibleCombos =
             new List<(Connector mine, Connector oth)>();
             //Check for intersecting geometry?
@@ -196,7 +195,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                 {
                     if(!co.isUsed && !ct.isUsed && 
                         co.pins >= ct.pins - groupTolerance &&
-                        co.pins <= ct.pins)
+                        co.pins <= ct.pins + groupTolerance)
                     {
                         possibleCombos.Add((ct, co));
                     }
