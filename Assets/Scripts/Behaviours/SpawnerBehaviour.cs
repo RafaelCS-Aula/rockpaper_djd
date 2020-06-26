@@ -64,6 +64,14 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             
         }
 
+        public void SpawnObjects(GameObject specific)
+        {
+            _spawned = new List<GameObject>();
+            _spawned.Add(specific);
+        }
+
+
+
         // Update is called once per frame
         void Update()
         {
