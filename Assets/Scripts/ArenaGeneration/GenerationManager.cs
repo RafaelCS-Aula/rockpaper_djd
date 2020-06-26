@@ -81,8 +81,10 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
         }
 
-        public void Create()
+        public List<ArenaPiece> Create()
         {
+            //List<ArenaPiece> madeArena = new List<ArenaPiece>()
+
             _sortedPieces = new List<List<ArenaPiece>>();
 
             foreach (ArenaPiece a in piecesForGeneration)
@@ -114,17 +116,10 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             //TODO: Serialise the _placedPieces list to Json so it can be
             // loaded back in again. And we can laod and save premade arenas
 
-            if(!_autoCreate)
-                InitArenas();
+            return _placedPieces;
         }
 
-        private void InitArenas()
-        {
-            foreach (ArenaPiece piece in _placedPieces)
-            {
-                piece.Initialize();
-            }
-        }
+ 
 
 
 

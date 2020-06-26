@@ -11,6 +11,8 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 {
     public class MatchManager : MonoBehaviour
     {
+        private List<ArenaPiece> _playArena;
+
         [HideInInspector] public GameModeManager gmManager;
         [HideInInspector] private HallOfFameManager hofManager;
         [HideInInspector] private GenerationManager genManager;
@@ -46,7 +48,7 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
         private int currentSecond;
         private int lastSecond;
 
-        bool doneAdding = false;
+        private bool doneAdding = false;
 
 
         private void Start()
@@ -75,7 +77,9 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             player2.mB.AMRAuthorized = gmManager.AMRAuthorized;
             #endregion
 
-            genManager.Create();
+            _playArena = new List<ArenaPiece>();
+            _playArena = genManager.Create();
+            InitArena();
 
             zonesList = new List<ZoneBehaviour>();
 
@@ -133,6 +137,14 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             }
             // If the game is not in progress, display game over screen
             else GameOver();
+        }
+
+        private void InitArena()
+        {
+            foreach (ArenaPiece piece in _playArena)
+            {
+                piece.Initialize();
+            }
         }
 
         private void UpdateTimers()
