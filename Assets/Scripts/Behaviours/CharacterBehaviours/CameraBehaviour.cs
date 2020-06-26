@@ -157,9 +157,10 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         private void PositionCamera(Vector3 newPosition)
         {
             //Postions the cameras localPosition to a given location
-            cam.transform.localPosition =
-                Vector3.Lerp(cam.transform.localPosition, newPosition,
-                Time.deltaTime * movementLerpSpeed);
+            //cam.transform.localPosition =
+            //    Vector3.Lerp(cam.transform.localPosition, newPosition,
+            //    Time.deltaTime * movementLerpSpeed);
+            cam.transform.localPosition = newPosition;
         }
 
         /// <summary>

@@ -59,6 +59,8 @@ namespace RPS_DJDIII.Assets.Scripts.UI
                 if (c == ' ') return false;
             }
 
+            if (p1Done && name == gmManager.p1Name) return false;
+
             return true;
         }
 

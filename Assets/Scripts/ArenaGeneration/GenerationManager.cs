@@ -7,7 +7,10 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
     public class GenerationManager : MonoBehaviour
     {
-    
+
+        [Header("----- Reference Settings ------")]
+        [SerializeField] private string arenaName;
+        
         [Header("----- Content Settings ------")]
         [SerializeField] private List<ArenaPiece> piecesForGeneration;
 
@@ -166,6 +169,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                 
 
                 GameObject spawnedPiece = Instantiate(_evaluatingPiece).gameObject;
+                //spawnedPiece.name = arenaName;
                 ArenaPiece spawnedScript = spawnedPiece.GetComponent<ArenaPiece>();
 
                 (bool valid, Transform trn) evaluationResult =
@@ -493,6 +497,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                     
             }
             GameObject piece = Instantiate(choosen.gameObject);
+            piece.name = arenaName;
             _placedPieces.Add(piece.GetComponent<ArenaPiece>());
             
         }
@@ -531,6 +536,8 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
             return sortedList;
         }
+
+        public string GetName() => arenaName;
     }
 }
 

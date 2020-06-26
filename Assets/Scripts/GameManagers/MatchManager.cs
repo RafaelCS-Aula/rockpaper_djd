@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using RPS_DJDIII.Assets.Scripts.Enums;
 using RPS_DJDIII.Assets.Scripts.Behaviours;
@@ -37,7 +38,7 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
         [HideInInspector] public bool isCountingDown = false;
 
 
-        public ZoneBehaviour[] zones;
+        [HideInInspector] public List<ZoneBehaviour> zonesList;
         [HideInInspector] public int activeZone;
 
         [HideInInspector] public float zoneChangeTimer;
@@ -76,10 +77,19 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
             genManager.Create();
 
+            zonesList = new List<ZoneBehaviour>();
+
+            foreach (ZoneBehaviour z in GameObject.Find(genManager.GetName()).
+                GetComponentsInChildren<ZoneBehaviour>())
+            {
+                zonesList.Add(z);
+                z.gameObject.SetActive(false);
+            }
+
             if (gmManager.zoneBased)
             {
-                int zone = Random.Range(0, zones.Length);
-                zones[zone].gameObject.SetActive(true);
+                int zone = Random.Range(0, zonesList.Count);
+                zonesList[zone].gameObject.SetActive(true);
                 activeZone = zone;
                 zoneChangeTimer = gmManager.zoneChangeInterval; 
             }
@@ -201,12 +211,12 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             int newZone = activeZone;
             while (newZone == activeZone)
             {
-                newZone = Random.Range(0, zones.Length);
+                newZone = Random.Range(0, zonesList.Count);
             }
 
-            zones[activeZone].gameObject.SetActive(false);
+            zonesList[activeZone].gameObject.SetActive(false);
             activeZone = newZone;
-            zones[activeZone].gameObject.SetActive(true);
+            zonesList[activeZone].gameObject.SetActive(true);
         }
 
         private void UpdateZonePoints()
@@ -216,10 +226,10 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
             if (currentSecond - lastSecond == 1)
             {
-                if (zones[activeZone].currentOccupant == ZoneOccupants.TEAM1)
+                if (zonesList[activeZone].currentOccupant == ZoneOccupants.TEAM1)
                     player1.points += gmManager.pointsPerScondInZone;
 
-                if (zones[activeZone].currentOccupant == ZoneOccupants.TEAM2)
+                if (zonesList[activeZone].currentOccupant == ZoneOccupants.TEAM2)
                     player2.points += gmManager.pointsPerScondInZone;
             }
         }

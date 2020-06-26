@@ -10,6 +10,8 @@ namespace RPS_DJDIII.Assets.Scripts.UI
 {
     public class UIManager : MonoBehaviour
     {
+        [SerializeField] private MatchManager matchManager;
+
         #region Panels
         [Header("-PANELS-")]
         [SerializeField] private GameObject PreMatchRoundPanel;
@@ -18,11 +20,17 @@ namespace RPS_DJDIII.Assets.Scripts.UI
 
         #region Displays
         [Header("-DISPLAYS-")]
-        [SerializeField] private Image p1Crosshair;
-        [SerializeField] private Image p2Crosshair;
+        [SerializeField] private TextMeshProUGUI p1Health;
+        [SerializeField] private TextMeshProUGUI p2Health;
+        
+        [SerializeField] private Image p1Abilities;
+        [SerializeField] private Image p2Abilities;
+        
+        [SerializeField] private Image p1SelectedProjectile;
+        [SerializeField] private Image p2SelectedProjectile;
 
-        [SerializeField] private TextMeshProUGUI p1AmmoDisplay;
-        [SerializeField] private TextMeshProUGUI p2AmmoDisplay;
+        [SerializeField] private TextMeshProUGUI p1Ammo;
+        [SerializeField] private TextMeshProUGUI p2Ammo;
 
         [SerializeField] private GameObject rockIndP1;
         [SerializeField] private GameObject paperIndP1;
@@ -45,26 +53,27 @@ namespace RPS_DJDIII.Assets.Scripts.UI
         [SerializeField] private TextMeshProUGUI zoneOccupant;
         #endregion
 
-        #region Aim Sprites
+        #region Ability Sprites
         [Header("-AIM SPRITES-")]
-        [SerializeField] private Sprite aim00;
-        [SerializeField] private Sprite aim01;
-        [SerializeField] private Sprite aim02;
-        [SerializeField] private Sprite aim10;
-        [SerializeField] private Sprite aim11;
-        [SerializeField] private Sprite aim12;
-        [SerializeField] private Sprite aim20;
-        [SerializeField] private Sprite aim21;
-        [SerializeField] private Sprite aim22;
+        [SerializeField] private Sprite ability00;
+        [SerializeField] private Sprite ability01;
+        [SerializeField] private Sprite ability02;
+        [SerializeField] private Sprite ability10;
+        [SerializeField] private Sprite ability11;
+        [SerializeField] private Sprite ability12;
+        [SerializeField] private Sprite ability20;
+        [SerializeField] private Sprite ability21;
+        [SerializeField] private Sprite ability22;
 
         #endregion
-
-        #region Match Vars
-
-        [SerializeField] private MatchManager matchManager;
-
-
+        
+        #region Projectile Sprites
+        [Header("-AIM SPRITES-")]
+        [SerializeField] private Sprite rock;
+        [SerializeField] private Sprite paper;
+        [SerializeField] private Sprite scissors;
         #endregion
+
 
         private void Awake()
         {
@@ -74,20 +83,24 @@ namespace RPS_DJDIII.Assets.Scripts.UI
         {
             if (!matchManager.gameFinished)
             {
-                #region Crosshair Updates
-                UpdateCrosshair(matchManager.player1, p1Crosshair);
-                UpdateCrosshair(matchManager.player2, p2Crosshair);
+                #region Health Updates
+                UpdateHealthDisplay(matchManager.player1, p1Health);
+                UpdateHealthDisplay(matchManager.player2, p2Health);
+                #endregion
+                #region Ability Updates
+                UpdateAbilitiesDisplay(matchManager.player1, p1Abilities);
+                UpdateAbilitiesDisplay(matchManager.player2, p2Abilities);
                 #endregion
                 #region AmmoDisplay Updates
-                UpdateAmmoDisplay(matchManager.player1, p1AmmoDisplay);
-                UpdateAmmoDisplay(matchManager.player2, p2AmmoDisplay);
+                UpdateAmmoDisplay(matchManager.player1, p1Ammo);
+                UpdateAmmoDisplay(matchManager.player2, p2Ammo);
                 #endregion
                 #region Indicator Updates
-                if (matchManager.player1.iB.oldType != matchManager.player1.iB.newType) UpdateIndicator(matchManager.player1,
-                    rockIndP1, paperIndP1, scissorsIndP1);
+                if (matchManager.player1.iB.oldType != matchManager.player1.iB.newType) UpdateIndicatorDisplay(matchManager.player1,
+                    rockIndP1, paperIndP1, scissorsIndP1, p1SelectedProjectile);
 
-                if (matchManager.player2.iB.oldType != matchManager.player2.iB.newType) UpdateIndicator(matchManager.player2,
-                    rockIndP2, paperIndP2, scissorsIndP2);
+                if (matchManager.player2.iB.oldType != matchManager.player2.iB.newType) UpdateIndicatorDisplay(matchManager.player2,
+                    rockIndP2, paperIndP2, scissorsIndP2, p2SelectedProjectile);
                 #endregion
                 UpdateClockDisplay();
                 UpdatePointsDisplay();
@@ -104,22 +117,31 @@ namespace RPS_DJDIII.Assets.Scripts.UI
 
         }
 
-        private void UpdateCrosshair(CharacterHandler player, Image crosshair)
+        private void UpdateHealthDisplay(CharacterHandler player, TextMeshProUGUI health)
         {
-            Sprite newSprite = crosshair.sprite;
-
-            if (player.mB.doubleJumpCharges == 0 && player.mB.dashCharges == 0) newSprite = aim00;
-            else if (player.mB.doubleJumpCharges == 0 && player.mB.dashCharges == 1) newSprite = aim01;
-            else if (player.mB.doubleJumpCharges == 0 && player.mB.dashCharges == 2) newSprite = aim02;
-            else if (player.mB.doubleJumpCharges == 1 && player.mB.dashCharges == 0) newSprite = aim10;
-            else if (player.mB.doubleJumpCharges == 1 && player.mB.dashCharges == 1) newSprite = aim11;
-            else if (player.mB.doubleJumpCharges == 1 && player.mB.dashCharges == 2) newSprite = aim12;
-            else if (player.mB.doubleJumpCharges == 2 && player.mB.dashCharges == 0) newSprite = aim20;
-            else if (player.mB.doubleJumpCharges == 2 && player.mB.dashCharges == 1) newSprite = aim21;
-            else if (player.mB.doubleJumpCharges == 2 && player.mB.dashCharges == 2) newSprite = aim22;
+            string currentHP = player.hB._currentHp.ToString();
+            if (health.text != currentHP) health.text = currentHP;
+        }
 
 
-            crosshair.overrideSprite = newSprite;
+        private void UpdateAbilitiesDisplay(CharacterHandler player, Image abilities)
+        {
+            Sprite newSprite = abilities.sprite;
+            int djCharges = player.mB.doubleJumpCharges;
+            int dashCharges = player.mB.dashCharges;
+
+            if (djCharges == 0 && dashCharges == 0) newSprite = ability00;
+            else if (djCharges == 0 && dashCharges == 1) newSprite = ability01;
+            else if (djCharges == 0 && dashCharges == 2) newSprite = ability02;
+            else if (djCharges == 1 && dashCharges == 0) newSprite = ability10;
+            else if (djCharges == 1 && dashCharges == 1) newSprite = ability11;
+            else if (djCharges == 1 && dashCharges == 2) newSprite = ability12;
+            else if (djCharges == 2 && dashCharges == 0) newSprite = ability20;
+            else if (djCharges == 2 && dashCharges == 1) newSprite = ability21;
+            else if (djCharges == 2 && dashCharges == 2) newSprite = ability22;
+
+
+            abilities.overrideSprite = newSprite;
         }
 
         private void UpdateAmmoDisplay(CharacterHandler player, TextMeshProUGUI ammoDisplay)
@@ -132,8 +154,8 @@ namespace RPS_DJDIII.Assets.Scripts.UI
                 $"Cube (Scissors) ammo: {currentScissors}/{maxScissors}\n";
         }
 
-        private void UpdateIndicator(CharacterHandler player, GameObject rockInd,
-            GameObject paperInd, GameObject scissorsInd)
+        private void UpdateIndicatorDisplay(CharacterHandler player, GameObject rockInd,
+            GameObject paperInd, GameObject scissorsInd, Image selectedProjectile)
         {
             ProjectileTypes pType = player.sB.GetSelectedWeapon();
 
@@ -143,18 +165,21 @@ namespace RPS_DJDIII.Assets.Scripts.UI
                     rockInd.SetActive(true);
                     paperInd.SetActive(false);
                     scissorsInd.SetActive(false);
+                    selectedProjectile.sprite = rock;
                     break;
 
                 case ProjectileTypes.PAPER:
                     rockInd.SetActive(false);
                     paperInd.SetActive(true);
                     scissorsInd.SetActive(false);
+                    selectedProjectile.sprite = paper;
                     break;
 
                 case ProjectileTypes.SCISSORS:
                     rockInd.SetActive(false);
                     paperInd.SetActive(false);
                     scissorsInd.SetActive(true);
+                    selectedProjectile.sprite = scissors;
                     break;
 
                 default:
@@ -223,7 +248,7 @@ namespace RPS_DJDIII.Assets.Scripts.UI
         private void UpdateZoneOccupant()
         {
             zoneOccupant.text = "Current occupant: " +
-                matchManager.zones[matchManager.activeZone].currentOccupant.ToString();
+                matchManager.zonesList[matchManager.activeZone].currentOccupant.ToString();
         }
         private void GameOverDisplay()
         {
