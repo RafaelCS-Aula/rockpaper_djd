@@ -3,5 +3,7 @@
     public interface IArenaInitializable
     {
         void Initialize();
+
+        bool isInitialized {get; set;}
     }
 }

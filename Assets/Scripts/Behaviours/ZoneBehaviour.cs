@@ -9,14 +9,21 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
 
 
         [HideInInspector] public ZoneOccupants currentOccupant;
+        public bool isInitialized {get; set;}
 
         private bool team1Inside;
         private bool team2Inside;
 
+        private void Awake() 
+        {
+            isInitialized = false;    
+        }
         public void Initialize()
         {
             team1Inside = false;
             team2Inside = false;
+
+            isInitialized = true;
         }
 
         private void UpdateOccupants()

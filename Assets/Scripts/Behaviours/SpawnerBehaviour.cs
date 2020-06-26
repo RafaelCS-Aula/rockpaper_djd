@@ -1,6 +1,5 @@
 ﻿using RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData;
 using RPS_DJDIII.Assets.Scripts.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +17,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             get => _dataHolder;
             set => value = _dataHolder;
         }
+        public bool isInitialized {get; set;}
 
         private  List<GameObject> _dObjects;
         private float _dSpawnInterval;
@@ -29,13 +29,30 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
         private float _spawnTimer = 0;
 
 
+        private void Awake() 
+        {
+            isInitialized = false;
+
+            if(_dStartSpawn)
+                SpawnObjects();
+        }
+
         public void Initialize()
         {   
             GetData();
 
-            if(_dStartSpawn)
-                SpawnObjects();
 
+            SpawnObjects();
+            isInitialized = true;
+
+        }
+
+        public void Initialize(GameObject specialObject)
+        {   
+            GetData();
+
+            SpawnObjects(specialObject);
+            isInitialized = true;
         }
 
         public void GetData()
