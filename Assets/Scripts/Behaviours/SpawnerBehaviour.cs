@@ -7,31 +7,79 @@ using UnityEngine;
 namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
     // TODO: this
-    public class SpawnerBehaviour : MonoBehaviour, IDataUser<ManaPickupData>
+    public class SpawnerBehaviour : MonoBehaviour, IDataUser<SpawnerData>,
+     IArenaInitializable 
     {
-        [SerializeField] private ManaPickupData _dataHolder;
-        public ManaPickupData DataHolder
+        private List<GameObject> _spawned = new List<GameObject>();
+
+        [SerializeField] private SpawnerData _dataHolder;
+        public SpawnerData DataHolder
         {
             get => _dataHolder;
             set => value = _dataHolder;
         }
 
+        private  List<GameObject> _dObjects;
+        private float _dSpawnInterval;
+        private int _dSingleSpawnIndex;
+        private bool _dIsTriggerAction;
+        private bool _dStartSpawn;
+        private bool _dSingleSpawn;
 
-        public void GetData()
-        {
+        private float _spawnTimer = 0;
+
+
+        public void Initialize()
+        {   
+            GetData();
+
+            if(_dStartSpawn)
+                SpawnObjects();
 
         }
 
-        // Start is called before the first frame update
-        void Start()
+        public void GetData()
         {
+            _dObjects = DataHolder.objectsToSpawn;
+            _dSingleSpawn = DataHolder.singleSpawn;
+            _dSingleSpawnIndex = DataHolder.singleSpawnIndex;
+            _dSpawnInterval = DataHolder.spawnInterval;
+            _dStartSpawn = DataHolder.startSpawn;
+            _dIsTriggerAction = DataHolder.isTriggerAction;
+            
 
+        }
+
+        public void SpawnObjects()
+        {
+            _spawned = new List<GameObject>();
+
+            if(!_dSingleSpawn)
+            {
+                foreach(GameObject g in _dObjects)
+                _spawned.Add(Instantiate(g));
+            }
+            else
+                _spawned.Add(Instantiate(_dObjects[_dSingleSpawnIndex]));
+            
         }
 
         // Update is called once per frame
         void Update()
         {
+            if(!_dIsTriggerAction)
+            {
+                _spawnTimer += 1 * Time.deltaTime;
+                if(_spawnTimer >= _dSpawnInterval)
+                {
+                    SpawnObjects();
+                    _spawnTimer = 0;
+                }
+                    
+            }
 
         }
+
+    
     }
 }

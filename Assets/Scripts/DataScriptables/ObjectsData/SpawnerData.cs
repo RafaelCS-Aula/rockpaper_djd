@@ -6,7 +6,7 @@ namespace RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData
 {
     [CreateAssetMenu(fileName = "SpawnerData",
     menuName = "Data/Arena/Spawner Data", order = 1)]
-    public class Spawner : ScriptableObject
+    public class SpawnerData : ScriptableObject
     {
         [Header("Action")]
         public List<GameObject> objectsToSpawn;
