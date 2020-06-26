@@ -19,9 +19,10 @@ MonoBehaviour:
   maxStrafeVelocity: 10
   maxJumpVelocity: 50
   maxFallVelocity: 100
-  walkVelocityFactor: 1
-  diagonalVelocityFactor: 0.75
-  fallingVelocityFactor: 0.7
+  walkVelocityFactor: 0.9
+  backwardsVelocityFactor: 0.2
+  diagonalVelocityFactor: 0.65
+  fallingVelocityFactor: 0.75
   mass: 1
   damping: 5
   maxDoubleJumpCharges: 2

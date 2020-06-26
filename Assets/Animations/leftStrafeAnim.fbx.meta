@@ -1,67 +1,12 @@
 fileFormatVersion: 2
-guid: 7d8d17dc026908745a7e8f464466c6f6
+guid: 7399f03e35c8431419cbfb5705dc6d43
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
-      74: -203655887218126122
-    second: mixamo.com
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ch15_body
-    second: {fileID: 2100000, guid: d428841073a1e584eb1492f3821f504c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ch15_body1
-    second: {fileID: 2100000, guid: 2b68e778437b2e246b1dca788336966e, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch15_1001_Diffuse
-    second: {fileID: 2800000, guid: dffa8c8ccce798449b2f890a289f42ce, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch15_1001_Glossiness
-    second: {fileID: 2800000, guid: fc51ed09fc43cdc4a9969c45c2d15396, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch15_1001_Normal
-    second: {fileID: 2800000, guid: e4f19afe179e8be4e8b48462d2419cac, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch15_1001_Specular
-    second: {fileID: 2800000, guid: de36d909f7cb92642ba72d9e53c8c37f, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch15_1002_Diffuse
-    second: {fileID: 2800000, guid: 36536af15decd134c885e412d2080122, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch15_1002_Emissive
-    second: {fileID: 2800000, guid: 7d75144da17a52642bb890926e80fd9e, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch15_1002_Glossiness
-    second: {fileID: 2800000, guid: 72d4188091c7da2499af42b73b0fe3aa, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch15_1002_Normal
-    second: {fileID: 2800000, guid: 7ab43c072b953354ea085273a667c192, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch15_1002_Specular
-    second: {fileID: 2800000, guid: 7296e801ac4a03a4e806b57fcd7ecd93, type: 3}
+      74: 1827226128182048838
+    second: LeftStrafingCharacter
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -80,7 +25,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
+    importConstraints: 1
     animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -88,7 +33,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: LeftStrafingCharacter
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 17
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -127,7 +101,7 @@ ModelImporter:
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     serializedVersion: 3
     human:
@@ -548,18 +522,18 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: SWAT_RED(Clone)
+    - name: SWAT_BLUE(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Ch15
-      parentName: SWAT_RED(Clone)
+      parentName: SWAT_BLUE(Clone)
       position: {x: -0, y: -0.013119452, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
-      parentName: SWAT_RED(Clone)
+      parentName: SWAT_BLUE(Clone)
       position: {x: 0.00000247641, y: 0.9534753, z: 0.0048324326}
       rotation: {x: -0.000000025465264, y: 0.00000043771817, z: -0.0000097081365,
         w: 1}
@@ -896,7 +870,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8ed9b2fc031170343885031099f87c66,
+    type: 3}
   animationType: 3
   humanoidOversampling: 1
   additionalBone: 0
