@@ -35,6 +35,10 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         [SerializeField] private uint _branchGenPieceSkipping = 0;
         [SerializeField] private uint _PieceSkippingVariance = 0;
 
+        [Header("------ Testing Settings -------")]
+        [Tooltip("Generate Arena on scene start automaticly. (DANGEROUS)")]
+        [SerializeField] private bool _autoCreate = false;
+
         /*[Header("------ Vertical Level Settings --------")]
         [SerializeField] private bool _createUpperLevel;
 
@@ -68,6 +72,13 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         // Start is called before the first frame update
         void Awake()
         {
+            if(_autoCreate)
+            {
+                Debug.Log("ATENTION: AUTO CREATE IS ON. TURN OFF FOR GAMEPLAY");
+                Create();
+            }
+                
+
         }
 
         public void Create()
@@ -103,8 +114,8 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             //TODO: Serialise the _placedPieces list to Json so it can be
             // loaded back in again. And we can laod and save premade arenas
 
-
-            InitArenas();
+            if(!_autoCreate)
+                InitArenas();
         }
 
         private void InitArenas()

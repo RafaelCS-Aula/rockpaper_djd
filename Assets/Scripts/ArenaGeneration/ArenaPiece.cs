@@ -61,14 +61,16 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
             }
 
+            List<IArenaInitializable> initChildren = 
+                new List<IArenaInitializable>();
 
             foreach (IArenaInitializable init in
                 GetComponentsInChildren<IArenaInitializable>())
             {
-                initList.Add(init);
+                initChildren.Add(init);
             }
 
-            
+            initList = initChildren.Distinct().ToList();
             sideConnectors = children.Distinct().ToList();
             _useRigidBody = spawnRigid;
             sideConnectors.Sort();
@@ -124,7 +126,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         }
     
 
-        public (bool hasTop, bool hasBottom) GetVerticalConnectors()
+        /*public (bool hasTop, bool hasBottom) GetVerticalConnectors()
         {
             bool t = false;
             bool b = false;
@@ -136,7 +138,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             
             return (t, b);
 
-        }
+        }*/
 
     /* public (bool valid, Transform position) EvaluatePieceVertical(
             ArenaPiece other, bool upper, float pieceDistance = 0.00f,
@@ -183,7 +185,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             ArenaPiece other, float pieceDistance = 0.00f, uint groupTolerance = 0)
         {
             
-
             List<(Connector mine, Connector oth)> possibleCombos =
             new List<(Connector mine, Connector oth)>();
             //Check for intersecting geometry?
@@ -196,7 +197,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                 {
                     if(!co.isUsed && !ct.isUsed && 
                         co.pins >= ct.pins - groupTolerance &&
-                        co.pins <= ct.pins)
+                        co.pins <= ct.pins + groupTolerance)
                     {
                         possibleCombos.Add((ct, co));
                     }
