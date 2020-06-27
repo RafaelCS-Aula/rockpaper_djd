@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 {
-
+    /// <summary>
+    /// Class used to test the transformation of pieces based on 
+    /// their connectors' positions. Greatly taken from Unity API.
+    /// </summary>
     public class ConnectorTransformTest : MonoBehaviour
     {
         //This is the Transform of the second GameObject

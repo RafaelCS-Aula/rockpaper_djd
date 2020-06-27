@@ -12,16 +12,24 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         [SerializeField] private string arenaName;
         
         [Header("----- Content Settings ------")]
+        [Tooltip("The pieces the generator will use for the arena")]
         [SerializeField] private List<ArenaPiece> piecesForGeneration;
 
         [Header("Starting Piece Settings ---")]
+        [Tooltip("Pick first piece from the possibleStartingPieces list. ")]
         [SerializeField] private bool _setStartingPiece = false;
+
+        [Tooltip("Specific list of pieces to use for the first piece")]
         [SerializeField] private List<ArenaPiece> _possibleStartingPieces;
+
+        [Tooltip("Tolerance for choosing the first piece")]
         [SerializeField] private uint _connectorCountTolerance = 0;
 
         [Header("------ General Generation Settings --------")]
-
+        [Tooltip("The generation method for the arena")]
         [SerializeField] private GenerationTypes _generationMethod;
+        [Tooltip(
+            "The amount of pieces the arena will have, excluding the first")]
         [SerializeField] private uint _maxPieceCount;
         [SerializeField] private uint _pinCountTolerance = 0;
         [SerializeField] private bool _useClippingCorrection = false;
@@ -53,10 +61,10 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         [SerializeField] private bool _lowerLevelIslandGeneration;
         [SerializeField] private int _lowerIslandsCount = 1;*/
 
-
+        // pieces in the arena
         private List<ArenaPiece> _placedPieces;
 
-
+        // Sorted listed of the pieces for generation
         private List<List<ArenaPiece>> _sortedPieces;
 
 
@@ -81,6 +89,11 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
         }
 
+        /// <summary>
+        /// Create a full arena
+        /// </summary>
+        /// <returns> All the ArenaPiece instances of the placed pieces
+        /// </returns>
         public List<ArenaPiece> Create()
         {
             //List<ArenaPiece> madeArena = new List<ArenaPiece>()
@@ -107,14 +120,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
             /*if(_createUpperLevel || _createLowerLevel)
                 MakeVerticalArena(_placedPieces);*/
-
-
-            /*foreach (ArenaPiece item in _placedPieces)
-            {
-                print(item.gameObject);
-            }*/
-            //TODO: Serialise the _placedPieces list to Json so it can be
-            // loaded back in again. And we can laod and save premade arenas
 
             return _placedPieces;
         }
@@ -282,6 +287,105 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             return arena;
         }
 
+        /// <summary>
+        /// Select and place the first piece of the arena
+        /// </summary>
+        private void PickFirstPiece()
+        {
+            // To be safe if the starters list fails
+            chooseStarter:
+
+            ArenaPiece choosen = null;
+            
+            
+            int choosenIndex = 0;
+            _placedPieces = new List<ArenaPiece>();
+
+            if (_setStartingPiece)
+            {
+                if(_possibleStartingPieces.Count == 0)
+                {
+                    Debug.LogError(
+                        "'Set starting piece' is on but no ArenaPieces were given");
+                    _setStartingPiece = false;
+                    goto chooseStarter;
+                }
+
+                choosenIndex = Random.Range(0, _possibleStartingPieces.Count);
+                choosen =     _possibleStartingPieces[choosenIndex];    
+        
+            }
+            else
+            {
+                
+                if(_generationMethod == GenerationTypes.CORRIDOR ||
+                _generationMethod == GenerationTypes.BRANCH)
+                {
+
+                    choosenIndex = Random.Range(
+                        0, _sortedPieces[_sortedPieces.Count - 1].Count);
+                        
+                    choosen = _sortedPieces[_sortedPieces.Count - 1][choosenIndex];
+
+                }
+                    
+                else
+                {
+
+                    choosenIndex = Random.Range(0, _sortedPieces[0].Count);
+                    choosen = _sortedPieces[0][choosenIndex];
+
+
+                }
+                    
+            }
+            GameObject piece = Instantiate(choosen.gameObject);
+            piece.name = arenaName;
+            _placedPieces.Add(piece.GetComponent<ArenaPiece>());
+            
+        }
+
+        /// <summary>
+        /// Seperate pieces into seperate lists based on connector count
+        /// </summary>
+        private List<List<ArenaPiece>> SplitList()
+        {
+            int lastConsidered = largestGroup + 1;
+            List<ArenaPiece> considererdList = new List<ArenaPiece>();
+            List<List<ArenaPiece>> sortedList = new List<List<ArenaPiece>>();
+
+            
+            for (int i = 0; i < piecesForGeneration.Count; i++)
+            {
+                // Piece belongs in a new list made for its size            
+                if (piecesForGeneration[i].ConnectorsCount < lastConsidered)
+                {
+                    considererdList = new List<ArenaPiece>();
+                    considererdList.Add(piecesForGeneration[i]);
+                    lastConsidered = piecesForGeneration[i].ConnectorsCount;
+                    sortedList.Add(considererdList);
+
+                }
+                // piece belongs in the already made list
+                else if (piecesForGeneration[i].ConnectorsCount >= 
+                lastConsidered - _connectorCountTolerance)
+                {
+
+                    considererdList.Add(piecesForGeneration[i]);
+
+                }
+
+            }
+
+            return sortedList;
+        }
+
+        public string GetName() => arenaName;
+    }
+
+
+        // CODE FOR DEPRECATED VERTICAL GENERATION 
+
         // Vertical generation is a no-go for now
         /// <summary>
         /// Create the vertical upper and lower levels of the arena
@@ -444,100 +548,6 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             }
         }*/
 
-        /// <summary>
-        /// Select and place the first piece of the arena
-        /// </summary>
-        private void PickFirstPiece()
-        {
-            // To be safe if the starters list fails
-            chooseStarter:
-
-            ArenaPiece choosen = null;
-            
-            
-            int choosenIndex = 0;
-            _placedPieces = new List<ArenaPiece>();
-
-            if (_setStartingPiece)
-            {
-                if(_possibleStartingPieces.Count == 0)
-                {
-                    Debug.LogError(
-                        "'Set starting piece' is on but no ArenaPieces were given");
-                    _setStartingPiece = false;
-                    goto chooseStarter;
-                }
-
-                choosenIndex = Random.Range(0, _possibleStartingPieces.Count);
-                choosen =     _possibleStartingPieces[choosenIndex];    
         
-            }
-            else
-            {
-                
-                if(_generationMethod == GenerationTypes.CORRIDOR ||
-                _generationMethod == GenerationTypes.BRANCH)
-                {
-
-                    choosenIndex = Random.Range(
-                        0, _sortedPieces[_sortedPieces.Count - 1].Count);
-                        
-                    choosen = _sortedPieces[_sortedPieces.Count - 1][choosenIndex];
-
-                }
-                    
-                else
-                {
-
-                    choosenIndex = Random.Range(0, _sortedPieces[0].Count);
-                    choosen = _sortedPieces[0][choosenIndex];
-
-
-                }
-                    
-            }
-            GameObject piece = Instantiate(choosen.gameObject);
-            piece.name = arenaName;
-            _placedPieces.Add(piece.GetComponent<ArenaPiece>());
-            
-        }
-
-        /// <summary>
-        /// Seperate pieces into seperate lists based on largest group
-        /// </summary>
-        private List<List<ArenaPiece>> SplitList()
-        {
-            int lastConsidered = largestGroup + 1;
-            List<ArenaPiece> considererdList = new List<ArenaPiece>();
-            List<List<ArenaPiece>> sortedList = new List<List<ArenaPiece>>();
-
-            
-            for (int i = 0; i < piecesForGeneration.Count; i++)
-            {
-                // Piece belongs in a new list made for its size            
-                if (piecesForGeneration[i].ConnectorsCount < lastConsidered)
-                {
-                    considererdList = new List<ArenaPiece>();
-                    considererdList.Add(piecesForGeneration[i]);
-                    lastConsidered = piecesForGeneration[i].ConnectorsCount;
-                    sortedList.Add(considererdList);
-
-                }
-                // piece belongs in the already made list
-                else if (piecesForGeneration[i].ConnectorsCount >= 
-                lastConsidered - _connectorCountTolerance)
-                {
-
-                    considererdList.Add(piecesForGeneration[i]);
-
-                }
-
-            }
-
-            return sortedList;
-        }
-
-        public string GetName() => arenaName;
-    }
 }
 

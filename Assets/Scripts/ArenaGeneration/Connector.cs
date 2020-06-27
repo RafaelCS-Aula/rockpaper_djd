@@ -7,32 +7,47 @@ using RPS_DJDIII.Assets.Scripts.Enums;
 namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 {
 
-
+    /// <summary>
+    /// Connectors are used to join ArenaPieces together to form an arena
+    /// </summary>
     public class Connector : MonoBehaviour, IComparable<Connector>
     {
+        /// <summary>
+        /// Where would another connector join with this one.
+        /// </summary>
         [SerializeField] public ConnectorOrientations orientation;
+
+        /// <summary>
+        /// The direction where this connector is "looking"
+        /// </summary>
         public Vector3 heading => orientation == ConnectorOrientations.SIDE ?  transform.forward : orientation == ConnectorOrientations.TOP ? transform.up : -transform.up;
 
-
+        /// <summary>
+        /// Is another connector already connected to this one?
+        /// </summary>
         [HideInInspector] public bool isUsed = false;
 
+        /// <summary>
+        /// Defines with what other conenctors this one can stick with.
+        /// </summary>
         public int pins = 0;
 
+        /// <summary>
+        /// Visual representation of the size of connectors, 
+        /// doesn't affect generation
+        /// </summary>
         [SerializeField]private  float _pinSpacing = 0.5f;
 
-
+        /// <summary>
+        /// Color of the conenctor gizmo, for organizational purposes.
+        /// </summary>
         [SerializeField] private Color _gizmoColor;
 
-        private void Awake()
-        {
-            //GetUnionPoint();
-            /*foreach (Connector c in _connectors)
-                c.groupColor = gizmoColor;
-            */  
-            
-        }
-
-
+        /// <summary>
+        /// Compare connectors based on their Pins, Sorts in descending order
+        /// </summary>
+        /// <param name="other">The other connector</param>
+        /// <returns></returns>
         public int CompareTo(Connector other)
         {
             // I want the large ones at the start of the lists

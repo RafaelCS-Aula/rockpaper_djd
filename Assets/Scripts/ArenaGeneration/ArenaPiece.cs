@@ -8,7 +8,9 @@ using RPS_DJDIII.Assets.Scripts.Interfaces;
 namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 {
 
-
+    /// <summary>
+    /// ArenaPieces are joined together to form an arena
+    /// </summary>
     public class ArenaPiece : MonoBehaviour, IComparable<ArenaPiece>
     {
         /// <summary>
@@ -16,15 +18,22 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         /// THE INITIALIZATION FROM THESE LINES IT WILL MAKE UNITY HANG AND
         /// EAT YOUR MEMORY.
         /// </summary>
+        
+        /// <summary>
+        /// All the connectors in this piece's hierarchy
+        /// </summary>
         [HideInInspector] [SerializeField] private List<Connector> sideConnectors
         = new List<Connector>();
 
-        [HideInInspector] [SerializeField] 
+        /*[HideInInspector] [SerializeField] 
         private Connector _topConnector = null;
         
         [HideInInspector] [SerializeField] 
-        private Connector _bottomConnector = null;
+        private Connector _bottomConnector = null;*/
 
+        /// <summary>
+        /// Activate the physics collisions for clipping correction.
+        /// </summary>
         private bool _useRigidBody;
         
         [HideInInspector] public int ConnectorsCount;
@@ -33,21 +42,22 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
 
         /// <summary>
-        /// Detects the connectors, sorts them and activates the rigidbodies
+        /// Necessary setup to prepare piece for generation algorithm
         /// </summary>
-        /// <param name="spawnRigid"></param>
+        /// <param name="spawnRigid">
+        /// Activate the physics collisions for clipping correction.?</param>
         public void Setup(bool spawnRigid)
         {
 
-            //Debug.Log("Using first bottom/top connectors found.");
             List<Connector> children = new List<Connector>();
             _useRigidBody = spawnRigid;
+
             //Detect connectors
             foreach(Connector c in GetComponentsInChildren<Connector>())
             {
                 if(c.orientation == ConnectorOrientations.SIDE)
                     children.Add(c);
-                else if (c.orientation == ConnectorOrientations.TOP)
+                /*else if (c.orientation == ConnectorOrientations.TOP)
                 {
                     if(_topConnector == null)
                         _topConnector = c;
@@ -56,7 +66,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                 {
                     if(_bottomConnector == null)
                         _bottomConnector = c;
-                }
+                }*/
 
 
             }
@@ -70,23 +80,29 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
                 initChildren.Add(init);
             }
 
+            // cleear the lists of duplicates.
             initList = initChildren.Distinct().ToList();
             sideConnectors = children.Distinct().ToList();
+
             _useRigidBody = spawnRigid;
+
+            // Sort connectors by pin number in descending order.
             sideConnectors.Sort();
+
             ConnectorsCount = sideConnectors.Count;
             
-
+            // set the status of the connectors to be unused.
             foreach (Connector g in sideConnectors)
             {
                 g.isUsed = false;
             }
-            if(_topConnector != null)
+            /*if(_topConnector != null)
                 _topConnector.isUsed = false;
             if(_bottomConnector != null)
-                _bottomConnector.isUsed = false;
+                _bottomConnector.isUsed = false;*/
             
-            
+            // Create rigidbody and mesh colldiers for collisions and physics
+            // clipping correction
             Rigidbody rb = GetComponent<Rigidbody>();
             MeshCollider mc = GetComponent<MeshCollider>();
 
@@ -99,6 +115,8 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             if(_useRigidBody)
             {
                 rb.isKinematic = false;
+
+                // needed for collisions
                 mc.convex = true;
                 rb = GetComponent<Rigidbody>();
                 rb.useGravity = false;
@@ -108,6 +126,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             }
             else
             {
+                // rigidbody will not be moved by other rigidbodies
                 rb.isKinematic = true;
             }
         }
@@ -125,63 +144,7 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
 
         }
     
-
-        /*public (bool hasTop, bool hasBottom) GetVerticalConnectors()
-        {
-            bool t = false;
-            bool b = false;
-
-            if(_topConnector != null && !_topConnector.isUsed)
-                t = true;
-            if(_bottomConnector != null && !_bottomConnector.isUsed)
-                b = true;
-            
-            return (t, b);
-
-        }*/
-
-    /* public (bool valid, Transform position) EvaluatePieceVertical(
-            ArenaPiece other, bool upper, float pieceDistance = 0.00f,
-            int groupTolerance = 0)
-            {
-                Connector myCon = null;
-                Connector otherCon = null;
-                if(upper && other._topConnector != null)
-                {
-                    myCon = _topConnector;
-                    otherCon = other._bottomConnector; 
-
-                }
-                else if(!upper && other._bottomConnector != null)
-                {
-                    myCon = _bottomConnector;
-                    otherCon = other._topConnector; 
-
-                } 
-
-                if(otherCon == null || myCon == null)
-                    return (false, null);
-                    
-                if(!otherCon.isUsed && !myCon.isUsed && 
-                    otherCon.pins >= myCon.pins-groupTolerance 
-                    && otherCon.pins <= myCon.pins)
-                        {
-                            otherCon.isUsed = true;
-                            myCon.isUsed = true;
-                            return (true, TransformPiece(
-                                myCon,
-                                otherCon, 
-                                other, 
-                                pieceDistance));
-                        
-                        }
-                else 
-                    return (false, null);
-
-            }*/
-
-
-        public (bool valid, Transform positionRot) EvaluatePiece(
+            public (bool valid, Transform positionRot) EvaluatePiece(
             ArenaPiece other, float pieceDistance = 0.00f, uint groupTolerance = 0)
         {
             
@@ -226,9 +189,12 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
         /// Gets the correct position and rotation of the other piece so its
         /// connector group matches this piece's.
         /// </summary>
-        /// <param name="myConnectorGroup"></param>
-        /// <param name="otherConnectorGroup"></param>
-        /// <param name="otherPiece"></param>
+        /// <param name="myConnectorGroup"> the connector of this piece
+        /// </param>
+        /// <param name="otherConnectorGroup">the connector in the other piece
+        /// </param>
+        /// <param name="otherPiece"> the piece being considered for placement
+        /// </param>
         /// <returns></returns>
         private Transform TransformPiece(Connector myConnectorGroup, Connector otherConnectorGroup, ArenaPiece otherPiece, 
         float offset)
@@ -299,4 +265,63 @@ namespace RPS_DJDIII.Assets.Scripts.ArenaGeneration
             }
         }
     }
+
+        // Code for deprecated vertical generation logic
+
+        /*public (bool hasTop, bool hasBottom) GetVerticalConnectors()
+        {
+            bool t = false;
+            bool b = false;
+
+            if(_topConnector != null && !_topConnector.isUsed)
+                t = true;
+            if(_bottomConnector != null && !_bottomConnector.isUsed)
+                b = true;
+            
+            return (t, b);
+
+        }*/
+
+    /* public (bool valid, Transform position) EvaluatePieceVertical(
+            ArenaPiece other, bool upper, float pieceDistance = 0.00f,
+            int groupTolerance = 0)
+            {
+                Connector myCon = null;
+                Connector otherCon = null;
+                if(upper && other._topConnector != null)
+                {
+                    myCon = _topConnector;
+                    otherCon = other._bottomConnector; 
+
+                }
+                else if(!upper && other._bottomConnector != null)
+                {
+                    myCon = _bottomConnector;
+                    otherCon = other._topConnector; 
+
+                } 
+
+                if(otherCon == null || myCon == null)
+                    return (false, null);
+                    
+                if(!otherCon.isUsed && !myCon.isUsed && 
+                    otherCon.pins >= myCon.pins-groupTolerance 
+                    && otherCon.pins <= myCon.pins)
+                        {
+                            otherCon.isUsed = true;
+                            myCon.isUsed = true;
+                            return (true, TransformPiece(
+                                myCon,
+                                otherCon, 
+                                other, 
+                                pieceDistance));
+                        
+                        }
+                else 
+                    return (false, null);
+
+            }*/
+
+
+
 }
