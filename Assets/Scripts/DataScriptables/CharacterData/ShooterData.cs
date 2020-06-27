@@ -2,6 +2,9 @@
 
 namespace RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData
 {
+    /// <summary>
+    /// Stores all static info about an object capable of shooting other objects
+    /// </summary>
     [CreateAssetMenu(fileName = "Shooter",
     menuName = "Data/Arena/Shooter Data", order = 0)]
     public class ShooterData : ScriptableObject

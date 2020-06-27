@@ -2,6 +2,9 @@
 
 namespace RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData
 {
+	/// <summary>
+    /// Stores all static info about the movement of whoever this is applied to
+    /// </summary>
 	[CreateAssetMenu(fileName = "MovementData",
 	menuName = "Data/Settings/Movement Data", order = 1)]
 	public class MovementData : ScriptableObject

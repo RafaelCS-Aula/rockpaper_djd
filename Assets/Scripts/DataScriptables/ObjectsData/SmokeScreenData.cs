@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData
 {
+    /// <summary>
+    /// Stores all static info about a smoke screen
+    /// </summary>
     [CreateAssetMenu(fileName = "SmokeScreen",
     menuName = "Data/Projectile/Smoke Screen Data", order = 1)]
     public class SmokeScreenData : ScriptableObject

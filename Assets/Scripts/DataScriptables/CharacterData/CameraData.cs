@@ -2,6 +2,9 @@
 
 namespace RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData
 {
+    /// <summary>
+    /// Stores all static info about a camera
+    /// </summary>
     [CreateAssetMenu(fileName = "CameraData",
     menuName = "Data/Settings/Camera Data", order = 0)]
     public class CameraData : ScriptableObject

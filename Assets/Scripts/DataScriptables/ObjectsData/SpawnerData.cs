@@ -1,9 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData
 {
+    /// <summary>
+    /// Stores all static info about an object spawner
+    /// </summary>
     [CreateAssetMenu(fileName = "SpawnerData",
     menuName = "Data/Arena/Spawner Data", order = 1)]
     public class SpawnerData : ScriptableObject

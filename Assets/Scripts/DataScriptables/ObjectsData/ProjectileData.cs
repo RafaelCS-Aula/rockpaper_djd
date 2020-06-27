@@ -3,6 +3,9 @@ using RPS_DJDIII.Assets.Scripts.Enums;
 
 namespace RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData
 {
+    /// <summary>
+    /// Stores all static info about a projectile
+    /// </summary>
     [CreateAssetMenu(fileName = "Projectile",
     menuName = "Data/Projectile/Projectile Data", order = 0)]
     public class ProjectileData : ScriptableObject

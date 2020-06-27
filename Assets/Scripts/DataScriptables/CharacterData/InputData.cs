@@ -2,6 +2,9 @@
 
 namespace RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData
 {
+    /// <summary>
+    /// Stores all static info about a way of input
+    /// </summary>
     [CreateAssetMenu(fileName = "InputData",
     menuName = "Data/Inputs/Input Data", order = 2)]
     public class InputData : ScriptableObject

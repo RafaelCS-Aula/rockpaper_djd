@@ -3,6 +3,9 @@ using RPS_DJDIII.Assets.Scripts.Enums;
 
 namespace RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData
 {
+    /// <summary>
+    /// Stores all static info about a Mana Pickup
+    /// </summary>
     [CreateAssetMenu(fileName = "ManaPickupData",
     menuName = "Data/Pickups/Mana Pickup Data", order = 0)]
     public class ManaPickupData : ScriptableObject

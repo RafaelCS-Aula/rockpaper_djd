@@ -2,6 +2,9 @@
 
 namespace RPS_DJDIII.Assets.Scripts.DataScriptables.GameModeData
 {
+    /// <summary>
+    /// Stores all static info about a game mode
+    /// </summary>
     [CreateAssetMenu(fileName = "GameModeData",
     menuName = "Data/GameMode/Game Mode Data", order = 0)]
     public class GameModeData : ScriptableObject
