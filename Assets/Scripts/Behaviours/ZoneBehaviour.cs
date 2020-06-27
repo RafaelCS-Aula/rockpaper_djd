@@ -30,7 +30,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
         }
 
         /// <summary>
-        /// Update infro based on what player is inside the zone
+        /// Update info based on what player is inside the zone
         /// </summary>
         private void UpdateOccupants()
         {
