@@ -71,6 +71,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
         {
             if (_currentCooldown >= _damagedCooldown && immunityTimer <= 0)
             {
+                print("-1");
                 _currentHp--;
                 _currentCooldown = 0;
             }

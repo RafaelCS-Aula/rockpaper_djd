@@ -76,6 +76,14 @@ typeof(MeshCollider))]
             _rigidBody.AddForce(_dVelocity * transform.forward);
 
 
+            if(_dTrailParticles != null)
+            {
+                GameObject t = Instantiate(_dTrailParticles, transform.position, transform.rotation);
+                t.transform.SetParent(this.transform, false);
+
+
+            }
+
         }
 
         // When encoutnering other triggers; other projectiles
@@ -89,8 +97,7 @@ typeof(MeshCollider))]
                 {
                     t.InteractFriend(this);
                 }
-                else
-                    t.InteractEnemy(this);
+                else t.InteractEnemy(this);
 
 
             }

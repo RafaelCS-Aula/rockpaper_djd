@@ -17,7 +17,7 @@ MonoBehaviour:
   camYSens: 3
   minAngle: -30
   maxAngle: 70
-  maxCheckDist: 0.2
+  maxCheckDist: 0.1
   fieldOfView: 70
   hideMeshWhenDistance: 1
   movementLerpSpeed: 5
