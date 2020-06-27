@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace RPS_DJDIII.Assets.Scripts.Enums
+﻿namespace RPS_DJDIII.Assets.Scripts.Enums
 {
-
+    /// <summary>
+    /// The possible types of arena generation, altering the algorithm.
+    /// </summary>
     public enum GenerationTypes 
     {
         ARENA,
