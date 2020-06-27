@@ -50,7 +50,6 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
         private bool doneAdding = false;
 
-
         private void Start()
         {
             // Find GameModeManager component on the scene object named "GameModeManager"
@@ -75,6 +74,12 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
             player1.mB.AMRAuthorized = gmManager.AMRAuthorized;
             player2.mB.AMRAuthorized = gmManager.AMRAuthorized;
+
+            if (gmManager.gauntletStartsIncomplete)
+            {
+                player1.sB.SetStartWeapon(false);
+                player2.sB.SetStartWeapon(false);
+            }
             #endregion
 
 

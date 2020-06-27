@@ -54,12 +54,6 @@ namespace RPS_DJDIII.Assets.Scripts.DataScriptables.GameModeData
         [Tooltip("Set if Trinity Gauntlet starts incomplete")]
         public bool gauntletStartsIncomplete = false;
 
-        [Tooltip("Enable/Disable Ammo Pickups for this Game Mode")]
-        public bool ammoPickups = true;
-
-        [Tooltip("Enable/Disable Health Pickups for this Game Mode")]
-        public bool healthPickups = true;
-
         [Tooltip("Enable/Disable Respawn Immunity for this Game Mode")]
         public bool respawnImmunity = true;
 

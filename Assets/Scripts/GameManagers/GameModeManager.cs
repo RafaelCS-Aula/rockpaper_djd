@@ -35,10 +35,6 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
         public bool gauntletStartsIncomplete;
 
-        public bool ammoPickups;
-
-        public bool healthPickups;
-
         public bool respawnImmunity;
 
         public bool AMRAuthorized;
@@ -63,8 +59,6 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             pointsPerKill = gameModeData.pointsPerKill;
             resetBothPlayers = gameModeData.resetBothPlayers;
             gauntletStartsIncomplete = gameModeData.gauntletStartsIncomplete;
-            ammoPickups = gameModeData.ammoPickups;
-            healthPickups = gameModeData.healthPickups;
             respawnImmunity = gameModeData.respawnImmunity;
             AMRAuthorized = gameModeData.AMRAuthorized;
         }

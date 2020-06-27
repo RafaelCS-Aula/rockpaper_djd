@@ -16,18 +16,18 @@ MonoBehaviour:
   gameModeDescription: "Contestants start on opposite sides of the map, each with
     a \u201CTrinity Gauntlet\u201D that can cycle through the three projectile types.\n\nThe
     first player to defeat the other five times, wins the match."
-  timeLimit: 5
-  scoreLimit: 5
-  pointsPerKill: 1
-  pointsPerScondInZone: 0
-  preMatchRoundTimerDuration: 3
+  timeLimit: 4
+  scoreLimit: 999
   roundBased: 0
   numberOfRounds: 0
+  zoneBased: 0
+  pointsPerScondInZone: 0
+  zoneChangeInterval: 0
+  preMatchRoundTimerDuration: 3
+  pointsPerKill: 1
   resetBothPlayers: 0
   gauntletStartsIncomplete: 0
-  availableAmmoTypes: 010101
   ammoPickups: 1
   healthPickups: 1
   respawnImmunity: 1
   AMRAuthorized: 1
-  smokeScreen: 1

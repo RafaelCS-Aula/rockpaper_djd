@@ -347,5 +347,13 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         public void InteractEnemy(IUseTeams other) { }
         public void InteractFriend(IUseTeams other) { }
 
+
+        public void SetStartWeapon(bool status)
+        {
+            _dStartR = status;
+            _dStartP = status;
+            _dStartS = status;
+        }
+
     }
 }

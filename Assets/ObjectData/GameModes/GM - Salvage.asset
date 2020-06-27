@@ -17,18 +17,16 @@ MonoBehaviour:
     Trinity Gauntlet.\n\nThe pieces needed to complete their Trinity Gauntlets are
     on the opponent's field.\n\nOnce the round begins, they have to reach the other
     side and arm themselves to attack and counter their adversary.\r"
-  timeLimit: 1
+  timeLimit: 2
   scoreLimit: 3
-  pointsPerKill: 1
-  pointsPerScondInZone: 0
-  preMatchRoundTimerDuration: 3
   roundBased: 1
   numberOfRounds: 5
+  zoneBased: 0
+  pointsPerScondInZone: 0
+  zoneChangeInterval: 0
+  preMatchRoundTimerDuration: 3
+  pointsPerKill: 1
   resetBothPlayers: 1
   gauntletStartsIncomplete: 1
-  availableAmmoTypes: 010101
-  ammoPickups: 1
-  healthPickups: 1
   respawnImmunity: 1
   AMRAuthorized: 1
-  smokeScreen: 1

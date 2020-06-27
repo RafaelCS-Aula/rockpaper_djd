@@ -19,18 +19,5 @@ namespace RPS_DJDIII.Assets.Scripts.ScoreKeeping
             KDRatio = (deaths == 0) ? kills : kills / deaths;
             GameMode = gameMode;
         }
-
-        public HallOfFameEntry CreateSaveData(string name, float kills, float deaths, string gameMode)
-        {
-            HallOfFameEntry saveData = new HallOfFameEntry();
-
-            saveData.Name = name;
-            saveData.Kills = kills;
-            saveData.Deaths = deaths;
-            saveData.KDRatio = (deaths == 0) ? kills : kills / deaths;
-            saveData.GameMode = gameMode;
-
-            return saveData;
-        }
     }
 }
