@@ -77,8 +77,74 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             player2.mB.AMRAuthorized = gmManager.AMRAuthorized;
             #endregion
 
+
+
             _playArena = new List<ArenaPiece>();
             _playArena = genManager.Create();
+
+
+
+            // Get the position further away from the center piece, and then the
+            // position furthest from that one.
+            #region GetPlayerSpawnPositions
+
+            // this list will hold the distances we want compared and the index
+            // of the piece we measured, for easy access later.
+            List<(float mag, int index)> distAndIndex =
+             new List<(float mag, int index)>();
+            
+            // Get the central piece´s position
+            Vector3 centerPiece = _playArena[0].transform.position;
+            Vector3 firstPlayerSpawn = new Vector3();
+            Vector3 secondPlayerSpawn = new Vector3();
+
+            // All the piece3's distances from the center:
+            for(int i = 1; i < _playArena.Count; i++)
+            {
+                (float distance, int dex) d;
+                d.distance = 
+                (_playArena[i].transform.position - centerPiece).magnitude;
+                d.dex = i;
+
+                distAndIndex.Add(d);
+            }
+
+            // sort the list by magnitue
+            distAndIndex.Sort((t1, t2) => t1.mag.CompareTo(t2.mag));
+
+            firstPlayerSpawn = 
+                _playArena[distAndIndex[0].index].transform.position;
+            
+
+            //Now get second player spawn, the furthest piece from the
+            // first player's spawn
+
+            // reset the list to use it for measuring with firstPlayerSpawn
+            distAndIndex =
+             new List<(float mag, int index)>();
+
+            for(int i = 1; i < _playArena.Count; i++)
+            {
+                (float distance, int dex) d;
+                d.distance = 
+                (_playArena[i].transform.position - firstPlayerSpawn).magnitude;
+                d.dex = i;
+
+                distAndIndex.Add(d);
+            }
+
+            // sort the list by magnitue
+            distAndIndex.Sort((t1, t2) => t1.mag.CompareTo(t2.mag));
+
+            secondPlayerSpawn = 
+                _playArena[distAndIndex[0].index].transform.position;
+
+            // Now, depending on you want to spawn the players, spawn them at
+            // the positions firstPlayerSpawn and secondPlayerSpawn have stored.
+
+            #endregion
+
+
             InitArena();
 
             zonesList = new List<ZoneBehaviour>();
