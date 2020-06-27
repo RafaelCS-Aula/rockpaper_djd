@@ -147,7 +147,6 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             UpdateWeapon();
 
             if (Input.GetKeyDown(KeyCode.P) && inputName != "Mouse&Keyboard") SwitchData();
-            if (Input.GetKeyDown(KeyCode.P)) print("SWITCHED INPUT");
         }
 
         #region Movement Updates
