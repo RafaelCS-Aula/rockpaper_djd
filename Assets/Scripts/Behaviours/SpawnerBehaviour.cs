@@ -5,7 +5,9 @@ using UnityEngine;
 
 namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
-    // TODO: this
+    /// <summary>
+    /// Controller for spawning other gameobjects
+    /// </summary>
     public class SpawnerBehaviour : MonoBehaviour, IDataUser<SpawnerData>,
      IArenaInitializable
     {
@@ -70,6 +72,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
 
         }
 
+        /// <summary>
+        /// Spawn every objecy in the object to spawn list
+        /// </summary>
         public void SpawnObjects()
         {
             foreach (GameObject g in _spawned)
@@ -93,6 +98,11 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
 
         }
 
+        /// <summary>
+        /// Override the list of objects of this spawner and make it spawn
+        /// any other thing
+        /// </summary>
+        /// <param name="specific"> Object to spawn in this spawner</param>
         public void SpawnObjects(GameObject specific)
         {
             _spawned = new List<GameObject>();

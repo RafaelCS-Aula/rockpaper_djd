@@ -1,10 +1,12 @@
 ﻿using RPS_DJDIII.Assets.Scripts.Interfaces;
 using UnityEngine;
-using System.Collections;
 using RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours;
 
 namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
+    /// <summary>
+    /// Logic for health, taking damage and death
+    /// </summary>
     public class HealthBehaviour : MonoBehaviour, IUseTeams
     {
 
@@ -61,6 +63,11 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
         }
 
         public void InteractFriend(IUseTeams other) { }
+
+        /// <summary>
+        /// Take damage when interacting with enemy
+        /// </summary>
+        /// <param name="other"> other object, on other team</param>
         public void InteractEnemy(IUseTeams other)
         {
             if (_currentCooldown >= _damagedCooldown && immunityTimer <= 0)
@@ -70,6 +77,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             }
         }
 
+        /// <summary>
+        /// Visually make player blink while invulnerable
+        /// </summary>
         private void FlashPlayer()
         {
             if (immunityTimer > 0.0f)
@@ -89,6 +99,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             }
         }
 
+        /// <summary>
+        /// Make the player immune to damage
+        /// </summary>
         public void StartImmunity()
         {
             _currentHp = _maxHp;

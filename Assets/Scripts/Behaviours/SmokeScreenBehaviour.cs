@@ -1,12 +1,14 @@
 ﻿using RPS_DJDIII.Assets.Scripts.DataScriptables.ObjectsData;
 using RPS_DJDIII.Assets.Scripts.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
+
+    /// <summary>
+    /// Smoke screen disappears after a certain amount of time.
+    /// </summary>
     public class SmokeScreenBehaviour : MonoBehaviour, IDataUser<SmokeScreenData>
     {
 

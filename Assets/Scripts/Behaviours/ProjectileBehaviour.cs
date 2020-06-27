@@ -8,6 +8,10 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer),
 typeof(MeshCollider))]
     [RequireComponent(typeof(Rigidbody))]
+
+    /// <summary>
+    /// Class that will give its object projectile like behaviour
+    /// </summary>
     public class ProjectileBehaviour : MonoBehaviour, IDataUser<ProjectileData>,
     IUseTeams
     {
@@ -26,6 +30,7 @@ typeof(MeshCollider))]
         [SerializeField] private float _dVelocity;
         [SerializeField] private Vector3 _dCScale;
 
+        // Variables taken from the data holders
         private GameObject _dBirthParticles;
         private GameObject _dTrailParticles;
         private GameObject _dDeathParticles;
@@ -90,11 +95,16 @@ typeof(MeshCollider))]
 
         }
 
-        // When encoutnering other triggers; other projectiles
+        /// <summary>
+        /// Collision of projectile with other projectiles and walls
+        /// </summary>
+        /// <param name="other"></param>
         private void OnTriggerEnter(Collider other)
         {
             GameObject encountered = other.gameObject;
 
+            // collision with other objects with "teams" triggers their 
+            // interaction methods
             foreach (IUseTeams t in encountered.GetComponents<IUseTeams>())
             {
                 if (t.teamID == this.teamID)
@@ -105,11 +115,16 @@ typeof(MeshCollider))]
 
 
             }
-            if (other.CompareTag("Walls") || other.CompareTag("Player")) Destroy(gameObject);
+
+            // Collision with level geometry and other players destroys this 
+            if (other.CompareTag("Walls") || other.CompareTag("Player")) 
+                Destroy(gameObject);
 
         }
 
-        // Destroy this projectile, spawning some particles in the process
+        /// <summary>
+        /// Destroy this projectile, spawning some particles in the process
+        /// </summary>
         private void Lose()
         {
             if (_dDeathParticles != null)
@@ -118,6 +133,9 @@ typeof(MeshCollider))]
             Destroy(this.gameObject);
         }
 
+        /// <summary>
+        /// Spawn the smokescreen prefab
+        /// </summary>
         private void SpawnSmoke()
         {
             if (_dTieParticles != null)
@@ -127,6 +145,11 @@ typeof(MeshCollider))]
         }
 
         public void InteractFriend(IUseTeams other) { }
+
+        /// <summary>
+        /// Interact with object of a diferent team
+        /// </summary>
+        /// <param name="other"></param>
         public void InteractEnemy(IUseTeams other)
         {
 

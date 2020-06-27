@@ -4,6 +4,9 @@ using RPS_DJDIII.Assets.Scripts.Interfaces;
 
 namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
+    /// <summary>
+    /// Class for zones, objectives in certain game modes
+    /// </summary>
     public class ZoneBehaviour : MonoBehaviour, IArenaInitializable
     {
 
@@ -26,6 +29,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             isInitialized = true;
         }
 
+        /// <summary>
+        /// Update infro based on what player is inside the zone
+        /// </summary>
         private void UpdateOccupants()
         {
             if (team1Inside && team2Inside) currentOccupant =

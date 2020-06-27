@@ -7,6 +7,10 @@ using RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours;
 namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
     [RequireComponent(typeof(Rigidbody))]
+
+    /// <summary>
+    /// Ammo pickup
+    /// </summary>
     public class ManaPickupBehaviour : MonoBehaviour, IDataUser<ManaPickupData>
     {
 
@@ -64,7 +68,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             _dNeedsWeapon = DataHolder.needsWeapon;
         }
 
-
+        /// <summary>
+        /// When touched by a shooter, increase their ammo and then de-spawn
+        /// </summary>
         private void OnTriggerEnter(Collider other)
         {
 
