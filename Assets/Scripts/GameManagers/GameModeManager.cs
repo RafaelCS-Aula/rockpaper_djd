@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace RPS_DJDIII.Assets.Scripts.GameManagers
 {
+    /// <summary>
+    /// Manages the different Game Modes
+    /// </summary>
     public class GameModeManager : MonoBehaviour
     {
         #region Vars
@@ -47,7 +50,11 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
         [HideInInspector] public string p1Name;
         [HideInInspector] public string p2Name;
 
-
+        /// <summary>
+        /// Loads the info of the currenct game mode
+        /// </summary>
+        /// <param name="gameModeData"> The scriptable object with the info
+        ///  for the selected game object</param>
         public void LoadGameModeData(GameModeData gameModeData)
         {
             gameModeName = gameModeData.gameModeName;

@@ -9,6 +9,9 @@ using RPS_DJDIII.Assets.Scripts.ArenaGeneration;
 
 namespace RPS_DJDIII.Assets.Scripts.GameManagers
 {
+    /// <summary>
+    /// Manager for the flow of a match
+    /// </summary>
     public class MatchManager : MonoBehaviour
     {
         private List<ArenaPiece> _playArena;
@@ -152,7 +155,7 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
             #endregion
 
-
+            // Initiate zones and spawners
             InitArena();
 
             zonesList = new List<ZoneBehaviour>();
@@ -213,6 +216,9 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             else GameOver();
         }
 
+        /// <summary>
+        /// Initiate the spawners and zones in every piece of Arena
+        /// </summary>
         private void InitArena()
         {
             foreach (ArenaPiece piece in _playArena)
@@ -221,6 +227,9 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             }
         }
 
+        /// <summary>
+        /// Update match timers
+        /// </summary>
         private void UpdateTimers()
         {
             matchTimer -= Time.deltaTime;
@@ -232,6 +241,9 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             }
         }
 
+        /// <summary>
+        /// Update the info on the players when one dies.
+        /// </summary>
         private void CheckForKill()
         {
             if (player1.hB._currentHp <= 0)
@@ -256,6 +268,10 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             }
         }
         #region RoundBased Methods
+
+        /// <summary>
+        /// Begin the next round in round based game modes
+        /// </summary>
         private void NextRound()
         {
             RoundReset(player1);
@@ -266,6 +282,9 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             StartCoroutine(PreMatchCountdown());
         }
 
+        /// <summary>
+        /// Check the conditions for round changing
+        /// </summary>
         private void CheckForRoundEnd()
         {
             if (matchTimer <= 0) NextRound();
@@ -286,6 +305,10 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
 
         #region ZoneBased Methods
+
+        /// <summary>
+        /// Activate a new  zone and de activate the current
+        /// </summary>
         private void NewZone()
         {
             int newZone = activeZone;
@@ -299,6 +322,10 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             zonesList[activeZone].gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Update each team's score based on who's occupying the
+        /// current activate zone
+        /// </summary>
         private void UpdateZonePoints()
         {
             lastSecond = currentSecond;
@@ -314,6 +341,9 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             }
         }
 
+        /// <summary>
+        /// Update zones by checking the zone timers
+        /// </summary>
         private void UpdateZoneChange()
         {
             if (zoneChangeTimer <= 0)
@@ -324,7 +354,10 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
         }
         #endregion
 
-
+        /// <summary>
+        /// Check the conditions for a victory
+        /// </summary>
+        /// <returns> Victory conditions for game mode met</returns>
         private bool CheckForWin()
         {
             if (player1.points >= gmManager.scoreLimit ||
@@ -337,6 +370,9 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             return false;
         }
 
+        /// <summary>
+        /// Finish the game
+        /// </summary>
         private void GameOver()
         {
             if (player1.points >= gmManager.scoreLimit)
@@ -365,6 +401,10 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             Cursor.lockState = CursorLockMode.None;
         }
 
+        /// <summary>
+        /// Count down before the players can control characters
+        /// </summary>
+        /// <returns></returns>
         IEnumerator PreMatchCountdown()
         {
             isCountingDown = true;
@@ -384,12 +424,20 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             player2.iB.enabled = true;
         }
 
+        /// <summary>
+        /// Reset a player's position and activate imunity
+        /// </summary>
+        /// <param name="player">Player to reset</param>
         private void KillReset(CharacterHandler player)
         {
             player.mB.ResetPosition();
             player.hB.StartImmunity();
         }
 
+        /// <summary>
+        /// Reset a player to beginning of round status
+        /// </summary>
+        /// <param name="player">Player to reset</param>
         private void RoundReset(CharacterHandler player)
         {
             player.mB.ResetPosition();
