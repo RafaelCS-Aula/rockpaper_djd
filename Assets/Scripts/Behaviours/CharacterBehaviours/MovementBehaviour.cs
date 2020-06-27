@@ -7,6 +7,10 @@ using UnityEngine;
 namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 {
     [RequireComponent(typeof(PlayerSoundHandler))]
+
+    /// <summary>
+    /// Logic for movement in the game world
+    /// </summary>
     public class MovementBehaviour : MonoBehaviour, IDataUser<MovementData>
     {
         #region Data Handling
@@ -42,6 +46,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         private float dashForce;
         private float dashDuration;
 
+        /// <summary>
+        /// Gather the info from the data holder's members
+        /// </summary>
         public void GetData()
         {
             maxAcceleration = DataHolder.maxAcceleration;
@@ -100,9 +107,6 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         [HideInInspector] public bool isDashCharging;
 
 
-        public LayerMask wallLayers;
-
-
         [HideInInspector] public bool AMRAuthorized = true;
 
         private Vector3 spawnPosition;
@@ -159,6 +163,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             UpdatePosition();
         }
 
+        /// <summary>
+        /// Control acceleration of player
+        /// </summary>
         public void UpdateAcceleration()
         {
             acceleration.x = strafeAxis * maxAcceleration;
@@ -175,6 +182,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
                     -gravityAcceleration;
         }
 
+        /// <summary>
+        /// Control the factor for the velocity of the player
+        /// </summary>
         public void UpdateVelocityFactor()
         {
             if (strafeAxis == 0 && forwardAxis < 0) velocityFactor = backwardselocityFactor;
@@ -192,6 +202,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             else velocityFactor = walkVelocityFactor;
         }
 
+        /// <summary>
+        /// Control the velocity of the player in motion
+        /// </summary>
         public void UpdateVelocity()
         {
             velocity += acceleration * Time.fixedDeltaTime;
@@ -218,6 +231,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             }
         }
 
+        /// <summary>
+        /// Use the velocity to move the player
+        /// </summary>
         public void UpdatePosition()
         {
             Vector3 move = velocity * Time.fixedDeltaTime;
@@ -232,6 +248,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         #region AMR Methods
 
+        /// <summary>
+        /// Control the use of the MMR and its limited charges
+        /// </summary>
         public void UpdateAMRCharges()
         {
             if (doubleJumpCharges < maxDoubleJumpCharges && !isDoubleJumpCharging)
@@ -267,6 +286,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             }
         }
 
+        /// <summary>
+        /// Jumpt the character upwards in the air
+        /// </summary>
         public void Jump()
         {
             if (AMRAuthorized && controller.isGrounded) canDoubleJump = true;
@@ -294,6 +316,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             }
         }
 
+        /// <summary>
+        /// Player will quickly go forward
+        /// </summary>
         public void Dash()
         {
             if (AMRAuthorized)
@@ -309,6 +334,10 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
                 }
             }
         }
+        /// <summary>
+        /// Coroutine for the Dashing MMR ability
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator DashCoroutine()
         {
             Vector3 dashVelocity = velocity;
@@ -321,6 +350,11 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             currentImpact = Vector3.zero; // Resets impact
         }
 
+        /// <summary>
+        /// "Push the player in a certain direction"
+        /// </summary>
+        /// <param name="direction">direction of the push</param>
+        /// <param name="force">the force of the push</param>
         private void AddForce(Vector3 direction, float force)
         {
             direction.Normalize();
@@ -329,13 +363,18 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         #endregion
 
-
+        /// <summary>
+        /// Max the mmr charges of all the abilities
+        /// </summary>
         public void ResetAMRCHarges()
         {
             doubleJumpCharges = maxDoubleJumpCharges;
             dashCharges = maxDashCharges;
         }
 
+        /// <summary>
+        /// Control the animation controlling variables
+        /// </summary>
         private void UpdateAnimatorVars()
         {
             animator.SetBool("isGrounded", controller.isGrounded);
@@ -346,6 +385,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             animator.SetFloat("PosY", forwardAxis, 1f, Time.deltaTime * 10f);
         }
 
+        /// <summary>
+        /// Bring the object back to its spawn position
+        /// </summary>
         public void ResetPosition()
         {
             controller.enabled = false;
@@ -354,12 +396,20 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             controller.enabled = true;
         }
 
+        /// <summary>
+        /// Set this object's spawn position
+        /// </summary>
+        /// <param name="pos"> the position to store</param>
         public void SetSpawnPosition(Vector3 pos)
         {
             spawnPosition = pos;
             spawnPosition.y += 20;
         }
 
+        /// <summary>
+        /// Set this object's spawn rotation
+        /// </summary>
+        /// <param name="lookAt"> The rotation to store</param>
         public void SetSpawnRotation(Transform lookAt)
         {
             Vector3 direction = (lookAt.position - transform.position).normalized;

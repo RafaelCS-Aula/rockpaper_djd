@@ -6,6 +6,9 @@ using RPS_DJDIII.Assets.Scripts.DataScriptables.CharacterData;
 
 namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 {
+    /// <summary>
+    /// Handles receiving Input and using it
+    /// </summary>
     public class InputBehaviour : MonoBehaviour, IDataUser<InputData>
     {
         #region Data Handling
@@ -43,7 +46,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         public KeyCode switchToPaper;
         public KeyCode switchToScissors;
 
-
+        /// <summary>
+        /// Grab data from the data scriptable object
+        /// </summary>
         public void GetData()
         {
             inputName = DataHolder.inputName;
@@ -71,7 +76,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             if (DataHolder.switchToScissors != KeyCode.None) switchToScissors = DataHolder.switchToScissors;
         }
 
-
+        /// <summary>
+        /// Toggle the control of player 2 with the same keyboard as player 1
+        /// </summary>
         public void SwitchData()
         {
             InputData inputData;
@@ -152,6 +159,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         #region Movement Updates
 
+        /// <summary>
+        /// Update the forward and side vectors of movement by reading input
+        /// </summary>
         private void UpdateMovementAxis()
         {
             cH.mB.strafeAxis = Input.GetAxisRaw(hMovAxis);
@@ -159,6 +169,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             cH.mB.forwardAxis = Input.GetAxisRaw(vMovAxis);
         }
 
+        /// <summary>
+        /// Use input to update the camera's position
+        /// </summary>
         private void UpdateCamera()
         {
             cH.cB.RotateCamera(-Input.GetAxisRaw(vCamAxis));
@@ -167,6 +180,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
                 cH.cB.SwitchShoulders();
         }
 
+        /// <summary>
+        /// Use input to control the player's rotation
+        /// </summary>
         private void UpdateRotation()
         {
             float rotation = (inputName == "PS4Controller" ? -Input.GetAxisRaw(hCamAxis) :
@@ -177,7 +193,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         #endregion
 
-
+        /// <summary>
+        /// Use input to activate the extra movement abilities of the players
+        /// </summary>
         private void UpdateAMR()
         {
             cH.mB.UpdateAMRCharges();
@@ -186,6 +204,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             if (Input.GetKeyDown(dash)) cH.mB.Dash();
         }
 
+        /// <summary>
+        /// Use input to activate the weapon shooting switching
+        /// </summary>
         private void UpdateWeapon()
         {
             oldType = cH.sB.GetSelectedWeapon();

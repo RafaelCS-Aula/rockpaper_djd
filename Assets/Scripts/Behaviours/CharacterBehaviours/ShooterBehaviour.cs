@@ -180,7 +180,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         }
 
-
+        /// <summary>
+        /// Spawn the projectile based on selected weapon
+        /// </summary>
         public void Shoot()
         {
             if (_currentFireRate <= _dFireRate)
@@ -285,6 +287,11 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         }
 
+        /// <summary>
+        /// Get the current and max ammo of the given ammo type
+        /// </summary>
+        /// <param name="type">the given type of projectile</param>
+        /// <returns>the max and current mana of the given type </returns>
         public (float max, float current) GetMana(ProjectileTypes type)
         {
             switch (type)
@@ -301,10 +308,17 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             return (0, 0);
         }
 
+        /// <summary>
+        /// Get the currently selected weapon
+        /// </summary>
+        /// <returns></returns>
         public ProjectileTypes GetSelectedWeapon() =>
             _inventory[_selectedInventoryIndex];
 
 
+        /// <summary>
+        /// Max out the current ammo of all types
+        /// </summary>
         public void FillMana()
         {
             _currentRockMana = _dMaxRMana;

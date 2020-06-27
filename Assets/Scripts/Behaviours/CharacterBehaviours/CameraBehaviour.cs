@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 {
+    /// <summary>
+    /// Camera Movement
+    /// </summary>
     public class CameraBehaviour : MonoBehaviour, IDataUser<CameraData>
     {
         #region Data Handling
@@ -139,7 +142,11 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             else PositionCamera(currentOffset);
         }
 
-        //This moves the camera forward when it hits a wall
+        /// <summary>
+        /// moves the camera forward when it hits a wall
+        /// </summary>
+        /// <param name="hit"> the ray to detect walls</param>
+        /// <param name="direction"> direction of the camera</param>
         private void MoveCameraForward(RaycastHit hit,
             Vector3 direction)
         {
