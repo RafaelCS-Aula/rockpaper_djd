@@ -27,7 +27,7 @@ MonoBehaviour:
   damping: 5
   maxDoubleJumpCharges: 2
   maxDashCharges: 2
-  doubleJumpCooldown: 5
-  dashCooldown: 5
+  doubleJumpCooldown: 3
+  dashCooldown: 3
   dashForce: 50
   dashDuration: 0.5

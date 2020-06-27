@@ -4,11 +4,11 @@ using RPS_DJDIII.Assets.Scripts.Sound;
 using RPS_DJDIII.Assets.Scripts.Interfaces;
 using RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours;
 
-
 namespace RPS_DJDIII.Assets.Scripts
 {
-
-
+    /// <summary>
+    /// Class that stores a reference to every CharacterBehaviour component
+    /// </summary>
     public class CharacterHandler : MonoBehaviour, ISoundPlayer<PlayerSoundHandler>
     {
         public string characterName;
@@ -20,14 +20,13 @@ namespace RPS_DJDIII.Assets.Scripts
         [HideInInspector] public HealthBehaviour hB;
 
         [HideInInspector] public CameraBehaviour cB;
-
         [HideInInspector] public PlayerSoundHandler audioHandler { get; set; }
-
         #endregion
 
-        [HideInInspector] public int points;
-        [HideInInspector] public float kills;
-        [HideInInspector] public float deaths;
+
+        public int points;
+        public float kills;
+        public float deaths;
 
         private void Start()
         {

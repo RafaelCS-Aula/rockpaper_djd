@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 2
   LosesToType: 4
-  Velocity: 800
+  Velocity: 900
   customScale: {x: 1, y: 1, z: 1}
   TrailParticlesPrefab: {fileID: 0}
   BirthPartcilesPrefab: {fileID: 0}

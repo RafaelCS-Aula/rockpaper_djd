@@ -155,12 +155,10 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
             InitArena();
 
-            zonesList = new List<ZoneBehaviour>();
+            zonesList.AddRange(_playArena[0].GetComponentsInChildren<ZoneBehaviour>());
 
-            foreach (ZoneBehaviour z in GameObject.Find(genManager.GetName()).
-                GetComponentsInChildren<ZoneBehaviour>())
+            foreach (ZoneBehaviour z in zonesList)
             {
-                zonesList.Add(z);
                 z.gameObject.SetActive(false);
             }
 
@@ -274,11 +272,15 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             {
                 player2.points += gmManager.pointsPerKill;
                 NextRound();
+                player1.deaths += 1;
+                player2.kills += 1;
             }
             if (player2.hB._currentHp <= 0)
             {
                 player1.points += gmManager.pointsPerKill;
                 NextRound();
+                player1.kills += 1;
+                player2.deaths += 1;
             }
         }
         #endregion

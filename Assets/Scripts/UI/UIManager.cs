@@ -52,7 +52,6 @@ namespace RPS_DJDIII.Assets.Scripts.UI
         [SerializeField] private TextMeshProUGUI round;
         [SerializeField] private TextMeshProUGUI preMatchRoundTimer;
 
-        [SerializeField] private TextMeshProUGUI zoneTimer;
         [SerializeField] private TextMeshProUGUI zoneOccupant;
         #endregion
 
@@ -108,12 +107,8 @@ namespace RPS_DJDIII.Assets.Scripts.UI
                 UpdateClockDisplay();
                 UpdatePointsDisplay();
                 UpdatePreMatchTimer();
-                if (matchManager.gmManager.roundBased) UpdateRoundDisplay();
-                if (matchManager.gmManager.zoneBased)
-                {
-                    UpdateZoneTimer();
-                    UpdateZoneOccupant();
-                }
+                if (matchManager.gmManager.roundBased) UpdateRoundBased();
+                if (matchManager.gmManager.zoneBased) UpdateZoneBased();
             }
 
             if (matchManager.gameFinished) GameOverDisplay();
@@ -256,21 +251,23 @@ namespace RPS_DJDIII.Assets.Scripts.UI
             }
         }
 
-        private void UpdateRoundDisplay()
+        private void UpdateRoundBased()
         {
             string newText = "Round " + matchManager.currentRound.ToString("00");
             if (round.text != newText) round.text = newText;
         }
 
-        private void UpdateZoneTimer()
+        private void UpdateZoneBased()
         {
-            zoneTimer.text = "Time until next zone: " + matchManager.zoneChangeTimer.ToString("00");
-        }
+            string prefix = "Occupant: ";
+            string newText;
+            ZoneOccupants  occupant = matchManager.zonesList[matchManager.activeZone].currentOccupant;
 
-        private void UpdateZoneOccupant()
-        {
-            zoneOccupant.text = "Current occupant: " +
-                matchManager.zonesList[matchManager.activeZone].currentOccupant.ToString();
+            if (occupant == ZoneOccupants.TEAM1) newText = prefix + matchManager.player1.characterName;
+            else if (occupant == ZoneOccupants.TEAM2) newText = prefix + matchManager.player2.characterName;
+            else newText = prefix + occupant.ToString();
+            
+            if (zoneOccupant.text!= newText) zoneOccupant.text = newText;
         }
         private void GameOverDisplay()
         {

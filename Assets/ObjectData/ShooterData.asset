@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc61f91915941ea45846c464c63a29d6, type: 3}
   m_Name: ShooterData
   m_EditorClassIdentifier: 
-  FireRate: 0.5
+  FireRate: 0.4
   StartWithScissor: 1
   StartingScissorMana: 50
   MaxScissorMana: 50
