@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a88e0bc3cd4fa1c4d98784766b6ac893, type: 3}
-  m_Name: AmmoSpawner
+  m_Name: ScissorsWeaponSpawner
   m_EditorClassIdentifier: 
   objectsToSpawn:
-  - {fileID: 5952283382282282848, guid: 49cb002c5179cd64a8c01251a254153e, type: 3}
-  - {fileID: 5660659401003067855, guid: be3d1b740d4d21b4183d454ca88eec01, type: 3}
-  - {fileID: 3684884565722824601, guid: 29d7db5dc0b100a4c99087720772e64f, type: 3}
-  spawnInterval: 30
+  - {fileID: 1416079141787729985, guid: 7e8d0fc17e709754cb873a8685389175, type: 3}
+  spawnInterval: 0
   singleSpawnIndex: 0
   isTriggerAction: 0
   startSpawn: 1
-  singleSpawn: 1
+  singleSpawn: 0

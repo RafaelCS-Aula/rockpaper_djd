@@ -11,6 +11,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         #region Data Handling
 
         [SerializeField] private InputData _dataFile;
+        [SerializeField] private InputData _extraDataFile;
 
         public InputData DataHolder
         {
@@ -70,9 +71,44 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             if (DataHolder.switchToScissors != KeyCode.None) switchToScissors = DataHolder.switchToScissors;
         }
 
+
+        public void SwitchData()
+        {
+            InputData inputData;
+
+            if (usingExtra) inputData = _dataFile;
+            else inputData = _extraDataFile;
+
+            usingExtra = !usingExtra;
+
+            inputName = inputData.inputName;
+
+            hMovAxis = inputData.hMovAxis;
+            vMovAxis = inputData.vMovAxis;
+
+            jump = inputData.jump;
+            dash = inputData.dash;
+
+
+            hCamAxis = inputData.hCamAxis;
+            vCamAxis = inputData.vCamAxis;
+            switchShoulders = inputData.switchShoulders;
+
+
+            shoot = inputData.shoot;
+
+            if (inputData.previousType != KeyCode.None) previousType = inputData.previousType;
+            if (inputData.nextType != KeyCode.None) nextType = inputData.nextType;
+            if (inputData.typeScrollAxis != "") typeScrollAxis = inputData.typeScrollAxis;
+
+            if (inputData.switchToRock != KeyCode.None) switchToRock = inputData.switchToRock;
+            if (inputData.switchToPaper != KeyCode.None) switchToPaper = inputData.switchToPaper;
+            if (inputData.switchToScissors != KeyCode.None) switchToScissors = inputData.switchToScissors;
+        }
         #endregion
 
         private CharacterHandler cH;
+        private bool usingExtra;
 
         #region Helping Vars for other Classes
 
@@ -97,6 +133,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         private void Start()
         {
             cH = GetComponent<CharacterHandler>();
+            usingExtra = false;
         }
 
         #region Update Methods
@@ -108,6 +145,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
             UpdateRotation();
             UpdateAMR();
             UpdateWeapon();
+
+            if (Input.GetKeyDown(KeyCode.P) && inputName != "Mouse&Keyboard") SwitchData();
+            if (Input.GetKeyDown(KeyCode.P)) print("SWITCHED INPUT");
         }
 
         #region Movement Updates

@@ -242,7 +242,6 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         /// the mana count for the given type was already at max.</returns>
         public bool AddMana(int amount, ProjectileTypes type)
         {
-            Debug.Log("adding");
             switch (type)
             {
                 case (ProjectileTypes.ROCK):

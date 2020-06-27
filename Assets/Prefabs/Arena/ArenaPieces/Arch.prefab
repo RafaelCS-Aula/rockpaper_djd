@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 228085135991278336}
   - component: {fileID: 6675890310721770994}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489048800202844966}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 6.5869994, y: -7.0000014, z: -0.00000047683716}
+  m_LocalPosition: {x: 6.587, y: -7.179, z: 0}
   m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Children: []
   m_Father: {fileID: 1564501454952872266}
@@ -61,9 +61,11 @@ GameObject:
   - component: {fileID: 1150400754739164601}
   - component: {fileID: 8408745179780225689}
   - component: {fileID: 3463141824541088481}
-  m_Layer: 0
+  - component: {fileID: -760229213794214099}
+  - component: {fileID: -1719532997979077126}
+  m_Layer: 10
   m_Name: Arch
-  m_TagString: Untagged
+  m_TagString: Walls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +107,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1199,3 +1200,36 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &-760229213794214099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831982242642265738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577b0b5e3d196aa49944d107d4bbcc88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideConnectors:
+  - {fileID: 6675890310721770994}
+  _topConnector: {fileID: 0}
+  _bottomConnector: {fileID: 0}
+  ConnectorsCount: 1
+--- !u!54 &-1719532997979077126
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831982242642265738}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 900
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0

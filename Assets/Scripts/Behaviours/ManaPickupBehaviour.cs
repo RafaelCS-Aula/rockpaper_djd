@@ -74,10 +74,11 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
 
             if (ammoReceiver != null)
             {
-                Debug.Log("collideing");
                 consumed = ammoReceiver.AddMana(_dAmount, _dManaGiven);
                 if (consumed)
                     Destroy(gameObject);
+
+                print("ADDED" + _dManaGiven);
             }
 
         }

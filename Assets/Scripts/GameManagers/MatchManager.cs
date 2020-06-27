@@ -134,13 +134,21 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             }
 
             // sort the list by magnitue
-            distAndIndex.Sort((t1, t2) => t1.mag.CompareTo(t2.mag));
+            distAndIndex.Sort((t1, t2) => t2.mag.CompareTo(t1.mag));
 
             secondPlayerSpawn = 
                 _playArena[distAndIndex[0].index].transform.position;
 
             // Now, depending on you want to spawn the players, spawn them at
             // the positions firstPlayerSpawn and secondPlayerSpawn have stored.
+            player1.mB.SetSpawnPosition(firstPlayerSpawn);
+            player2.mB.SetSpawnPosition(secondPlayerSpawn);
+
+            player1.mB.SetSpawnRotation(player2.transform);
+            player2.mB.SetSpawnRotation(player1.transform);
+
+            player1.mB.ResetPosition();
+            player2.mB.ResetPosition();
 
             #endregion
 
@@ -230,8 +238,8 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             {
                 player1.hB._currentHp = player1.hB._maxHp;
                 player2.points += gmManager.pointsPerKill;
-                player1.hB.ResetPosition();
-                if (gmManager.resetBothPlayers) player2.hB.ResetPosition();
+                KillReset(player1);
+                if (gmManager.resetBothPlayers) KillReset(player2);
 
                 player1.deaths += 1;
                 player2.kills += 1;
@@ -240,8 +248,8 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
             {
                 player2.hB._currentHp = player2.hB._maxHp;
                 player1.points += gmManager.pointsPerKill;
-                player2.hB.ResetPosition();
-                if (gmManager.resetBothPlayers) player1.hB.ResetPosition();
+                KillReset(player2);
+                if (gmManager.resetBothPlayers) KillReset(player1);
 
                 player1.kills += 1;
                 player2.deaths += 1;
@@ -250,14 +258,8 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
         #region RoundBased Methods
         private void NextRound()
         {
-            player1.hB._currentHp = player1.hB._maxHp;
-            player2.hB._currentHp = player2.hB._maxHp;
-            player1.hB.ResetPosition();
-            player2.hB.ResetPosition();
-            player1.sB.FillMana();
-            player2.sB.FillMana();
-            player1.mB.ResetAMRCHarges();
-            player2.mB.ResetAMRCHarges();
+            RoundReset(player1);
+            RoundReset(player2);
             currentRound++;
             matchTimer = gmManager.timeLimit * 60;
 
@@ -380,6 +382,20 @@ namespace RPS_DJDIII.Assets.Scripts.GameManagers
 
             player1.iB.enabled = true;
             player2.iB.enabled = true;
+        }
+
+        private void KillReset(CharacterHandler player)
+        {
+            player.mB.ResetPosition();
+            player.hB.StartImmunity();
+        }
+
+        private void RoundReset(CharacterHandler player)
+        {
+            player.mB.ResetPosition();
+            player.hB.StartImmunity();
+            player.sB.FillMana();
+            player.mB.ResetAMRCHarges();
         }
     }
 }

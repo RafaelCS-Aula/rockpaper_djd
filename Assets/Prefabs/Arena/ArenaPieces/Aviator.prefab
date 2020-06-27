@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 4231483834926877389}
   - component: {fileID: 638629831502913559}
   - component: {fileID: 5330589882172075281}
-  m_Layer: 0
+  - component: {fileID: -7712325730221958207}
+  m_Layer: 10
   m_Name: Aviator
-  m_TagString: Untagged
+  m_TagString: Walls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1047,10 +1048,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577b0b5e3d196aa49944d107d4bbcc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sideConnectors: []
+  sideConnectors:
+  - {fileID: 1829547740965373312}
+  - {fileID: 2639374263239357748}
+  - {fileID: 4540856934277235529}
+  - {fileID: 4045677608606025072}
   _topConnector: {fileID: 0}
   _bottomConnector: {fileID: 0}
-  ConnectorsCount: 0
+  ConnectorsCount: 4
+--- !u!54 &-7712325730221958207
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695600750323821932}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 900
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &2629941372277334439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,7 +1083,7 @@ GameObject:
   - component: {fileID: 3319550764893845644}
   - component: {fileID: 4751697761974773386}
   - component: {fileID: 321343220438258877}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RockWeaponSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1122,7 +1143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6299287015895200314}
   - component: {fileID: 2639374263239357748}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MediumObject 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1137,7 +1158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4385854430860343354}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.163, z: 3.852}
+  m_LocalPosition: {x: 0, y: -3.163, z: 3.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6615022147503364876}
@@ -1170,7 +1191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1605733582963557365}
   - component: {fileID: 4540856934277235529}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MediumObject 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1185,7 +1206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6127232798717311744}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -3.163, z: -3.42}
+  m_LocalPosition: {x: 0, y: -3.163, z: -3.525}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6615022147503364876}
@@ -1218,7 +1239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5435195909018777221}
   - component: {fileID: 4045677608606025072}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MediumObject 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1233,7 +1254,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6880395798492168926}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 8.232, y: -2.674, z: 0}
+  m_LocalPosition: {x: 8.37, y: -2.674, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6615022147503364876}
@@ -1266,7 +1287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1018049732401847060}
   - component: {fileID: 1829547740965373312}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BigConnect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1281,7 +1302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8084581310287493988}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -8.386259, y: -3.611, z: 0}
+  m_LocalPosition: {x: -8.447, y: -3.611, z: -0}
   m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Children: []
   m_Father: {fileID: 6615022147503364876}

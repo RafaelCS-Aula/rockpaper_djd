@@ -22,9 +22,6 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
         private CharacterController cC;
         private ShooterBehaviour sB;
 
-        private Vector3 spawnPosition;
-        private Quaternion spawnRotation;
-
         [HideInInspector] public bool immunityEnabled = true;
 
         private float immunityTimer;
@@ -43,9 +40,6 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             _currentHp = _startingHp;
 
             _currentCooldown = _damagedCooldown;
-
-            spawnPosition = transform.position;
-            spawnRotation = transform.rotation;
         }
 
         private void Start()
@@ -71,19 +65,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
         {
             if (_currentCooldown >= _damagedCooldown && immunityTimer <= 0)
             {
-                print("-1");
                 _currentHp--;
                 _currentCooldown = 0;
             }
-        }
-
-        public void ResetPosition()
-        {
-            cC.enabled = false;
-            transform.localPosition = spawnPosition;
-            transform.localRotation = spawnRotation;
-            cC.enabled = true;
-            if (immunityEnabled) immunityTimer = immunityDuration;
         }
 
         private void FlashPlayer()
@@ -103,6 +87,12 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
                 if (!sB.enabled) sB.enabled = true;
                 if (!playerModel.activeSelf) playerModel.SetActive(true);
             }
+        }
+
+        public void StartImmunity()
+        {
+            _currentHp = _maxHp;
+            if (immunityEnabled) immunityTimer = immunityDuration;
         }
     }
 }

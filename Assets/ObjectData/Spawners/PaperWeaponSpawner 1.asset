@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88e0bc3cd4fa1c4d98784766b6ac893, type: 3}
+  m_Name: PaperWeaponSpawner 1
+  m_EditorClassIdentifier: 
+  objectsToSpawn:
+  - {fileID: 5306961797370204496, guid: 6c890e6dfd3c51d4d8704be3fd17b252, type: 3}
+  spawnInterval: 0
+  singleSpawnIndex: 0
+  isTriggerAction: 0
+  startSpawn: 1
+  singleSpawn: 0

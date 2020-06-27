@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 458847468270826348}
   - component: {fileID: 8432218274233206712}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PaperWeaponSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f38701447482684bb7d60dde2fe6259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dataHolder: {fileID: 0}
+  _dataHolder: {fileID: 11400000, guid: 71b980a22d350614abd99ef354132c7b, type: 2}
 --- !u!1 &7955399454215195718
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,9 +57,11 @@ GameObject:
   - component: {fileID: 2953755089259650466}
   - component: {fileID: 913190049590498456}
   - component: {fileID: 4664715202086145978}
-  m_Layer: 0
+  - component: {fileID: 5696444210013802304}
+  - component: {fileID: -8818994770098576430}
+  m_Layer: 10
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Walls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +104,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1616,6 +1617,39 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &5696444210013802304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7955399454215195718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577b0b5e3d196aa49944d107d4bbcc88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideConnectors:
+  - {fileID: 7991724327941536084}
+  _topConnector: {fileID: 0}
+  _bottomConnector: {fileID: 0}
+  ConnectorsCount: 1
+--- !u!54 &-8818994770098576430
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7955399454215195718}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 900
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &8883380615147543990
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,7 +1660,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7759667253529462514}
   - component: {fileID: 7991724327941536084}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BigConnector
   m_TagString: Untagged
   m_Icon: {fileID: 0}

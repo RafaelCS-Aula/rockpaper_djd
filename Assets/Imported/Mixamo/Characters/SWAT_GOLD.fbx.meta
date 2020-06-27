@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8ed9b2fc031170343885031099f87c66
+guid: 62edc919d7cd3e64f87f85506deaa7e3
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
@@ -548,18 +548,18 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: SWAT_BLUE(Clone)
+    - name: SWAT_RED(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Ch15
-      parentName: SWAT_BLUE(Clone)
+      parentName: SWAT_RED(Clone)
       position: {x: -0, y: -0.013119452, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
-      parentName: SWAT_BLUE(Clone)
+      parentName: SWAT_RED(Clone)
       position: {x: 0.00000247641, y: 0.9534753, z: 0.0048324326}
       rotation: {x: -0.000000025465264, y: 0.00000043771817, z: -0.0000097081365,
         w: 1}

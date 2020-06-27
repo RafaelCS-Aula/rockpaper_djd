@@ -35,6 +35,8 @@ typeof(MeshCollider))]
         private Rigidbody _rigidBody;
         private MeshCollider _collider;
 
+        private bool interacted;
+
 
         // Start is called before the first frame update
         void Awake()
@@ -84,6 +86,8 @@ typeof(MeshCollider))]
 
             }
 
+            interacted = false;
+
         }
 
         // When encoutnering other triggers; other projectiles
@@ -101,9 +105,7 @@ typeof(MeshCollider))]
 
 
             }
-
-
-            if (!other.CompareTag("Zone")) Destroy(gameObject);
+            if (other.CompareTag("Walls") || other.CompareTag("Player")) Destroy(gameObject);
 
         }
 

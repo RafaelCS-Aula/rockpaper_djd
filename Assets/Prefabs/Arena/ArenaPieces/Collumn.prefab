@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6473415200209359338}
   - component: {fileID: 2077938333546108069}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SmallConnector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,9 +61,11 @@ GameObject:
   - component: {fileID: 1549327710092894290}
   - component: {fileID: 2406440231526671204}
   - component: {fileID: 1316951536499175771}
-  m_Layer: 0
+  - component: {fileID: 3628707971756995313}
+  - component: {fileID: -6989895136570522571}
+  m_Layer: 10
   m_Name: Collumn
-  m_TagString: Untagged
+  m_TagString: Walls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +107,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -359,3 +360,36 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &3628707971756995313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110730122417894994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577b0b5e3d196aa49944d107d4bbcc88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideConnectors:
+  - {fileID: 2077938333546108069}
+  _topConnector: {fileID: 0}
+  _bottomConnector: {fileID: 0}
+  ConnectorsCount: 1
+--- !u!54 &-6989895136570522571
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3110730122417894994}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 900
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0

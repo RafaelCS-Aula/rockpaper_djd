@@ -105,6 +105,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
         [HideInInspector] public bool AMRAuthorized = true;
 
+        private Vector3 spawnPosition;
+        private Quaternion spawnRotation;
+
 
         private void Awake()
         {
@@ -143,6 +146,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
         private void Update()
         {
             UpdateAnimatorVars();
+            if (transform.position.y < -50) ResetPosition();
         }
 
         #region FixedUpdate Methods	
@@ -340,6 +344,26 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours.CharacterBehaviours
 
             animator.SetFloat("PosX", strafeAxis, 1f, Time.deltaTime * 10f);
             animator.SetFloat("PosY", forwardAxis, 1f, Time.deltaTime * 10f);
+        }
+
+        public void ResetPosition()
+        {
+            controller.enabled = false;
+            transform.localPosition = spawnPosition;
+            transform.localRotation = spawnRotation;
+            controller.enabled = true;
+        }
+
+        public void SetSpawnPosition(Vector3 pos)
+        {
+            spawnPosition = pos;
+            spawnPosition.y += 20;
+        }
+
+        public void SetSpawnRotation(Transform lookAt)
+        {
+            Vector3 direction = (lookAt.position - transform.position).normalized;
+            spawnRotation = Quaternion.LookRotation(-direction);
         }
     }
 }

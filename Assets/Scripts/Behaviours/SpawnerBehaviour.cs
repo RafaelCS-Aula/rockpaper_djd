@@ -7,7 +7,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
 {
     // TODO: this
     public class SpawnerBehaviour : MonoBehaviour, IDataUser<SpawnerData>,
-     IArenaInitializable 
+     IArenaInitializable
     {
         private List<GameObject> _spawned = new List<GameObject>();
 
@@ -17,9 +17,9 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             get => _dataHolder;
             set => value = _dataHolder;
         }
-        public bool isInitialized {get; set;}
+        public bool isInitialized { get; set; }
 
-        private  List<GameObject> _dObjects;
+        private List<GameObject> _dObjects = new List<GameObject>();
         private float _dSpawnInterval;
         private int _dSingleSpawnIndex;
         private bool _dIsTriggerAction;
@@ -29,16 +29,19 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
         private float _spawnTimer = 0;
 
 
-        private void Awake() 
+        private void Awake()
         {
             isInitialized = false;
 
-            if(_dStartSpawn)
+            if (_dStartSpawn)
+            {
+                GetData();
                 SpawnObjects();
+            }
         }
 
         public void Initialize()
-        {   
+        {
             GetData();
 
 
@@ -48,7 +51,7 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
         }
 
         public void Initialize(GameObject specialObject)
-        {   
+        {
             GetData();
 
             SpawnObjects(specialObject);
@@ -63,13 +66,13 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
             _dSpawnInterval = DataHolder.spawnInterval;
             _dStartSpawn = DataHolder.startSpawn;
             _dIsTriggerAction = DataHolder.isTriggerAction;
-            
+
 
         }
 
         public void SpawnObjects()
         {
-            foreach(GameObject g in _spawned)
+            foreach (GameObject g in _spawned)
             {
 
                 Destroy(g);
@@ -77,14 +80,17 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
 
             _spawned = new List<GameObject>();
 
-            if(!_dSingleSpawn)
+            if (!_dSingleSpawn)
             {
-                foreach(GameObject g in _dObjects)
-                _spawned.Add(Instantiate(g));
+                foreach (GameObject g in _dObjects)
+                {
+                    if (g != null) _spawned.Add(Instantiate(g));
+
+                }
             }
             else
                 _spawned.Add(Instantiate(_dObjects[_dSingleSpawnIndex]));
-            
+
         }
 
         public void SpawnObjects(GameObject specific)
@@ -98,19 +104,19 @@ namespace RPS_DJDIII.Assets.Scripts.Behaviours
         // Update is called once per frame
         void Update()
         {
-            if(!_dIsTriggerAction)
+            if (!_dIsTriggerAction)
             {
                 _spawnTimer += 1 * Time.deltaTime;
-                if(_spawnTimer >= _dSpawnInterval)
+                if (_spawnTimer >= _dSpawnInterval)
                 {
                     SpawnObjects();
                     _spawnTimer = 0;
                 }
-                    
+
             }
 
         }
 
-    
+
     }
 }
